@@ -15,7 +15,7 @@ public class Statuses {
 	private String id;
 	
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String code;
 	private String name;
 	

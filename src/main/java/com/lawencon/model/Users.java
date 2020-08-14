@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 
+
 @Entity
 @Table(name = "tb_m_users")
 public class Users {
@@ -17,16 +18,22 @@ public class Users {
 	private String id;
 	
 	@NotNull
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String nip;
 
 	@ManyToOne
-	@JoinColumn(name = "id")
-	private Companies company;
+	@JoinColumn(name = "id_companies")
+	private Companies idCompanies;
 	
 	private String name;
-	private String report;
+	private String reportTo;
 	
+	public Companies getIdCompany() {
+		return idCompanies;
+	}
+	public void setIdCompany(Companies idCompany) {
+		this.idCompanies = idCompany;
+	}
 	public String getId() {
 		return id;
 	}
@@ -39,12 +46,6 @@ public class Users {
 	public void setNip(String nip) {
 		this.nip = nip;
 	}
-	public Companies getCompany() {
-		return company;
-	}
-	public void setCompany(Companies company) {
-		this.company = company;
-	}
 	public String getName() {
 		return name;
 	}
@@ -52,9 +53,9 @@ public class Users {
 		this.name = name;
 	}
 	public String getReport() {
-		return report;
+		return reportTo;
 	}
 	public void setReport(String report) {
-		this.report = report;
+		this.reportTo = report;
 	}
 }
