@@ -1,5 +1,7 @@
 package com.lawencon.booting.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,21 @@ public class CompaniesServiceImpl implements CompaniesService{
 	@Override
 	public Companies insert(Companies data) throws Exception {
 		return companiesDao.insert(data);
+	}
+
+	@Override
+	public Companies update(Companies data) throws Exception {
+		return companiesDao.update(data);
+	}
+
+	@Override
+	public List<Companies> getListCompanies() throws Exception {
+		return companiesDao.getListCompanies();
+	}
+
+	@Override
+	public void delete(String id) throws Exception {
+		companiesDao.delete(id);
 	}
 
 }

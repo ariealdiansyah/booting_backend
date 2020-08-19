@@ -27,7 +27,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao{
 	}
 
 	@Override
-	public void deleteAccounts(Long id) throws Exception {
+	public void deleteAccounts(String id) throws Exception {
 		em.createQuery("DELETE from Accounts where id = :id")
 		.setParameter("id", id);
 	}
