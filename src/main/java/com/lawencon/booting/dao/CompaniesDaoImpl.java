@@ -27,10 +27,7 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 
 	@Override
 	public void delete(String id) throws Exception {
-		em.createQuery("DELETE from Companies where id = :id")
-		.setParameter("id", id);
+		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id);
 	}
 
-	
-	
 }

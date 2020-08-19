@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.lawencon.booting.model.Accounts;
 
 @Repository
-public class AccountsDaoImpl extends BaseDao implements AccountsDao{
+public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public Accounts insert(Accounts data) throws Exception {
@@ -28,8 +28,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao{
 
 	@Override
 	public void deleteAccounts(String id) throws Exception {
-		em.createQuery("DELETE from Accounts where id = :id")
-		.setParameter("id", id);
+		em.createQuery("DELETE from Accounts where id = :id").setParameter("id", id);
 	}
 
 }

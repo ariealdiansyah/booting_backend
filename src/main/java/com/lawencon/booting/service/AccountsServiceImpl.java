@@ -11,7 +11,7 @@ import com.lawencon.booting.model.Accounts;
 
 @Service
 @Transactional
-public class AccountsServiceImpl implements AccountsService{
+public class AccountsServiceImpl implements AccountsService {
 
 	@Autowired
 	private AccountsDao accountsDao;

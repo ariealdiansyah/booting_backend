@@ -23,14 +23,12 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 
 	@Override
 	public List<Users> getListUsers() throws Exception {
-	return em.createQuery("FROM Users", Users.class).getResultList();
+		return em.createQuery("FROM Users", Users.class).getResultList();
 	}
 
 	@Override
 	public void delete(String data) throws Exception {
 		em.remove(data);
 	}
-	
-	
 
 }

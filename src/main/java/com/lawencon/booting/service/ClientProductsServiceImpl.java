@@ -11,7 +11,7 @@ import com.lawencon.booting.model.ClientProducts;
 
 @Service
 @Transactional
-public class ClientProductsServiceImpl implements ClientProductsService{
+public class ClientProductsServiceImpl implements ClientProductsService {
 
 	@Autowired
 	private ClientProductsDao clientProductsDao;

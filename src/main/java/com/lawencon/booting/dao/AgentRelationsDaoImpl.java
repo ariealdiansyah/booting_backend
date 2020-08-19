@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.lawencon.booting.model.AgentRelations;
 
 @Repository
-public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao{
+public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao {
 
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
@@ -27,8 +27,7 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao{
 
 	@Override
 	public void delete(String id) throws Exception {
-		em.createQuery("DELETE from AgentRelations where id = :id")
-		.setParameter("id", id);		
+		em.createQuery("DELETE from AgentRelations where id = :id").setParameter("id", id);
 	}
 
 }

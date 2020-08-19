@@ -11,6 +11,6 @@ public interface UsersService {
 	Users update(Users data) throws Exception;
 
 	List<Users> getListUsers() throws Exception;
-	
+
 	void delete(String data) throws Exception;
 }

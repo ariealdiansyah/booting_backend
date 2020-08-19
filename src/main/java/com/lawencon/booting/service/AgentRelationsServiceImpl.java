@@ -36,6 +36,5 @@ public class AgentRelationsServiceImpl implements AgentRelationsService {
 	public void delete(String id) throws Exception {
 		agentRelationsDao.delete(id);
 	}
-	
-	
+
 }

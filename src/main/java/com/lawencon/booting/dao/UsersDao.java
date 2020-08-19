@@ -11,6 +11,7 @@ public interface UsersDao {
 	Users update(Users data) throws Exception;
 
 	List<Users> getListUsers() throws Exception;
-	
+
 	void delete(String data) throws Exception;
+	
 }

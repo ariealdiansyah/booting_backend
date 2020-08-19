@@ -11,11 +11,11 @@ import com.lawencon.booting.model.Users;
 
 @Service
 @Transactional
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 
 	@Autowired
 	private UsersDao usersDao;
-	
+
 	@Override
 	public Users insert(Users data) throws Exception {
 		return usersDao.insert(data);
