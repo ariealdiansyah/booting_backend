@@ -22,17 +22,17 @@ public class Users {
 	private String nip;
 
 	@ManyToOne
-	@JoinColumn(name = "id_companies")
-	private Companies idCompanies;
+	@JoinColumn(name = "id_company")
+	private Companies idCompany;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_role")
+	private Roles idRole;
+	
+	private String address;
+	private String contact;
 	private String name;
 	
-	public Companies getIdCompany() {
-		return idCompanies;
-	}
-	public void setIdCompany(Companies idCompany) {
-		this.idCompanies = idCompany;
-	}
 	public String getId() {
 		return id;
 	}
@@ -45,10 +45,35 @@ public class Users {
 	public void setNip(String nip) {
 		this.nip = nip;
 	}
+	public Companies getIdCompany() {
+		return idCompany;
+	}
+	public void setIdCompany(Companies idCompany) {
+		this.idCompany = idCompany;
+	}
+	public Roles getIdRole() {
+		return idRole;
+	}
+	public void setIdRole(Roles idRole) {
+		this.idRole = idRole;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getContact() {
+		return contact;
+	}
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 }
