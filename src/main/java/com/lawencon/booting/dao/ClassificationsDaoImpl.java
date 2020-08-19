@@ -27,7 +27,7 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 	}
 
 	@Override
-	public void deleteClassifications(Long id) throws Exception {
+	public void deleteClassifications(String id) throws Exception {
 		em.createQuery("DELETE from Classifications where id = :id")
 		.setParameter("id", id);
 		

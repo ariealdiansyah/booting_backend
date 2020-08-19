@@ -27,7 +27,7 @@ public class RolesDaoImpl extends BaseDao implements RolesDao{
 	}
 
 	@Override
-	public void deleteRoles(Long id) throws Exception {
+	public void deleteRoles(String id) throws Exception {
 		em.createQuery("DELETE from Roles where id = :id")
 		.setParameter("id", id);
 		

@@ -1,5 +1,7 @@
 package com.lawencon.booting.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,22 @@ public class PrioritiesServiceImpl implements PrioritiesService{
 	@Override
 	public Priorities insert(Priorities data) throws Exception {
 		return prioritiesDao.insert(data);
+	}
+
+	@Override
+	public Priorities update(Priorities data) throws Exception {
+		return prioritiesDao.update(data);
+	}
+
+	@Override
+	public List<Priorities> getListPriorities() throws Exception {
+		return prioritiesDao.getListPriorities();
+	}
+
+	@Override
+	public void deletePriorities(String id) throws Exception {
+		prioritiesDao.deletePriorities(id);
+		
 	}
 
 }

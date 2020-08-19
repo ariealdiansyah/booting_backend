@@ -9,5 +9,5 @@ public interface PrioritiesDao {
 	Priorities insert(Priorities data)throws Exception;
 	Priorities update(Priorities data) throws Exception;
 	List<Priorities> getListPriorities() throws Exception;
-	void deletePriorities(Long id) throws Exception;
+	void deletePriorities(String id) throws Exception;
 }
