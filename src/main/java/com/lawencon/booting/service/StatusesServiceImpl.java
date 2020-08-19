@@ -1,5 +1,7 @@
 package com.lawencon.booting.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,22 @@ public class StatusesServiceImpl implements StatusesService{
 	@Override
 	public Statuses insert(Statuses data) throws Exception {
 		return statusesDao.insert(data);
+	}
+
+	@Override
+	public Statuses update(Statuses data) throws Exception {
+		return statusesDao.update(data);
+	}
+
+	@Override
+	public List<Statuses> getListStatuses() throws Exception {
+		return statusesDao.getListStatuses();
+	}
+
+	@Override
+	public void deleteStatuses(String id) throws Exception {
+		statusesDao.deleteStatuses(id);
+		
 	}
 
 }

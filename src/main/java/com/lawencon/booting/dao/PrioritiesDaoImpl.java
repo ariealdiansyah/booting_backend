@@ -27,7 +27,7 @@ public class PrioritiesDaoImpl extends BaseDao implements PrioritiesDao {
 	}
 
 	@Override
-	public void deletePriorities(Long id) throws Exception {
+	public void deletePriorities(String id) throws Exception {
 		em.createQuery("DELETE from Priorities where id = :id")
 		.setParameter("id", id);
 		

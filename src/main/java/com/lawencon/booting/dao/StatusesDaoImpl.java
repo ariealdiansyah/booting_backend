@@ -27,7 +27,7 @@ public class StatusesDaoImpl extends BaseDao implements StatusesDao{
 	}
 
 	@Override
-	public void deleteStatuses(Long id) throws Exception {
+	public void deleteStatuses(String id) throws Exception {
 		em.createQuery("DELETE from Statuses where id = :id")
 		.setParameter("id", id);
 		

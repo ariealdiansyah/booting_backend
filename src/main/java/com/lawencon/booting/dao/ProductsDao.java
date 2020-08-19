@@ -9,5 +9,5 @@ public interface ProductsDao {
 	Products insert(Products data)throws Exception;
 	Products update(Products data) throws Exception;
 	List<Products> getListProducts() throws Exception;
-	void deleteProducts(Long id) throws Exception;
+	void deleteProducts(String id) throws Exception;
 }

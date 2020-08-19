@@ -32,7 +32,7 @@ public class ClassificationsServiceImpl implements ClassificationsService {
 	}
 
 	@Override
-	public void deleteClassifications(Long id) throws Exception {
+	public void deleteClassifications(String id) throws Exception {
 		classificationsDao.deleteClassifications(id);
 		
 	}
