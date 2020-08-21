@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_m_attachments")
-public class Attachments {
+public class Attachments extends BaseModel{
 
 	@Id
 	private String id;

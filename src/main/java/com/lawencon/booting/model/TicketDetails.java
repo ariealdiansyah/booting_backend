@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tb_r_dtl_ticket")
-public class TicketDetails {
+public class TicketDetails extends BaseModel{
 
 	@Id
 	private String id;

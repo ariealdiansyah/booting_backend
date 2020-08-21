@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_m_agent_relations")
-public class AgentRelations {
+public class AgentRelations extends BaseModel{
 
 	@Id
 	private String id;

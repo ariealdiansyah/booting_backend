@@ -9,7 +9,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_m_classifications")
-public class Classifications {
+public class Classifications extends BaseModel{
 	
 	@Id
 	private String id;

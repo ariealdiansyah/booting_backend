@@ -12,7 +12,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_m_users")
-public class Users {
+public class Users extends BaseModel{
 
 	@Id
 	private String id;

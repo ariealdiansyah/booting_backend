@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_m_client_products")
-public class ClientProducts {
+public class ClientProducts extends BaseModel{
 
 	@Id
 	private String id;
