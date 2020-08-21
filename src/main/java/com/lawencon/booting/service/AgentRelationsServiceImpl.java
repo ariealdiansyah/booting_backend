@@ -12,13 +12,14 @@ import com.lawencon.booting.model.AgentRelations;
 
 @Service
 @Transactional
-public class AgentRelationsServiceImpl implements AgentRelationsService {
+public class AgentRelationsServiceImpl extends BaseService implements AgentRelationsService {
 
 	@Autowired
 	private AgentRelationsDao agentRelationsDao;
 
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
+		data.setId(getUuid());
 		return agentRelationsDao.insert(data);
 	}
 

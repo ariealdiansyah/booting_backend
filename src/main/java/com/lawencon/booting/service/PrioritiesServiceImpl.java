@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Priorities;
 
 @Service
 @Transactional
-public class PrioritiesServiceImpl implements PrioritiesService{
+public class PrioritiesServiceImpl extends BaseService implements PrioritiesService{
 
 	@Autowired
 	private PrioritiesDao prioritiesDao;
 	
 	@Override
 	public Priorities insert(Priorities data) throws Exception {
+		data.setId(getUuid());
 		return prioritiesDao.insert(data);
 	}
 

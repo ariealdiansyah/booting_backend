@@ -13,4 +13,6 @@ public interface AccountsService {
 	List<Accounts> getListAccounts() throws Exception;
 
 	void deleteAccounts(String id) throws Exception;
+	
+	Accounts findByEmail(Accounts data) throws Exception;
 }

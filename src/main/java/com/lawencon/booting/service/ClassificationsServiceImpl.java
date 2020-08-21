@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Classifications;
 
 @Service
 @Transactional
-public class ClassificationsServiceImpl implements ClassificationsService {
+public class ClassificationsServiceImpl extends BaseService implements ClassificationsService {
 
 	@Autowired
 	private ClassificationsDao classificationsDao;
 	
 	@Override
 	public Classifications insert(Classifications data) throws Exception {
+		data.setId(getUuid());
 		return classificationsDao.insert(data);
 	}
 

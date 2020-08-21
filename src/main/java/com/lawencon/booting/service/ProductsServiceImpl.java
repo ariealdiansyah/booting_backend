@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Products;
 
 @Service
 @Transactional
-public class ProductsServiceImpl implements ProductsDao{
+public class ProductsServiceImpl extends BaseService implements ProductsDao{
 
 	@Autowired
 	private ProductsDao productsDao;
 
 	@Override
 	public Products insert(Products data) throws Exception {
+		data.setId(getUuid());
 		return productsDao.insert(data);
 	}
 

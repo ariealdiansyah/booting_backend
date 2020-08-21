@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Statuses;
 
 @Service
 @Transactional
-public class StatusesServiceImpl implements StatusesService{
+public class StatusesServiceImpl extends BaseService implements StatusesService{
 
 	@Autowired
 	private StatusesDao statusesDao;
 	
 	@Override
 	public Statuses insert(Statuses data) throws Exception {
+		data.setId(getUuid());
 		return statusesDao.insert(data);
 	}
 

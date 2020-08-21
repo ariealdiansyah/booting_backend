@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Roles;
 
 @Service
 @Transactional
-public class RolesServiceImpl implements RolesService{
+public class RolesServiceImpl extends BaseService implements RolesService{
 
 	@Autowired
 	private RolesDao rolesDao;
 
 	@Override
 	public Roles insert(Roles data) throws Exception {
+		data.setId(getUuid());
 		return rolesDao.insert(data);
 	}
 

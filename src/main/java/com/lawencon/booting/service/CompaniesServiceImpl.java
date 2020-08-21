@@ -12,13 +12,14 @@ import com.lawencon.booting.model.Companies;
 
 @Service
 @Transactional
-public class CompaniesServiceImpl implements CompaniesService {
+public class CompaniesServiceImpl extends BaseService implements CompaniesService {
 
 	@Autowired
 	private CompaniesDao companiesDao;
 
 	@Override
 	public Companies insert(Companies data) throws Exception {
+		data.setId(getUuid());
 		return companiesDao.insert(data);
 	}
 
