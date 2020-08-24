@@ -6,29 +6,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lawencon.booting.dao.StatusesDao;
-import com.lawencon.booting.model.Statuses;
+import com.lawencon.booting.dao.StatusDao;
+import com.lawencon.booting.model.Status;
 
 @Service
 @Transactional
-public class StatusesServiceImpl extends BaseService implements StatusesService{
+public class StatusServiceImpl extends BaseService implements StatusService{
 
 	@Autowired
-	private StatusesDao statusesDao;
+	private StatusDao statusesDao;
 	
 	@Override
-	public Statuses insert(Statuses data) throws Exception {
+	public Status insert(Status data) throws Exception {
 		data.setId(getUuid());
 		return statusesDao.insert(data);
 	}
 
 	@Override
-	public Statuses update(Statuses data) throws Exception {
+	public Status update(Status data) throws Exception {
 		return statusesDao.update(data);
 	}
 
 	@Override
-	public List<Statuses> getListStatuses() throws Exception {
+	public List<Status> getListStatuses() throws Exception {
 		return statusesDao.getListStatuses();
 	}
 
@@ -36,6 +36,11 @@ public class StatusesServiceImpl extends BaseService implements StatusesService{
 	public void deleteStatuses(String id) throws Exception {
 		statusesDao.deleteStatuses(id);
 		
+	}
+
+	@Override
+	public Status getStatusesByCode(Status data) throws Exception {
+		return statusesDao.getStatusesByCode(data.getCode());
 	}
 
 }

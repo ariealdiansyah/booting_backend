@@ -17,7 +17,7 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 
 	@Override
 	public Classifications update(Classifications data) throws Exception {
-		em.persist(data);
+		em.merge(data);
 		return data;
 	}
 
@@ -31,6 +31,13 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 		em.createQuery("DELETE from Classifications where id = :id")
 		.setParameter("id", id);
 		
+	}
+
+	@Override
+	public Classifications getClassificationsByCode(String code) throws Exception {
+		List<Classifications> listClassifications = em.createQuery("FROM Classifications where code = :code ", Classifications.class)
+				 .setParameter("code", code).getResultList();
+		 return !listClassifications.isEmpty() ? listClassifications.get(0): null;
 	}
 
 }

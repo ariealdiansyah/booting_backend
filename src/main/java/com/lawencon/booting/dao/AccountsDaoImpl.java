@@ -20,7 +20,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public Accounts update(Accounts data) throws Exception {
-		em.persist(data);
+		em.merge(data);
 		return data;
 	}
 

@@ -9,5 +9,6 @@ public interface RolesService {
 	Roles insert(Roles data)throws Exception;
 	Roles update(Roles data) throws Exception;
 	List<Roles> getListRoles() throws Exception;
+	Roles getRolesByCode(Roles code) throws Exception;
 	void deleteRoles(String id) throws Exception;
 }

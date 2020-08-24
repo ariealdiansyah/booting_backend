@@ -9,7 +9,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_m_statuses")
-public class Statuses extends BaseModel{
+public class Status extends BaseModel{
 
 	@Id
 	private String id;

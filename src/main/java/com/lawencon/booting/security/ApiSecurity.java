@@ -77,7 +77,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter{
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
 				
-				registry.addMapping("/Penyakit/**")
+				registry.addMapping("/roles/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
 				

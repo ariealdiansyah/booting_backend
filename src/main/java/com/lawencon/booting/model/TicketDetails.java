@@ -23,11 +23,11 @@ public class TicketDetails extends BaseModel{
 	
 	@ManyToOne
 	@JoinColumn(name = "id_status_before")
-	private Statuses statusBefore;
+	private Status statusBefore;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_status_after")
-	private Statuses statusAfter;
+	private Status statusAfter;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
@@ -50,19 +50,19 @@ public class TicketDetails extends BaseModel{
 		this.idTicket = idTicket;
 	}
 
-	public Statuses getStatusBefore() {
+	public Status getStatusBefore() {
 		return statusBefore;
 	}
 
-	public void setStatusBefore(Statuses statusBefore) {
+	public void setStatusBefore(Status statusBefore) {
 		this.statusBefore = statusBefore;
 	}
 
-	public Statuses getStatusAfter() {
+	public Status getStatusAfter() {
 		return statusAfter;
 	}
 
-	public void setStatusAfter(Statuses statusAfter) {
+	public void setStatusAfter(Status statusAfter) {
 		this.statusAfter = statusAfter;
 	}
 

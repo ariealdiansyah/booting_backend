@@ -17,7 +17,7 @@ public class PrioritiesDaoImpl extends BaseDao implements PrioritiesDao {
 
 	@Override
 	public Priorities update(Priorities data) throws Exception {
-		em.persist(data);
+		em.merge(data);
 		return data;
 	}
 
@@ -31,6 +31,13 @@ public class PrioritiesDaoImpl extends BaseDao implements PrioritiesDao {
 		em.createQuery("DELETE from Priorities where id = :id")
 		.setParameter("id", id);
 		
+	}
+
+	@Override
+	public Priorities getPrioritiesByCode(String code) throws Exception {
+		List<Priorities> listPriorities = em.createQuery("FROM Priorities where code = :code ", Priorities.class)
+				 .setParameter("code", code).getResultList();
+		 return !listPriorities.isEmpty() ? listPriorities.get(0): null;
 	}
 
 }

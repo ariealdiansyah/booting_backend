@@ -11,7 +11,7 @@ import com.lawencon.booting.model.Products;
 
 @Service
 @Transactional
-public class ProductsServiceImpl extends BaseService implements ProductsDao{
+public class ProductsServiceImpl extends BaseService implements ProductsService{
 
 	@Autowired
 	private ProductsDao productsDao;
@@ -36,5 +36,10 @@ public class ProductsServiceImpl extends BaseService implements ProductsDao{
 	public void deleteProducts(String id) throws Exception {
 		productsDao.deleteProducts(id);
 		
+	}
+
+	@Override
+	public Products getProductsByCode(Products code) throws Exception {
+		return productsDao.getProductsByCode(code.getCode());
 	}
 }

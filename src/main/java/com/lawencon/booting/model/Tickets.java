@@ -35,7 +35,7 @@ public class Tickets extends BaseModel{
 	
 	@ManyToOne
 	@JoinColumn(name = "id_status")
-	private Statuses idStatus;
+	private Status idStatus;
 	
 	private String code;
 	private String subject;
@@ -76,10 +76,10 @@ public class Tickets extends BaseModel{
 	public void setIdClassification(Classifications idClassification) {
 		this.idClassification = idClassification;
 	}
-	public Statuses getIdStatus() {
+	public Status getIdStatus() {
 		return idStatus;
 	}
-	public void setIdStatus(Statuses idStatus) {
+	public void setIdStatus(Status idStatus) {
 		this.idStatus = idStatus;
 	}
 	public String getCode() {

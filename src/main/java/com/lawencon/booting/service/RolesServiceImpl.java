@@ -37,4 +37,9 @@ public class RolesServiceImpl extends BaseService implements RolesService{
 		rolesDao.deleteRoles(id);
 		
 	}
+
+	@Override
+	public Roles getRolesByCode(Roles code) throws Exception {
+		return rolesDao.getRolesByCode(code.getCode());
+	}
 }

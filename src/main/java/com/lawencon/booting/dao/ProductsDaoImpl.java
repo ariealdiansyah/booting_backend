@@ -17,7 +17,7 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao{
 
 	@Override
 	public Products update(Products data) throws Exception {
-		em.persist(data);
+		em.merge(data);
 		return data;
 	}
 
@@ -32,6 +32,13 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao{
 		.setParameter("id", id);
 		
 		
+	}
+
+	@Override
+	public Products getProductsByCode(String code) throws Exception {
+		 List<Products> listProducts = em.createQuery("FROM Products where code = :code ", Products.class)
+				 .setParameter("code", code).getResultList();
+		 return !listProducts.isEmpty() ? listProducts.get(0): null;
 	}
 
 }
