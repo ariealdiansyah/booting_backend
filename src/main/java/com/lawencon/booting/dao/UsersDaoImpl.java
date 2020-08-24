@@ -31,4 +31,11 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		em.remove(data);
 	}
 
+	@Override
+	public Users getUserByNip(Users data) throws Exception {
+		List<Users> listUsers  = em.createQuery("FROM Users where nip = :nip", Users.class)
+				.setParameter("nip", data.getNip()).getResultList();
+		return !listUsers.isEmpty() ? listUsers.get(0) : null;
+	}
+
 }

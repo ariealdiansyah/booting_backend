@@ -13,4 +13,7 @@ public interface ClientProductsService {
 	List<ClientProducts> getListClientProducts() throws Exception;
 
 	void delete(String id) throws Exception;
+	
+	List<ClientProducts> getListByCompany(ClientProducts data) throws Exception;
+	
 }

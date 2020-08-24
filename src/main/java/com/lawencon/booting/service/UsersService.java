@@ -13,4 +13,6 @@ public interface UsersService {
 	List<Users> getListUsers() throws Exception;
 
 	void delete(String data) throws Exception;
+	
+	Users getUserByNip(Users data) throws Exception;
 }

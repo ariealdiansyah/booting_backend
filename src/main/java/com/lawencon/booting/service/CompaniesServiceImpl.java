@@ -38,4 +38,9 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 		companiesDao.delete(id);
 	}
 
+	@Override
+	public Companies getCompanyByCode(Companies data) throws Exception {
+		return companiesDao.getCompanyByCode(data);
+	}
+
 }

@@ -30,4 +30,11 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 		em.createQuery("DELETE from ClientProducts where id = :id").setParameter("id", id);
 	}
 
+	@Override
+	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
+		return em.createQuery("FROM ClientProducts WHERE idCompany = :idCompany", ClientProducts.class)
+				.setParameter("idCompany", data.getIdCompany().getId())
+				.getResultList();
+	}
+
 }

@@ -38,4 +38,9 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 		agentRelationsDao.delete(id);
 	}
 
+	@Override
+	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
+		return agentRelationsDao.getListByIdUser(data);
+	}
+
 }

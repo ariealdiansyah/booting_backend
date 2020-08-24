@@ -13,5 +13,7 @@ public interface AgentRelationsDao {
 	List<AgentRelations> getListAgentRelations() throws Exception;
 
 	void delete(String id) throws Exception;
+	
+	List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception;
 
 }

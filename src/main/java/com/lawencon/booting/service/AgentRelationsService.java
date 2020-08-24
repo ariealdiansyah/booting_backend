@@ -13,4 +13,6 @@ public interface AgentRelationsService {
 	List<AgentRelations> getListAgentRelations() throws Exception;
 
 	void delete(String id) throws Exception;
+
+	List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception;
 }

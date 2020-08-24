@@ -36,4 +36,9 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	public void delete(String id) throws Exception {
 		clientProductsDao.delete(id);
 	}
+
+	@Override
+	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
+		return clientProductsDao.getListByCompany(data);
+	}
 }

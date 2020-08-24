@@ -14,4 +14,6 @@ public interface UsersDao {
 
 	void delete(String data) throws Exception;
 	
+	Users getUserByNip(Users data) throws Exception;
+	
 }

@@ -37,4 +37,9 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		usersDao.delete(data);
 	}
 
+	@Override
+	public Users getUserByNip(Users data) throws Exception {
+		return usersDao.getUserByNip(data);
+	}
+
 }

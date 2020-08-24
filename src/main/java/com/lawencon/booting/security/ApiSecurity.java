@@ -73,25 +73,41 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter{
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
 				
-				registry.addMapping("/account/**")
+				registry.addMapping("/accounts/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/roles/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
-				registry.addMapping("/Pasien/**")
+				registry.addMapping("/products/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
-				registry.addMapping("/Admin/**")
+				registry.addMapping("/classifications/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
-				registry.addMapping("/Obat/**")
+				registry.addMapping("/priorities/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/users/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/client-products/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/agent-relations/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/tickets/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 			}
 		};
 	}
