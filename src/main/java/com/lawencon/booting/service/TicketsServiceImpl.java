@@ -20,12 +20,12 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		data.setId(getUuid());
 		data.setCode(code());
 		
-		return null;
+		return ticketsDao.insert(data);
 	}
 	
 	public String code() {
 		String codeA = RandomStringUtils.randomAlphabetic(4);
-		String codeB = RandomStringUtils.randomNumeric(4);
+		String codeB = RandomStringUtils.randomNumeric(3);
 		return codeA + "-" + codeB;
 	}
 
