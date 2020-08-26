@@ -2,6 +2,7 @@ package com.lawencon.booting.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -12,6 +13,8 @@ public abstract class BaseModel {
 	private String createdBy;
 	private String updatedBy;
 	
+	@Column(name="is_active")
+	private Boolean active = true;
 	
 	public Date getCreatedAt() {
 		return createdAt;
@@ -36,6 +39,12 @@ public abstract class BaseModel {
 	}
 	public void setUpdatedBy(String updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	public Boolean getActive() {
+		return active;
+	}
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 	
 }

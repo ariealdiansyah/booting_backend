@@ -21,13 +21,15 @@ public class TicketDetails extends BaseModel{
 	@JoinColumn(name = "id_ticket")
 	private Tickets idTicket;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_status_before")
-	private Status statusBefore;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_status_after")
-	private Status statusAfter;
+	private String sender;
+
+//	@ManyToOne
+//	@JoinColumn(name = "id_status_before")
+//	private Status statusBefore;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "id_status_after")
+//	private Status statusAfter;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreated;
@@ -50,21 +52,21 @@ public class TicketDetails extends BaseModel{
 		this.idTicket = idTicket;
 	}
 
-	public Status getStatusBefore() {
-		return statusBefore;
-	}
-
-	public void setStatusBefore(Status statusBefore) {
-		this.statusBefore = statusBefore;
-	}
-
-	public Status getStatusAfter() {
-		return statusAfter;
-	}
-
-	public void setStatusAfter(Status statusAfter) {
-		this.statusAfter = statusAfter;
-	}
+//	public Status getStatusBefore() {
+//		return statusBefore;
+//	}
+//
+//	public void setStatusBefore(Status statusBefore) {
+//		this.statusBefore = statusBefore;
+//	}
+//
+//	public Status getStatusAfter() {
+//		return statusAfter;
+//	}
+//
+//	public void setStatusAfter(Status statusAfter) {
+//		this.statusAfter = statusAfter;
+//	}
 
 	public Date getDateCreated() {
 		return dateCreated;
@@ -80,6 +82,14 @@ public class TicketDetails extends BaseModel{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSender() {
+		return sender;
+	}
+
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 	
 }
