@@ -11,7 +11,7 @@ import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_m_accounts")
-public class Accounts {
+public class Accounts extends BaseModel{
 
 	@Id
 	private String id;

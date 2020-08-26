@@ -1,24 +1,19 @@
 package com.lawencon.booting.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sun.istack.NotNull;
-
 @Entity
-@Table(name = "tb_m_statuses")
-public class Statuses {
+@Table(name = "tb_m_template_emails")
+public class TemplateEmail extends BaseModel{
 
 	@Id
 	private String id;
 	
-	@NotNull
-	@Column(nullable = false, unique = true)
 	private String code;
 	private String name;
-	
+	private String template;
 	
 	public String getId() {
 		return id;
@@ -37,5 +32,11 @@ public class Statuses {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getTemplate() {
+		return template;
+	}
+	public void setTemplate(String template) {
+		this.template = template;
 	}
 }

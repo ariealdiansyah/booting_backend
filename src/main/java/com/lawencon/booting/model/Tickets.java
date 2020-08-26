@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_r_hdr_tickets")
-public class Tickets {
+public class Tickets extends BaseModel{
 
 	@Id
 	private String id;
@@ -17,9 +17,13 @@ public class Tickets {
 	@JoinColumn(name = "id_customer")
 	private Users idCustomer;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_agent")
-	private Users idAgent;
+//	@ManyToOne
+//	@JoinColumn(name = "id_agent")
+//	private Users idAgent;
+	
+//	@ManyToOne
+//	@JoinColumn(name = "id_agent_relation")
+//	private AgentRelations idAgentRelation;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_product")
@@ -35,7 +39,7 @@ public class Tickets {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_status")
-	private Statuses idStatus;
+	private Status idStatus;
 	
 	private String code;
 	private String subject;
@@ -52,12 +56,18 @@ public class Tickets {
 	public void setIdCustomer(Users idCustomer) {
 		this.idCustomer = idCustomer;
 	}
-	public Users getIdAgent() {
-		return idAgent;
-	}
-	public void setIdAgent(Users idAgent) {
-		this.idAgent = idAgent;
-	}
+//	public Users getIdAgent() {
+//		return idAgent;
+//	}
+//	public void setIdAgent(Users idAgent) {
+//		this.idAgent = idAgent;
+//	}
+//	public AgentRelations getIdAgentRelation() {
+//		return idAgentRelation;
+//	}
+//	public void setIdAgentRelation(AgentRelations idAgentRelation) {
+//		this.idAgentRelation = idAgentRelation;
+//	}
 	public Products getIdProduct() {
 		return idProduct;
 	}
@@ -76,10 +86,10 @@ public class Tickets {
 	public void setIdClassification(Classifications idClassification) {
 		this.idClassification = idClassification;
 	}
-	public Statuses getIdStatus() {
+	public Status getIdStatus() {
 		return idStatus;
 	}
-	public void setIdStatus(Statuses idStatus) {
+	public void setIdStatus(Status idStatus) {
 		this.idStatus = idStatus;
 	}
 	public String getCode() {

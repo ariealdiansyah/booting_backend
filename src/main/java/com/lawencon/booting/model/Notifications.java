@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_m_notifications")
-public class Notifications {
+public class Notifications extends BaseModel{
 	
 	@Id
 	private String id;

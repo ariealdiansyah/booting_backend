@@ -11,13 +11,14 @@ import com.lawencon.booting.model.Classifications;
 
 @Service
 @Transactional
-public class ClassificationsServiceImpl implements ClassificationsService {
+public class ClassificationsServiceImpl extends BaseService implements ClassificationsService {
 
 	@Autowired
 	private ClassificationsDao classificationsDao;
 	
 	@Override
 	public Classifications insert(Classifications data) throws Exception {
+		data.setId(getUuid());
 		return classificationsDao.insert(data);
 	}
 
@@ -32,9 +33,14 @@ public class ClassificationsServiceImpl implements ClassificationsService {
 	}
 
 	@Override
-	public void deleteClassifications(Long id) throws Exception {
+	public void deleteClassifications(String id) throws Exception {
 		classificationsDao.deleteClassifications(id);
 		
+	}
+
+	@Override
+	public Classifications getClassificationsByCode(Classifications data) throws Exception {
+		return classificationsDao.getClassificationsByCode(data.getCode());
 	}
 
 }

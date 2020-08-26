@@ -17,7 +17,7 @@ public class RolesDaoImpl extends BaseDao implements RolesDao{
 
 	@Override
 	public Roles update(Roles data) throws Exception {
-		em.persist(data);
+		em.merge(data);
 		return data;
 	}
 
@@ -27,10 +27,17 @@ public class RolesDaoImpl extends BaseDao implements RolesDao{
 	}
 
 	@Override
-	public void deleteRoles(Long id) throws Exception {
+	public void deleteRoles(String id) throws Exception {
 		em.createQuery("DELETE from Roles where id = :id")
 		.setParameter("id", id);
 		
+	}
+
+	@Override
+	public Roles getRolesByCode(String code) throws Exception {
+		 List<Roles> listRoles = em.createQuery("FROM Roles where code = :code ", Roles.class)
+				 .setParameter("code", code).getResultList();
+		 return !listRoles.isEmpty() ? listRoles.get(0): null;
 	}
 
 }
