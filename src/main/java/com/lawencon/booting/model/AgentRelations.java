@@ -3,7 +3,6 @@ package com.lawencon.booting.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,8 +11,8 @@ import javax.persistence.Table;
 @Table(name = "tb_m_agent_relations")
 public class AgentRelations extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_agent")
@@ -30,12 +29,12 @@ public class AgentRelations extends BaseModel{
 	private Date startDate;
 	private Date endDate;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public Users getIdAgent() {
 		return idAgent;
 	}

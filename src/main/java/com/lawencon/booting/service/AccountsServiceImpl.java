@@ -28,7 +28,7 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 
 	@Override
 	public Accounts insert(Accounts data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		data.setPass(encoder.encode(data.getPass()));
 		return accountsDao.insert(data);
 	}

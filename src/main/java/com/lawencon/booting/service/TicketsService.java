@@ -18,4 +18,8 @@ public interface TicketsService {
 	void delete(String id) throws Exception;
 
 	List<Tickets> getListByIdUser(String data) throws Exception;
+
+	List<Tickets> getListByIdCompany(String data) throws Exception;
+
+	List<Tickets> getListByIdAgent(String data) throws Exception;
 }

@@ -33,8 +33,22 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao{
 
 	@Override
 	public List<Tickets> getListByIdUser(String data) throws Exception {
-		return em.createQuery("FROM Tickets WHERE idCustomer = :idCustomer", Tickets.class)
-				.setParameter("idCustomer", data)
+		return em.createQuery("FROM Tickets WHERE idCustomer.id = :id", Tickets.class)
+				.setParameter("id", data)
+				.getResultList();
+	}
+
+	@Override
+	public List<Tickets> getListByIdCompany(String data) throws Exception {
+		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id", Tickets.class)
+				.setParameter("id", data)
+				.getResultList();
+	}
+
+	@Override
+	public List<Tickets> getListByIdAgent(String data) throws Exception {
+		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id in :id", Tickets.class)
+				.setParameter("id", data)
 				.getResultList();
 	}
 

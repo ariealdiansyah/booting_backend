@@ -3,6 +3,7 @@ package com.lawencon.booting.dao;
 import java.util.List;
 
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.Users;
 
 public interface AgentRelationsDao {
 
@@ -15,5 +16,7 @@ public interface AgentRelationsDao {
 	void delete(String id) throws Exception;
 	
 	List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception;
+	
+	List<String> getListCompanies(Users data) throws Exception;
 
 }

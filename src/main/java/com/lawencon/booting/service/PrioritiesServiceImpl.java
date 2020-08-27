@@ -18,7 +18,7 @@ public class PrioritiesServiceImpl extends BaseService implements PrioritiesServ
 	
 	@Override
 	public Priorities insert(Priorities data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		return prioritiesDao.insert(data);
 	}
 

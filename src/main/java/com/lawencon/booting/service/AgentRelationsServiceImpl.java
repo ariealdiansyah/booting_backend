@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.booting.dao.AgentRelationsDao;
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.Users;
 
 @Service
 @Transactional
@@ -19,7 +20,7 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		return agentRelationsDao.insert(data);
 	}
 
@@ -41,6 +42,11 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 	@Override
 	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
 		return agentRelationsDao.getListByIdUser(data);
+	}
+
+	@Override
+	public List<String> getListCompanies(Users data) throws Exception {
+		return agentRelationsDao.getListCompanies(data);
 	}
 
 }
