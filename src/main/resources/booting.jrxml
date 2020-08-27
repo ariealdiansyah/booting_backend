@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="booting" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9123f6f-56df-45db-998e-f41d1e654217">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="479"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="521"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Booting"/>
+	<parameter name="HEADER TITLE" class="java.lang.String"/>
+	<parameter name="GET_SUBREPORTS" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * from tb_r_hdr_tickets]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="is_active" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_active"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_active"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="created_at" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="created_at"/>
+		<property name="com.jaspersoft.studio.field.label" value="created_at"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="created_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="created_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="created_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="updated_at" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.name" value="updated_at"/>
+		<property name="com.jaspersoft.studio.field.label" value="updated_at"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="updated_by" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="updated_by"/>
+		<property name="com.jaspersoft.studio.field.label" value="updated_by"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="code"/>
+		<property name="com.jaspersoft.studio.field.label" value="code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="subject" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="subject"/>
+		<property name="com.jaspersoft.studio.field.label" value="subject"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="id_classification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_classification"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_classification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="id_customer" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_customer"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_customer"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="id_priority" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_priority"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_priority"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="id_product" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_product"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_product"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<field name="id_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="id_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_r_hdr_tickets"/>
+	</field>
+	<variable name="HEADER TITLE" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="49e2b22f-90c3-47d0-83b3-1ef260339914"/>
+				<staticText>
+					<reportElement x="100" y="20" width="480" height="43" forecolor="#FFFFFF" uuid="1536a944-bdcf-4eba-b7ab-37ab025a1f12"/>
+					<textElement>
+						<font size="30" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PT LAWENCON INTERNATIONAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="470" y="70" width="110" height="20" forecolor="#FFFFFF" uuid="37fee82c-08c6-4650-a0ff-360e5f7e7c7a"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ticketing Report]]></text>
+				</staticText>
+				<image>
+					<reportElement x="0" y="0" width="100" height="92" uuid="2afcedca-5f73-443d-8838-4c4caebe167b"/>
+					<imageExpression><![CDATA["C:/Users/Dell/Documents/Lawencon/Final Project/lowongan-kerja-pt-lawencon-international-terbaru.jpg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="79">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="460" y="12" width="100" height="13" uuid="fbec5ada-88e8-47c2-b27e-52c3f82b3832"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="30" width="100" height="30" uuid="62f76870-4b51-4cc0-a028-e0e52be47641"/>
+				<textFieldExpression><![CDATA[$P{HEADER TITLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="90">
+			<staticText>
+				<reportElement x="0" y="10" width="90" height="20" uuid="1b7a8b95-da3a-4688-8369-02baec6683cf"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nama		: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="90" height="20" uuid="8aebd339-1423-4ede-aa0b-0d4c1baf7f25"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Email		: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="90" height="20" uuid="7973be10-0ee1-496f-97c6-d9675a6def58"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Contact	:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="423">
+			<subreport>
+				<reportElement x="0" y="0" width="560" height="200" uuid="48ccf0ec-b824-4ec5-a7cb-1758e37c2bb7">
+					<printWhenExpression><![CDATA[$P{GET_SUBREPORTS}.equalsIgnoreCase("detail-agents")]]></printWhenExpression>
+				</reportElement>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["detail-agent.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="10" width="560" height="200" uuid="2a058159-a3a8-47ba-9f05-a3410a434e19">
+					<printWhenExpression><![CDATA[$P{GET_SUBREPORTS}.equalsIgnoreCase("agent-report")]]></printWhenExpression>
+				</reportElement>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["agent-report.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="210"/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
