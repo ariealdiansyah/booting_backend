@@ -1,13 +1,18 @@
 package com.lawencon.booting.model;
 
 import java.util.Date;
+import java.util.UUID;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class BaseModel {
 
+	@Id
+	private String id = UUID.randomUUID().toString();
+	
 	private Date createdAt;
 	private Date updatedAt;
 	private String createdBy;
@@ -15,6 +20,13 @@ public abstract class BaseModel {
 	
 	@Column(name="is_active")
 	private Boolean active = true;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public Date getCreatedAt() {
 		return createdAt;

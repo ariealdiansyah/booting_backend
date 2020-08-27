@@ -18,7 +18,7 @@ public class StatusServiceImpl extends BaseService implements StatusService{
 	
 	@Override
 	public Status insert(Status data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		return statusesDao.insert(data);
 	}
 

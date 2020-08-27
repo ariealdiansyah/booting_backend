@@ -18,7 +18,7 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 	
 	@Override
 	public Classifications insert(Classifications data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		return classificationsDao.insert(data);
 	}
 

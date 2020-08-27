@@ -1,7 +1,6 @@
 package com.lawencon.booting.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,8 +9,8 @@ import javax.persistence.Table;
 @Table(name = "tb_r_hdr_tickets")
 public class Tickets extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_customer")
@@ -44,12 +43,12 @@ public class Tickets extends BaseModel{
 	private String code;
 	private String subject;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public Users getIdCustomer() {
 		return idCustomer;
 	}

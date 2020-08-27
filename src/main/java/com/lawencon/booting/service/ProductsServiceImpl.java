@@ -18,7 +18,7 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 
 	@Override
 	public Products insert(Products data) throws Exception {
-		data.setId(getUuid());
+//		data.setId(getUuid());
 		return productsDao.insert(data);
 	}
 

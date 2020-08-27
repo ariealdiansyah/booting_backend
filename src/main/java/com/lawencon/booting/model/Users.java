@@ -2,7 +2,6 @@ package com.lawencon.booting.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +13,8 @@ import com.sun.istack.NotNull;
 @Table(name = "tb_m_users")
 public class Users extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@NotNull
 	@Column(nullable = false, unique = true)
@@ -33,12 +32,12 @@ public class Users extends BaseModel{
 	private String contact;
 	private String name;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public String getNip() {
 		return nip;
 	}

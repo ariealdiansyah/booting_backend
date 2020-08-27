@@ -2,7 +2,6 @@ package com.lawencon.booting.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
@@ -11,8 +10,8 @@ import com.sun.istack.NotNull;
 @Table(name = "tb_m_products")
 public class Products extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@NotNull
 	@Column(nullable = false, unique = true)
@@ -21,12 +20,12 @@ public class Products extends BaseModel{
 	private String name;
 	private String description;
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public String getCode() {
 		return code;
 	}

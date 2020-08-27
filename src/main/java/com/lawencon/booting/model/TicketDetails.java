@@ -3,7 +3,6 @@ package com.lawencon.booting.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +13,8 @@ import javax.persistence.TemporalType;
 @Table(name = "tb_r_dtl_ticket")
 public class TicketDetails extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_ticket")
@@ -36,13 +35,13 @@ public class TicketDetails extends BaseModel{
 	
 	private String description;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public Tickets getIdTicket() {
 		return idTicket;

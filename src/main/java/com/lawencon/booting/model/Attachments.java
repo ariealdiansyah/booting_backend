@@ -1,7 +1,6 @@
 package com.lawencon.booting.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -11,8 +10,8 @@ import javax.persistence.Table;
 @Table(name = "tb_m_attachments")
 public class Attachments extends BaseModel{
 
-	@Id
-	private String id;
+//	@Id
+//	private String id;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_ticket_detail")
@@ -23,13 +22,13 @@ public class Attachments extends BaseModel{
 	
 	private String extension;
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public TicketDetails getIdTicketDetail() {
 		return idTicketDetail;
