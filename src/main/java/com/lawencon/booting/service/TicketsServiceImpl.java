@@ -133,7 +133,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		user = usersService.getUserByNip(user);
 		List<String> listData = agentRelationsService.getListCompanies(user);
 		if(listData.isEmpty()) {
-			return null;
+			return null; 
 		}else if(listData.size() == 1) {
 			System.out.println(listData.get(0));
 			return ticketsDao.getListByIdAgent(listData.get(0));
@@ -144,6 +144,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 				comp += (", " + listData.get(i));
 			}
 			comp += ")";
+			System.out.println(comp);
 			return ticketsDao.getListByIdAgent(comp);
 		}
 	}

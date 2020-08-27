@@ -8,6 +8,6 @@ public interface TicketDetailService {
 	
 	TicketDetails insert(TicketDetails data) throws Exception;
 	
-	List<TicketDetails> getListTicketDetails(String data) throws Exception;
+	List<TicketDetails> getListTicketDetails(String data) throws Exception; 
 
 }

@@ -43,7 +43,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao{
 		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id", Tickets.class)
 				.setParameter("id", data)
 				.getResultList();
-	}
+	} 
 
 	@Override
 	public List<Tickets> getListByIdAgent(String data) throws Exception {

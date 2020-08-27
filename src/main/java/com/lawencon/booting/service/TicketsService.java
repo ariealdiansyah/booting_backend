@@ -15,7 +15,7 @@ public interface TicketsService {
 
 	List<Tickets> getListTickets() throws Exception;
 
-	void delete(String id) throws Exception;
+	void delete(String id) throws Exception; 
 
 	List<Tickets> getListByIdUser(String data) throws Exception;
 
