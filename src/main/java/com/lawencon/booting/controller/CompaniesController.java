@@ -44,6 +44,7 @@ public class CompaniesController {
 			companies = new ObjectMapper().readValue(data, Companies.class);
 			companies = companiesService.insert(companies);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(companies, HttpStatus.CREATED);
@@ -56,6 +57,7 @@ public class CompaniesController {
 			companies = new ObjectMapper().readValue(code, Companies.class);
 			companies = companiesService.getCompanyByName(companies);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(companies, HttpStatus.OK);
@@ -68,6 +70,7 @@ public class CompaniesController {
 			companies = new ObjectMapper().readValue(data, Companies.class);
 			companies = companiesService.update(companies);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +87,7 @@ public class CompaniesController {
 			companiesService.delete(companies.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

@@ -31,6 +31,7 @@ public class ProductsController {
 		try {
 			listProducts = productsService.getListProducts();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -44,6 +45,7 @@ public class ProductsController {
 			products = new ObjectMapper().readValue(data, Products.class);
 			products = productsService.insert(products);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(products, HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class ProductsController {
 			products = new ObjectMapper().readValue(code, Products.class);
 			products = productsService.getProductsByCode(products);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(products, HttpStatus.OK);
@@ -68,6 +71,7 @@ public class ProductsController {
 			roles = new ObjectMapper().readValue(data, Products.class);
 			roles = productsService.update(roles);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +88,7 @@ public class ProductsController {
 			productsService.deleteProducts(products.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

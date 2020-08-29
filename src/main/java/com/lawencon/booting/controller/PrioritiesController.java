@@ -31,6 +31,7 @@ public class PrioritiesController {
 		try {
 			listPriorities = prioritiesService.getListPriorities();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -44,6 +45,7 @@ public class PrioritiesController {
 			Priorities = new ObjectMapper().readValue(data, Priorities.class);
 			Priorities = prioritiesService.insert(Priorities);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(Priorities, HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class PrioritiesController {
 			Priorities = new ObjectMapper().readValue(code, Priorities.class);
 			Priorities = prioritiesService.getPrioritiesByCode(Priorities);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(Priorities, HttpStatus.OK);
@@ -65,9 +68,11 @@ public class PrioritiesController {
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Priorities priorities = new Priorities();
 		try {
+			
 			priorities = new ObjectMapper().readValue(data, Priorities.class);
 			priorities = prioritiesService.update(priorities);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +89,7 @@ public class PrioritiesController {
 			prioritiesService.deletePriorities(priorities.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

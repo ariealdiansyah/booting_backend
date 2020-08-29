@@ -31,6 +31,7 @@ public class RolesController {
 		try {
 			listRoles = rolesService.getListRoles();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -44,6 +45,7 @@ public class RolesController {
 			roles = new ObjectMapper().readValue(data, Roles.class);
 			roles = rolesService.insert(roles);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(roles, HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class RolesController {
 			roles = new ObjectMapper().readValue(code, Roles.class);
 			roles = rolesService.getRolesByCode(roles);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(roles, HttpStatus.OK);
@@ -68,6 +71,7 @@ public class RolesController {
 			roles = new ObjectMapper().readValue(data, Roles.class);
 			roles = rolesService.update(roles);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +88,7 @@ public class RolesController {
 			rolesService.deleteRoles(roles.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

@@ -43,6 +43,7 @@ public class ClientProductsController {
 			clientProducts = new ObjectMapper().readValue(data, ClientProducts.class);
 			clientProducts = clientProductsService.insert(clientProducts);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(clientProducts, HttpStatus.CREATED);
@@ -56,6 +57,7 @@ public class ClientProductsController {
 			clientProducts = new ObjectMapper().readValue(code, ClientProducts.class);
 			listData = clientProductsService.getListByCompany(clientProducts);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
@@ -68,6 +70,7 @@ public class ClientProductsController {
 			clientProducts = new ObjectMapper().readValue(data, ClientProducts.class);
 			clientProducts = clientProductsService.update(clientProducts);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

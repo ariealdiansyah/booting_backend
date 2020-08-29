@@ -31,6 +31,7 @@ public class StatusController {
 		try {
 			listStatus = statusService.getListStatuses();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -44,6 +45,7 @@ public class StatusController {
 			status = new ObjectMapper().readValue(data, Status.class);
 			status = statusService.insert(status);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(status, HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class StatusController {
 			status = new ObjectMapper().readValue(code, Status.class);
 			status = statusService.getStatusesByCode(status);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(status, HttpStatus.OK);
@@ -68,6 +71,7 @@ public class StatusController {
 			priorities = new ObjectMapper().readValue(data, Status.class);
 			priorities = statusService.update(priorities);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +88,7 @@ public class StatusController {
 			statusService.deleteStatuses(status.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

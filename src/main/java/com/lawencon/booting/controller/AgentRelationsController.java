@@ -43,6 +43,7 @@ public class AgentRelationsController {
 			agentRelations = new ObjectMapper().readValue(data, AgentRelations.class);
 			agentRelations = agentRelationsService.insert(agentRelations);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(agentRelations, HttpStatus.CREATED);
@@ -56,6 +57,7 @@ public class AgentRelationsController {
 			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
 			listData = agentRelationsService.getListByIdUser(agentRelations);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
@@ -68,6 +70,7 @@ public class AgentRelationsController {
 			agentRelations = new ObjectMapper().readValue(data, AgentRelations.class);
 			agentRelations = agentRelationsService.update(agentRelations);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

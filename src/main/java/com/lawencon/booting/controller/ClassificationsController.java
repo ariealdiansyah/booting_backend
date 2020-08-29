@@ -31,6 +31,7 @@ public class ClassificationsController {
 		try {
 			listClassifications = ClassificationsService.getListClassifications();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -44,6 +45,7 @@ public class ClassificationsController {
 			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.insert(classifications);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(classifications, HttpStatus.CREATED);
@@ -56,6 +58,7 @@ public class ClassificationsController {
 			classifications = new ObjectMapper().readValue(code, Classifications.class);
 			classifications = ClassificationsService.getClassificationsByCode(classifications);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(classifications, HttpStatus.OK);
@@ -68,6 +71,7 @@ public class ClassificationsController {
 			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.update(classifications);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +88,7 @@ public class ClassificationsController {
 			ClassificationsService.deleteClassifications(classifications.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 

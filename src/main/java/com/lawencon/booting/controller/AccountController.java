@@ -1,8 +1,12 @@
 package com.lawencon.booting.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,5 +40,17 @@ public class AccountController {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<>(respon, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<?> getAll(){
+		List<Accounts> listData = new ArrayList<>();
+		try {
+			listData = accountService.getListAccounts();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 }

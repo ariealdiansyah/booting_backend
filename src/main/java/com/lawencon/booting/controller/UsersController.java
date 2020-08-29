@@ -44,6 +44,7 @@ public class UsersController {
 			users = new ObjectMapper().readValue(data, Users.class);
 			users = usersService.insert(users);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(users, HttpStatus.CREATED);
@@ -56,6 +57,7 @@ public class UsersController {
 			users = new ObjectMapper().readValue(code, Users.class);
 			users = usersService.getUserByNip(users);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(users, HttpStatus.OK);
@@ -68,6 +70,7 @@ public class UsersController {
 			users = new ObjectMapper().readValue(data, Users.class);
 			users = usersService.update(users);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
@@ -84,6 +87,7 @@ public class UsersController {
 			usersService.delete(users.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 
