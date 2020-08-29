@@ -31,9 +31,9 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 	}
 
 	@Override
-	public Companies getCompanyByCode(Companies data) throws Exception {
-		List<Companies> listCompany  = em.createQuery("FROM Companies where code = :code", Companies.class)
-				.setParameter("code", data.getCode()).getResultList();
+	public Companies getCompanyByName(Companies data) throws Exception {
+		List<Companies> listCompany  = em.createQuery("FROM Companies where name = :name", Companies.class)
+				.setParameter("code", data.getName()).getResultList();
 		return !listCompany.isEmpty() ? listCompany.get(0) : null;
 	}
 

@@ -1,5 +1,7 @@
 package com.lawencon.booting.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.AccountsDao;
 import com.lawencon.booting.model.Accounts;
+import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.Roles;
+import com.lawencon.booting.model.Users;
 
 @Service
 @Transactional
@@ -20,21 +25,49 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-//	@Autowired
-//	private UsersServiceImpl users;
-//	
+	@Autowired
+	private UsersService usersService;
+	
+	@Autowired
+	private CompaniesService companiesService;
+	
+	@Autowired
+	private RolesService roleService;
+	
 //	@Autowired
 //	private TicketsServiceImpl ticket;
 
 	@Override
 	public Accounts insert(Accounts data) throws Exception {
 //		data.setId(getUuid());
+		boolean check = true;
 		data.setPass(encoder.encode(data.getPass()));
+		data.setCreatedAt(new Date());
+		List<Companies> listComp = new ArrayList<>();
+		listComp = companiesService.getListCompanies();
+		for(int i = 0; i < listComp.size(); i++) {
+			if(listComp.get(i).getName().equalsIgnoreCase(data.getIdUser().getIdCompany().getName())) {
+				data.getIdUser().setIdCompany(listComp.get(i));
+				check = false;
+				break;
+			}
+		}
+		if(check == true) {
+			Companies comp = new Companies();
+			comp = companiesService.insert(data.getIdUser().getIdCompany());
+			data.getIdUser().setIdCompany(comp);
+		}
+		Roles rl = roleService.getRolesByCode(data.getIdUser().getIdRole());
+		data.getIdUser().setIdRole(rl);
+		Users us = new Users();
+		us = usersService.insert(data.getIdUser());
+		data.setIdUser(us);
 		return accountsDao.insert(data);
 	}
 
 	@Override
 	public Accounts update(Accounts data) throws Exception {
+		data.setUpdatedAt(new Date());
 		data.setPass(encoder.encode(data.getPass()));
 		return accountsDao.update(data);
 	}

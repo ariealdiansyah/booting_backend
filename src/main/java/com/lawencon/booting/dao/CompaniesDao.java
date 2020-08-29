@@ -14,5 +14,5 @@ public interface CompaniesDao {
 
 	void delete(String id) throws Exception;
 	
-	Companies getCompanyByCode(Companies data) throws Exception;
+	Companies getCompanyByName(Companies data) throws Exception;
 }

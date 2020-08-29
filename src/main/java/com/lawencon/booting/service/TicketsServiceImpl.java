@@ -61,6 +61,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	public Tickets insert(TicketDetails data) throws Exception {
 		Tickets ticket = new Tickets();
 		TicketDetails ticketDtl = new TicketDetails();
+		ticketDtl = data;
 		ticket = data.getIdTicket();
 //		ticket.setId(getUuid());
 		ticket.setCode(code());
@@ -78,7 +79,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		ticket.setIdStatus(status);
 		
 		ticket.setCreatedAt(new Date());
-		ticket.setCreatedBy(data.getIdTicket().getIdCustomer().getName());
+//		ticket.setCreatedBy(data.getIdTicket().getIdCustomer().getName());
 		
 		ticket = ticketsDao.insert(ticket);
 		ticketDtl.setIdTicket(ticket);
@@ -91,6 +92,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public Tickets update(Tickets data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return ticketsDao.update(data);
 	}
 
@@ -121,8 +123,8 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Override
 	public List<Tickets> getListByIdCompany(String data) throws Exception {
 		Companies company = new Companies();
-		company.setCode(data);
-		company = companiesService.getCompanyByCode(company);
+		company.setName(data);
+		company = companiesService.getCompanyByName(company);
 		return ticketsDao.getListByIdCompany(company.getId());
 	}
 

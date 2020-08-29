@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 	@Override
 	public Classifications insert(Classifications data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return classificationsDao.insert(data);
 	}
 
 	@Override
 	public Classifications update(Classifications data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return classificationsDao.update(data);
 	}
 

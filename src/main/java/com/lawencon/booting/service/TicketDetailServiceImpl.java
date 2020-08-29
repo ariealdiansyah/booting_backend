@@ -22,7 +22,8 @@ public class TicketDetailServiceImpl extends BaseService implements TicketDetail
 	public TicketDetails insert(TicketDetails data) throws Exception {
 //		data.setId(getUuid()); 
 		data.setCreatedAt(new Date());
-		data.setCreatedBy(data.getSender());
+		data.setDateCreated(data.getCreatedAt());
+//		data.setCreatedBy(data.getSender());
 		return ticketDetailsDao.insert(data);
 	}
 

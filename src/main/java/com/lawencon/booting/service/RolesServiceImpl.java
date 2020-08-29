@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class RolesServiceImpl extends BaseService implements RolesService{
 	@Override
 	public Roles insert(Roles data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return rolesDao.insert(data);
 	}
 
 	@Override
 	public Roles update(Roles data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return rolesDao.update(data);
 	}
 

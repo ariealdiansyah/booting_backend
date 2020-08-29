@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -21,11 +22,13 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return agentRelationsDao.insert(data);
 	}
 
 	@Override
 	public AgentRelations update(AgentRelations data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return agentRelationsDao.update(data);
 	}
 

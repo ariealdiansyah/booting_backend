@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 	@Override
 	public Products insert(Products data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return productsDao.insert(data);
 	}
 
 	@Override
 	public Products update(Products data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return productsDao.update(data);
 	}
 

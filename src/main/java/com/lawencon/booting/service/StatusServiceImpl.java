@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class StatusServiceImpl extends BaseService implements StatusService{
 	@Override
 	public Status insert(Status data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return statusesDao.insert(data);
 	}
 
 	@Override
 	public Status update(Status data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return statusesDao.update(data);
 	}
 

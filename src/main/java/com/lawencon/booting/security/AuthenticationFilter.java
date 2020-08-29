@@ -73,7 +73,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 			e.printStackTrace();
 		}
 		
-		System.out.println(logHelp.getToken() + logHelp.getAccount().getIdUser().getIdCompany().getCode());
+		System.out.println(logHelp.getToken() + " -- " + logHelp.getAccount().getIdUser().getIdCompany().getName());
 		
 		response.setContentType("application/json");
 		response.getWriter().append(new ObjectMapper().writeValueAsString(logHelp));

@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -20,11 +21,13 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 	@Override
 	public Companies insert(Companies data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return companiesDao.insert(data);
 	}
 
 	@Override
 	public Companies update(Companies data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return companiesDao.update(data);
 	}
 
@@ -39,8 +42,8 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 	}
 
 	@Override
-	public Companies getCompanyByCode(Companies data) throws Exception {
-		return companiesDao.getCompanyByCode(data);
+	public Companies getCompanyByName(Companies data) throws Exception {
+		return companiesDao.getCompanyByName(data);
 	}
 
 }

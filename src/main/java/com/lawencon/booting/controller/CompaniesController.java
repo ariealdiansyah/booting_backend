@@ -54,7 +54,7 @@ public class CompaniesController {
 		Companies companies = new Companies();
 		try {
 			companies = new ObjectMapper().readValue(code, Companies.class);
-			companies = companiesService.getCompanyByCode(companies);
+			companies = companiesService.getCompanyByName(companies);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -80,7 +80,7 @@ public class CompaniesController {
 		String result ="";
 		try {
 			companies = new ObjectMapper().readValue(data, Companies.class);
-			companies = companiesService.getCompanyByCode(companies);
+			companies = companiesService.getCompanyByName(companies);
 			companiesService.delete(companies.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {

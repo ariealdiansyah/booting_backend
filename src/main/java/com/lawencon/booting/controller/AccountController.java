@@ -26,6 +26,7 @@ public class AccountController {
 			Accounts acc = new ObjectMapper().readValue(data, Accounts.class);
 			accountService.insert(acc);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		String respon = "";

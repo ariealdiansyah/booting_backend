@@ -14,5 +14,5 @@ public interface CompaniesService {
 
 	void delete(String id) throws Exception;
 	
-	Companies getCompanyByCode(Companies data) throws Exception;
+	Companies getCompanyByName(Companies data) throws Exception;
 }

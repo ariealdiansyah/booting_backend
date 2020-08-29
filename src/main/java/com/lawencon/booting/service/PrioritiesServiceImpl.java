@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class PrioritiesServiceImpl extends BaseService implements PrioritiesServ
 	@Override
 	public Priorities insert(Priorities data) throws Exception {
 //		data.setId(getUuid());
+		data.setCreatedAt(new Date());
 		return prioritiesDao.insert(data);
 	}
 
 	@Override
 	public Priorities update(Priorities data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return prioritiesDao.update(data);
 	}
 

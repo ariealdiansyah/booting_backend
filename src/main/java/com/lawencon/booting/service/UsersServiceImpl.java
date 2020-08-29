@@ -1,5 +1,6 @@
 package com.lawencon.booting.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,13 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	@Override
 	public Users insert(Users data) throws Exception {
 		data.setId(getUuid());		
+		data.setCreatedAt(new Date());
 		return usersDao.insert(data);
 	}
 
 	@Override
 	public Users update(Users data) throws Exception {
+		data.setUpdatedAt(new Date());
 		return usersDao.update(data);
 	}
 
