@@ -17,8 +17,8 @@ public class Products extends BaseModel{
 	@Column(nullable = false, unique = true)
 	private String code;
 	
-	private String name;
 	private String description;
+	private String name;
 	
 //	public String getId() {
 //		return id;
@@ -44,4 +44,5 @@ public class Products extends BaseModel{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
 }
