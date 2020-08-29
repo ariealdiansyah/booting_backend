@@ -50,7 +50,7 @@ public class UsersController {
 	}
 
 	@GetMapping("/get-users")
-	public ResponseEntity<?> getCompaniesByCode(@RequestBody String code) {
+	public ResponseEntity<?> getUserByCode(@RequestBody String code) {
 		Users users = new Users();
 		try {
 			users = new ObjectMapper().readValue(code, Users.class);

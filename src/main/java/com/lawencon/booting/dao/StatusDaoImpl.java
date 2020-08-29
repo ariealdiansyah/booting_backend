@@ -35,7 +35,7 @@ public class StatusDaoImpl extends BaseDao implements StatusDao{
 
 	@Override
 	public Status getStatusesByCode(String code) throws Exception {
-		 List<Status> listStatuses = em.createQuery("FROM Statuses where code = :code ", Status.class)
+		 List<Status> listStatuses = em.createQuery("FROM Status where code = :code ", Status.class)
 				 .setParameter("code", code).getResultList();
 		 return !listStatuses.isEmpty() ? listStatuses.get(0): null;
 	}

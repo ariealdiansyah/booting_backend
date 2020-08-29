@@ -78,8 +78,11 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		Status status = statusService.getStatusesByCode(data.getIdTicket().getIdStatus());
 		ticket.setIdStatus(status);
 		
+		Users us = usersService.getUserByNip(data.getIdTicket().getIdCustomer());
+		ticket.setIdCustomer(us);
+		
 		ticket.setCreatedAt(new Date());
-//		ticket.setCreatedBy(data.getIdTicket().getIdCustomer().getName());
+		ticket.setCreatedBy(data.getSender());
 		
 		ticket = ticketsDao.insert(ticket);
 		ticketDtl.setIdTicket(ticket);

@@ -38,10 +38,10 @@ public class Products extends BaseModel{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getDesc() {
+	public String getDescription() {
 		return description;
 	}
-	public void setDesc(String desc) {
-		this.description = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
