@@ -101,6 +101,16 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts findByEmail(Accounts data) throws Exception {
 		return accountsDao.findByEmail(data);
 	}
+
+	@Override
+	public List<Accounts> getListAccountsActive() throws Exception {
+		return accountsDao.getListAccountsActive();
+	}
+
+	@Override
+	public void deletePath(String id) throws Exception {
+		accountsDao.deletePath(id);
+	}
 	
 //	private void test() {
 //		for(int i = 0; i<10; i++ ) {

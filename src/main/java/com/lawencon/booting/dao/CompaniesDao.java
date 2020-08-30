@@ -11,8 +11,12 @@ public interface CompaniesDao {
 	Companies update(Companies data) throws Exception;
 
 	List<Companies> getListCompanies() throws Exception;
+	
+	List<Companies> getListCompaniesActive() throws Exception;
 
 	void delete(String id) throws Exception;
 	
 	Companies getCompanyByName(Companies data) throws Exception;
+	
+	void deletePath(String id) throws Exception;
 }

@@ -24,10 +24,22 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 	public List<Companies> getListCompanies() throws Exception {
 		return em.createQuery("FROM Companies", Companies.class).getResultList();
 	}
+	
+	@Override
+	public List<Companies> getListCompaniesActive() throws Exception {
+		return em.createQuery("FROM Companies WHERE active = true", Companies.class).getResultList();
+	}
 
 	@Override
 	public void delete(String id) throws Exception {
-		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id);
+		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id).executeUpdate();
+//		em.createQuery("UPDATE Companies SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
+	}
+	
+	@Override
+	public void deletePath(String id) throws Exception {
+//		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id);
+		em.createQuery("UPDATE Companies SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override

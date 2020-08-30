@@ -46,4 +46,14 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 		return companiesDao.getCompanyByName(data);
 	}
 
+	@Override
+	public void deletePath(String id) throws Exception {
+		companiesDao.deletePath(id);
+	}
+
+	@Override
+	public List<Companies> getListCompaniesActive() throws Exception {
+		return companiesDao.getListCompaniesActive() ;
+	}
+
 }

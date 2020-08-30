@@ -116,6 +116,18 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter{
 				registry.addMapping("/tickets/**")
 				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/companies/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/status/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
+				
+				registry.addMapping("/mail/**")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 			}
 		};
 	}

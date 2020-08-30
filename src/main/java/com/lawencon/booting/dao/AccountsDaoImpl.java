@@ -28,7 +28,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public void deleteAccounts(String id) throws Exception {
-		em.createQuery("DELETE from Accounts where id = :id").setParameter("id", id);
+		em.createQuery("DELETE from Accounts where id = :id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override
@@ -58,6 +58,16 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 		List<Accounts> listAccounts  = em.createQuery("FROM Accounts where email = :email", Accounts.class)
 				.setParameter("email", data.getEmail()).getResultList();
 		return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
+	}
+
+	@Override
+	public List<Accounts> getListAccountsActive() throws Exception {
+		return em.createQuery("FROM Accounts WHERE active = true", Accounts.class).getResultList();
+	}
+
+	@Override
+	public void deletePath(String id) throws Exception {
+		em.createQuery("UPDATE Accounts SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
 	}
 
 }

@@ -3,11 +3,14 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,19 +27,31 @@ public class CompaniesController {
 
 	@Autowired
 	private CompaniesService companiesService;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<Companies> listData = new ArrayList<>();
 		try {
 			listData = companiesService.getListCompanies();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getAllActive() {
+		List<Companies> listData = new ArrayList<>();
+		try {
+			listData = companiesService.getListCompaniesActive();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Companies companies = new Companies();
@@ -77,15 +92,18 @@ public class CompaniesController {
 		return new ResponseEntity<>(companies, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody String data) {
-		Companies companies = new Companies();
-		String result ="";
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
+		String result = "";
 		try {
-			companies = new ObjectMapper().readValue(data, Companies.class);
-			companies = companiesService.getCompanyByName(companies);
-			companiesService.delete(companies.getId());
+			companiesService.delete(id);
 			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (PersistenceException e) {
+			try {
+				companiesService.deletePath(id);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -93,4 +111,21 @@ public class CompaniesController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
+	
+//	@PostMapping("/delete")
+//	public ResponseEntity<?> delete(@RequestBody String data) {
+//		Companies companies = new Companies();
+//		String result = "";
+//		try {
+//			companies = new ObjectMapper().readValue(data, Companies.class);
+//			companies = companiesService.getCompanyByName(companies);
+//			companiesService.delete(companies.getId());
+//			result = new ObjectMapper().writeValueAsString("Delete Success");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+//		}
+//
+//		return new ResponseEntity<>(result, HttpStatus.OK);
+//	}
 }

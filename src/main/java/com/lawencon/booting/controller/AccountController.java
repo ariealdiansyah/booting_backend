@@ -3,11 +3,16 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Accounts;
-import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.service.AccountsService;
-import com.lawencon.booting.service.TemplateEmailService;
-import com.lawencon.booting.utility.Mail;
 
 @RestController
 @RequestMapping("/account")
@@ -55,5 +57,64 @@ public class AccountController {
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getAllActive(){
+		List<Accounts> listData = new ArrayList<>();
+		try {
+			listData = accountService.getListAccountsActive();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get-accounts")
+	public ResponseEntity<?> getAccountsByCode(@RequestBody String code) {
+		Accounts account = new Accounts();
+		try {
+			account = new ObjectMapper().readValue(code, Accounts.class);
+			account = accountService.findByEmail(account);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(account, HttpStatus.OK);
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@RequestBody String data) {
+		Accounts acoount = new Accounts();
+		try {
+			acoount = new ObjectMapper().readValue(data, Accounts.class);
+			acoount = accountService.update(acoount);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(acoount, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
+		String result = "";
+		try {
+			accountService.deleteAccounts(id);
+			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (PersistenceException e) {
+			try {
+				accountService.deletePath(id);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 }
