@@ -13,7 +13,9 @@ import com.lawencon.booting.dao.AccountsDao;
 import com.lawencon.booting.model.Accounts;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Roles;
+import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.Users;
+import com.lawencon.booting.utility.Mail;
 
 @Service
 @Transactional
@@ -34,6 +36,12 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	@Autowired
 	private RolesService roleService;
 	
+	@Autowired
+	private Mail mail;	
+	
+	@Autowired
+	private TemplateEmailService templateEmailService;
+	
 //	@Autowired
 //	private TicketsServiceImpl ticket;
 
@@ -41,6 +49,7 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts insert(Accounts data) throws Exception {
 //		data.setId(getUuid());
 		boolean check = true;
+		String pwd = data.getPass();
 		data.setPass(encoder.encode(data.getPass()));
 		data.setCreatedAt(new Date());
 		List<Companies> listComp = new ArrayList<>();
@@ -62,6 +71,12 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 		Users us = new Users();
 		us = usersService.insert(data.getIdUser());
 		data.setIdUser(us);
+		TemplateEmail template = new TemplateEmail();
+		template.setCode("TMPL0");
+		template = templateEmailService.getTemplateEmailByCode(template);
+		mail
+		.init(data.getEmail(), "Created Account", template.getTemplate(),data, pwd)
+		.sendMail();
 		return accountsDao.insert(data);
 	}
 

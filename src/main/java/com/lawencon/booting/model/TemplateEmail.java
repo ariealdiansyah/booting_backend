@@ -1,5 +1,6 @@
 package com.lawencon.booting.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -12,6 +13,8 @@ public class TemplateEmail extends BaseModel{
 	
 	private String code;
 	private String name;
+	
+	@Column(columnDefinition="TEXT")
 	private String template;
 	
 //	public String getId() {

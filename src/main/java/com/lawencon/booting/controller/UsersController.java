@@ -25,6 +25,7 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
+	
 	@GetMapping("/all")
 	public ResponseEntity<?> getAll(){
 		List<Users> listData = new ArrayList<>();
