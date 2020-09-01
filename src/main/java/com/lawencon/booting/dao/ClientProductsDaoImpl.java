@@ -1,10 +1,12 @@
 package com.lawencon.booting.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.booting.model.ClientProducts;
+import com.lawencon.booting.model.Companies;
 
 @Repository
 public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao {
@@ -32,9 +34,20 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
-		return em.createQuery("FROM ClientProducts WHERE idCompany = :idCompany", ClientProducts.class)
+		return em.createQuery("FROM ClientProducts WHERE idCompany.id = :idCompany", ClientProducts.class)
 				.setParameter("idCompany", data.getIdCompany().getId())
 				.getResultList();
+	}
+
+	@Override
+	public List<String> getListIdCompany(Companies data) throws Exception {
+		List<Object> listData = em.createQuery("SELECT idProducts.id FROM ClientProducts WHERE idCompany.id = :id", Object.class)
+				.setParameter("id", data.getId()).getResultList();
+		List<String> ListProducts = new ArrayList<>();
+		listData.forEach(l -> {
+			ListProducts.add(l.toString());
+		});
+		return ListProducts;
 	}
 
 }

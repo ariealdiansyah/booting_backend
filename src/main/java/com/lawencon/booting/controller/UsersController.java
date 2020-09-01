@@ -3,11 +3,14 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +34,18 @@ public class UsersController {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListUsers();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getAllActive(){
+		List<Users> listData = new ArrayList<>();
+		try {
+			listData = usersService.getListUsersActive();
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
@@ -87,6 +102,27 @@ public class UsersController {
 			users = usersService.getUserByNip(users);
 			usersService.delete(users.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
+		String result = "";
+		try {
+			usersService.delete(id);
+			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (PersistenceException e) {
+			try {
+				usersService.deletePath(id);
+				result = new ObjectMapper().writeValueAsString("Delete Success");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

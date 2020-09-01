@@ -101,6 +101,7 @@ public class CompaniesController {
 		} catch (PersistenceException e) {
 			try {
 				companiesService.deletePath(id);
+				result = new ObjectMapper().writeValueAsString("Delete Success");
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}

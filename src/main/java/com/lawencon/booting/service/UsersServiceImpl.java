@@ -34,6 +34,11 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	public List<Users> getListUsers() throws Exception {
 		return usersDao.getListUsers();
 	}
+	
+	@Override
+	public List<Users> getListUsersActive() throws Exception {
+		return usersDao.getListUsersActive();
+	}
 
 	@Override
 	public void delete(String data) throws Exception {
@@ -43,6 +48,11 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	@Override
 	public Users getUserByNip(Users data) throws Exception {
 		return usersDao.getUserByNip(data);
+	}
+
+	@Override
+	public void deletePath(String id) throws Exception {
+		usersDao.deletePath(id);
 	}
 
 }

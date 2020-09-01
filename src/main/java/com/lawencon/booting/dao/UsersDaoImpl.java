@@ -25,6 +25,11 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 	public List<Users> getListUsers() throws Exception {
 		return em.createQuery("FROM Users", Users.class).getResultList();
 	}
+	
+	@Override
+	public List<Users> getListUsersActive() throws Exception {
+		return em.createQuery("FROM Users WHERE active = true", Users.class).getResultList();
+	}
 
 	@Override
 	public void delete(String data) throws Exception {
@@ -36,6 +41,12 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		List<Users> listUsers  = em.createQuery("FROM Users where nip = :nip", Users.class)
 				.setParameter("nip", data.getNip()).getResultList();
 		return !listUsers.isEmpty() ? listUsers.get(0) : null;
+	}
+
+	@Override
+	public void deletePath(String id) throws Exception {
+		em.createQuery("UPDATE Users SET active = false WHERE id = :id", Users.class)
+		.setParameter("id", id).executeUpdate();
 	}
 
 }

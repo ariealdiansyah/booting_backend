@@ -81,7 +81,7 @@ public class TicketController {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(listData.size(), HttpStatus.OK);
+		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
 	@GetMapping("/all-company")
@@ -95,7 +95,21 @@ public class TicketController {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(listData.size(), HttpStatus.OK);
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-customer")
+	public ResponseEntity<?> getAllByCustomer(@RequestBody String data){
+		List<Tickets> listData = new ArrayList<>();
+		try {
+			Users us = new ObjectMapper().readValue(data, Users.class);
+			listData = ticketsService.getListByIdUser(us);
+			System.out.println(listData);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
 }

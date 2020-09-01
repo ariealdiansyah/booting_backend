@@ -3,11 +3,14 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Products;
 import com.lawencon.booting.service.ProductsService;
 
@@ -26,10 +30,37 @@ public class ProductsController {
 	private ProductsService productsService;
 
 	@GetMapping("/all")
-	public ResponseEntity<?> getRoles() {
+	public ResponseEntity<?> getAll() {
 		List<Products> listProducts = new ArrayList<>();
 		try {
 			listProducts = productsService.getListProducts();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(listProducts, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-actice")
+	public ResponseEntity<?> getAllActive() {
+		List<Products> listProducts = new ArrayList<>();
+		try {
+			listProducts = productsService.getListProductsActive();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(listProducts, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-bycompany")
+	public ResponseEntity<?> getByCompany(@RequestBody String data) {
+		List<Products> listProducts = new ArrayList<>();
+		try {
+			Companies comp = new ObjectMapper().readValue(data, Companies.class);
+			listProducts = productsService.getListByCompany(comp);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -51,7 +82,7 @@ public class ProductsController {
 		return new ResponseEntity<>(products, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getproduct")
+	@GetMapping("/get-product")
 	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
 		Products products = new Products();
 		try {
@@ -87,6 +118,27 @@ public class ProductsController {
 			products = productsService.getProductsByCode(products);
 			productsService.deleteProducts(products.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
+		String result = "";
+		try {
+			productsService.deleteProducts(id);
+			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (PersistenceException e) {
+			try {
+				productsService.deletePath(id);
+				result = new ObjectMapper().writeValueAsString("Delete Success");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

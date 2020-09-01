@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.ProductsDao;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Products;
 
 @Service
@@ -17,6 +18,9 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 	@Autowired
 	private ProductsDao productsDao;
 
+	@Autowired
+	private ClientProductsService clientProductsService;
+	
 	@Override
 	public Products insert(Products data) throws Exception {
 //		data.setId(getUuid());
@@ -34,6 +38,11 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 	public List<Products> getListProducts() throws Exception {
 		return productsDao.getListProducts();
 	}
+	
+	@Override
+	public List<Products> getListProductsActive() throws Exception {
+		return productsDao.getListProductsActive();
+	}
 
 	@Override
 	public void deleteProducts(String id) throws Exception {
@@ -44,5 +53,16 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 	@Override
 	public Products getProductsByCode(Products code) throws Exception {
 		return productsDao.getProductsByCode(code.getCode());
+	}
+
+	@Override
+	public void deletePath(String id) throws Exception {
+		productsDao.deletePath(id);
+	}
+
+	@Override
+	public List<Products> getListByCompany(Companies data) throws Exception {
+		List<String> listData = clientProductsService.getListIdCompany(data);
+		return productsDao.getListByCompany(listData);
 	}
 }

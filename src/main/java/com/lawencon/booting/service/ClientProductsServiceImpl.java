@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.ClientProductsDao;
 import com.lawencon.booting.model.ClientProducts;
+import com.lawencon.booting.model.Companies;
 
 @Service
 @Transactional
@@ -43,5 +44,10 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
 		return clientProductsDao.getListByCompany(data);
+	}
+
+	@Override
+	public List<String> getListIdCompany(Companies data) throws Exception {
+		return clientProductsDao.getListIdCompany(data);
 	}
 }

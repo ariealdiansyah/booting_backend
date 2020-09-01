@@ -3,6 +3,7 @@ package com.lawencon.booting.service;
 import java.util.List;
 
 import com.lawencon.booting.model.ClientProducts;
+import com.lawencon.booting.model.Companies;
 
 public interface ClientProductsService {
 
@@ -15,5 +16,7 @@ public interface ClientProductsService {
 	void delete(String id) throws Exception;
 	
 	List<ClientProducts> getListByCompany(ClientProducts data) throws Exception;
+	
+	List<String> getListIdCompany(Companies data) throws Exception;
 	
 }

@@ -12,8 +12,12 @@ public interface UsersDao {
 
 	List<Users> getListUsers() throws Exception;
 
+	List<Users> getListUsersActive() throws Exception;
+
 	void delete(String data) throws Exception;
 	
 	Users getUserByNip(Users data) throws Exception;
+	
+	void deletePath(String id) throws Exception;
 	
 }
