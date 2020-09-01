@@ -15,6 +15,7 @@ import com.lawencon.booting.model.Priorities;
 import com.lawencon.booting.model.Products;
 import com.lawencon.booting.model.Status;
 import com.lawencon.booting.model.TicketDetails;
+import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
 
@@ -110,11 +111,11 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	}
 
 	@Override
-	public List<Tickets> getListByIdUser(String data) throws Exception {
-		Users user = new Users();
-		user.setNip(data);
-		user = usersService.getUserByNip(user);
-		return ticketsDao.getListByIdUser(user.getId());
+	public List<Tickets> getListByIdUser(Users data) throws Exception {
+//		Users user = new Users();
+//		user.setNip(data);
+		data = usersService.getUserByNip(data);
+		return ticketsDao.getListByIdUser(data.getId());
 	}
 	
 	public String code() {
@@ -124,34 +125,37 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	}
 
 	@Override
-	public List<Tickets> getListByIdCompany(String data) throws Exception {
-		Companies company = new Companies();
-		company.setName(data);
-		company = companiesService.getCompanyByName(company);
-		return ticketsDao.getListByIdCompany(company.getId());
+	public List<Tickets> getListByIdCompany(Companies data) throws Exception {
+//		Companies company = new Companies();
+//		company.setName(data);
+		data = companiesService.getCompanyByName(data);
+		return ticketsDao.getListByIdCompany(data.getId());
 	}
 
 	@Override
-	public List<Tickets> getListByIdAgent(String data) throws Exception {
-		Users user = new Users();
-		user.setNip(data);
-		user = usersService.getUserByNip(user);
-		List<String> listData = agentRelationsService.getListCompanies(user);
+	public List<Tickets> getListByIdAgent(Users data) throws Exception {
+//		Users user = new Users();
+//		user.setNip(data);
+		data = usersService.getUserByNip(data);
+		List<String> listData = agentRelationsService.getListCompanies(data);
 		if(listData.isEmpty()) {
 			return null; 
 		}else if(listData.size() == 1) {
 			System.out.println(listData.get(0));
-			return ticketsDao.getListByIdAgent(listData.get(0));
+			return ticketsDao.getListByIdCompany(listData.get(0));
 		}else {
-			String comp = ("(" + listData.get(0));
-			for(int i = 1; i < listData.size(); i++) {
-				System.out.println(comp + listData.get(i));
-				comp += (", " + listData.get(i));
-			}
-			comp += ")";
-			System.out.println(comp);
-			return ticketsDao.getListByIdAgent(comp);
+//			String comp = (listData.get(0));
+//			for(int i = 1; i < listData.size(); i++) {
+////				System.out.println(comp + listData.get(i));
+//				comp += (", " + listData.get(i));
+//			}
+//			System.out.println(comp);
+			return ticketsDao.getListByIdAgent(listData);
 		}
 	}
 
+	@Override
+	public TicketStatus selectStatus() throws Exception {
+		return ticketsDao.selectStatus();
+	}
 }

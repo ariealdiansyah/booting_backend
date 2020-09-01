@@ -2,6 +2,7 @@ package com.lawencon.booting.dao;
 
 import java.util.List;
 
+import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 
 public interface TicketsDao {
@@ -11,6 +12,8 @@ public interface TicketsDao {
 	Tickets update(Tickets data) throws Exception;
 
 	List<Tickets> getListTickets() throws Exception;
+	
+	TicketStatus selectStatus() throws Exception;
 
 	void delete(String id) throws Exception;
 
@@ -18,5 +21,5 @@ public interface TicketsDao {
 
 	List<Tickets> getListByIdCompany(String data) throws Exception;
 
-	List<Tickets> getListByIdAgent(String data) throws Exception;
+	List<Tickets> getListByIdAgent(List<String> data) throws Exception;
 }

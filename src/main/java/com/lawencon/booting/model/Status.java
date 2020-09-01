@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import com.sun.istack.NotNull;
 
 @Entity
-@Table(name = "tb_m_statuses")
+@Table(name = "tb_m_status")
 public class Status extends BaseModel{
 
 //	@Id
