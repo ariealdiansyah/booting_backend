@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
@@ -70,11 +71,25 @@ public class TicketController {
 	}
 	
 	@GetMapping("/all-agent")
-	public ResponseEntity<?> getAllAgent(@RequestBody String data){
+	public ResponseEntity<?> getAllByAgent(@RequestBody String data){
 		List<Tickets> listData = new ArrayList<>();
 		try {
 			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdAgent(us);
+			System.out.println(listData);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData.size(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-company")
+	public ResponseEntity<?> getAllByCompany(@RequestBody String data){
+		List<Tickets> listData = new ArrayList<>();
+		try {
+			Companies us = new ObjectMapper().readValue(data, Companies.class);
+			listData = ticketsService.getListByIdCompany(us);
 			System.out.println(listData);
 		}catch (Exception e) {
 			e.printStackTrace();
