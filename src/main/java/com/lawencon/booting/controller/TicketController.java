@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
@@ -76,6 +77,20 @@ public class TicketController {
 		try {
 			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdAgent(us);
+			System.out.println(listData);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/charts")
+	public ResponseEntity<?> getCharts(@RequestBody String data){
+		List<TicketCharts> listData = new ArrayList<>();
+		try {
+			TicketCharts tc = new ObjectMapper().readValue(data, TicketCharts.class);
+			listData = ticketsService.getListTicketCharts(tc);
 			System.out.println(listData);
 		}catch (Exception e) {
 			e.printStackTrace();

@@ -14,6 +14,7 @@ import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Priorities;
 import com.lawencon.booting.model.Products;
 import com.lawencon.booting.model.Status;
+import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
@@ -157,5 +158,10 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Override
 	public TicketStatus selectStatus() throws Exception {
 		return ticketsDao.selectStatus();
+	}
+
+	@Override
+	public List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception {
+		return ticketsDao.getListTicketCharts(data);
 	}
 }

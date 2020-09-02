@@ -1,9 +1,13 @@
 package com.lawencon.booting.dao;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
+
 
 import org.springframework.stereotype.Repository;
 
+import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 
@@ -64,6 +68,86 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao{
 		ticket.setTicketReopen((Long) obj.get(2)[0]);
 		System.out.println(ticket);
 		return ticket;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT tms.name, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 1 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as January, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 2 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as February, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 3 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as March, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 4 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as April, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 5 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as May, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 6 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as June, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 7 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as July, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 8 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as August, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 9 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as September, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 10 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as October, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 11 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as November, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht "); 
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status "); 
+		sql.append("where extract (month from trht.created_at ) = 12 and tms.id = tms2.id "); 
+		sql.append("and (extract (year from trht.created_at ) = :year) ) as December ");
+		sql.append("FROM tb_m_status tms ORDER BY tms.name");
+		
+
+		List<Object[]> listData = em.createNativeQuery(sql.toString())
+				.setParameter("year", data.getYear()).getResultList();
+		List<TicketCharts> listCharts = new ArrayList<>();
+		
+		listData.forEach(l ->{
+			TicketCharts ticket = new TicketCharts();
+			ticket.setName((String) l[0]);
+			ticket.setJanuary((BigInteger) l[1]);
+			ticket.setFebruary((BigInteger) l[2]);
+			ticket.setMarch((BigInteger) l[3]);
+			ticket.setApril((BigInteger) l[4]);
+			ticket.setMay((BigInteger) l[5]);
+			ticket.setJune((BigInteger) l[6]);
+			ticket.setJuly((BigInteger) l[7]);
+			ticket.setAugust((BigInteger) l[8]);
+			ticket.setSeptember((BigInteger) l[9]);
+			ticket.setOctober((BigInteger) l[10]);
+			ticket.setNovember((BigInteger) l[11]);
+			ticket.setDecember((BigInteger) l[12]);
+			listCharts.add(ticket);
+		});
+		return listCharts;
 	}
 
 }

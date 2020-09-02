@@ -3,6 +3,7 @@ package com.lawencon.booting.service;
 import java.util.List;
 
 import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
@@ -27,4 +28,6 @@ public interface TicketsService {
 	List<Tickets> getListByIdCompany(Companies data) throws Exception;
 
 	List<Tickets> getListByIdAgent(Users data) throws Exception;
+	
+	List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception;
 }
