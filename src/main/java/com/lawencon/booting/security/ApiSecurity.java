@@ -70,7 +70,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter{
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/login")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
 				
 //				registry.addMapping("/admin/**")
@@ -82,51 +82,51 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter{
 //				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/accounts/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/roles/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/products/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/classifications/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/priorities/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/users/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/client-products/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/agent-relations/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/tickets/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/companies/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/status/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 				
 				registry.addMapping("/mail/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
+				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49:8080")
 				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 			}
 		};

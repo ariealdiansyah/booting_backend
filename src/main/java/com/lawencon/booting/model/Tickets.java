@@ -1,9 +1,12 @@
 package com.lawencon.booting.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "tb_r_hdr_tickets")
@@ -40,6 +43,8 @@ public class Tickets extends BaseModel{
 	@JoinColumn(name = "id_status")
 	private Status idStatus;
 	
+	@NotNull
+	@Column(nullable = false, unique = true)
 	private String code;
 	private String subject;
 	

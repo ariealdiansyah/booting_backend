@@ -67,6 +67,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 		
 		try {
 			Accounts acc = accountsService.findByEmail(account);
+			acc.setPass(null);
 			logHelp.setAccount(acc);
 			logHelp.setToken(tokenStr);
 		} catch (Exception e) {

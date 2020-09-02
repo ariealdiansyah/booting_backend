@@ -19,7 +19,6 @@ public class Accounts extends BaseModel{
 	@Column(nullable = false, unique = true)
 	private String email;
 	
-	@NotNull
 	@Column(nullable = false)
 	private String pass;
 	

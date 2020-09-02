@@ -23,12 +23,12 @@ public class StatusDaoImpl extends BaseDao implements StatusDao{
 
 	@Override
 	public List<Status> getListStatuses() throws Exception {
-		return em.createQuery("FROM Statuses", Status.class).getResultList();
+		return em.createQuery("FROM Status", Status.class).getResultList();
 	}
 
 	@Override
 	public void deleteStatuses(String id) throws Exception {
-		em.createQuery("DELETE from Statuses where id = :id")
+		em.createQuery("DELETE from Status where id = :id")
 		.setParameter("id", id);
 		
 	}
