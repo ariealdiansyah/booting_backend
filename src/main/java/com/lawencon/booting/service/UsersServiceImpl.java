@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.UsersDao;
 import com.lawencon.booting.model.Users;
+import com.lawencon.booting.utility.Mail;
 
 @Service
 @Transactional
@@ -16,6 +17,12 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private Mail mail;	
+	
+	@Autowired
+	private TemplateEmailService templateEmailService;
 
 	@Override
 	public Users insert(Users data) throws Exception {
@@ -27,6 +34,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	@Override
 	public Users update(Users data) throws Exception {
 		data.setUpdatedAt(new Date());
+		
 		return usersDao.update(data);
 	}
 
