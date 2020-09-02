@@ -19,4 +19,6 @@ public interface ClientProductsService {
 	
 	List<String> getListIdCompany(Companies data) throws Exception;
 	
+	List<ClientProducts> getListClientProductsActive() throws Exception;
+	
 }

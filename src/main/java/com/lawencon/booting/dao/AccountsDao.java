@@ -19,4 +19,6 @@ public interface AccountsDao {
 	void deletePath(String id) throws Exception;
 	
 	Accounts findByEmail(Accounts data) throws Exception;
+	
+	
 }

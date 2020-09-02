@@ -46,4 +46,9 @@ public class StatusServiceImpl extends BaseService implements StatusService{
 		return statusesDao.getStatusesByCode(data.getCode());
 	}
 
+	@Override
+	public List<Status> getListStatusActive() throws Exception {
+		return statusesDao.getListStatusActive();
+	}
+
 }

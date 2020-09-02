@@ -46,4 +46,9 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 		return classificationsDao.getClassificationsByCode(data.getCode());
 	}
 
+	@Override
+	public List<Classifications> getListClassificationsActive() throws Exception {
+		return classificationsDao.getListClassificationsActive();
+	}
+
 }

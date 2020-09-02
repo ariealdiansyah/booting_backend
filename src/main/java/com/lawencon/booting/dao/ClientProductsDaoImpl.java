@@ -50,4 +50,9 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 		return ListProducts;
 	}
 
+	@Override
+	public List<ClientProducts> getListClientProductsActive() throws Exception {
+		return em.createQuery("FROM ClientProducts WHERE active = TRUE", ClientProducts.class).getResultList();
+	}
+
 }

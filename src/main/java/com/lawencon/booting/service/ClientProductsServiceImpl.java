@@ -50,4 +50,9 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	public List<String> getListIdCompany(Companies data) throws Exception {
 		return clientProductsDao.getListIdCompany(data);
 	}
+
+	@Override
+	public List<ClientProducts> getListClientProductsActive() throws Exception {
+		return clientProductsDao.getListClientProductsActive();
+	}
 }

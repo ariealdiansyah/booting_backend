@@ -26,10 +26,23 @@ public class StatusController {
 	private StatusService statusService;
 
 	@GetMapping("/all")
-	public ResponseEntity<?> getRoles() {
+	public ResponseEntity<?> getStatus() {
 		List<Status> listStatus = new ArrayList<>();
 		try {
 			listStatus = statusService.getListStatuses();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(listStatus, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getStatusActive() {
+		List<Status> listStatus = new ArrayList<>();
+		try {
+			listStatus = statusService.getListStatusActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -52,7 +65,7 @@ public class StatusController {
 	}
 
 	@GetMapping("/getstatus")
-	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
+	public ResponseEntity<?> getStatusByCode(@RequestBody String code) {
 		Status status = new Status();
 		try {
 			status = new ObjectMapper().readValue(code, Status.class);

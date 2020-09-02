@@ -40,4 +40,9 @@ public class PrioritiesDaoImpl extends BaseDao implements PrioritiesDao {
 		 return !listPriorities.isEmpty() ? listPriorities.get(0): null;
 	}
 
+	@Override
+	public List<Priorities> getListPrioritiesActive() throws Exception {
+		return em.createQuery("FROM Priorities WHERE active = TRUE", Priorities.class).getResultList();
+	}
+
 }

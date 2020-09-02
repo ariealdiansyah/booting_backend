@@ -26,10 +26,23 @@ public class PrioritiesController {
 	private PrioritiesService prioritiesService;
 
 	@GetMapping("/all")
-	public ResponseEntity<?> getRoles() {
+	public ResponseEntity<?> getPriorities() {
 		List<Priorities> listPriorities = new ArrayList<>();
 		try {
 			listPriorities = prioritiesService.getListPriorities();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(listPriorities, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getPrioritiesActive() {
+		List<Priorities> listPriorities = new ArrayList<>();
+		try {
+			listPriorities = prioritiesService.getListPrioritiesActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -52,7 +65,7 @@ public class PrioritiesController {
 	}
 
 	@GetMapping("/getpriorities")
-	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
+	public ResponseEntity<?> getPrioritiesByCode(@RequestBody String code) {
 		Priorities Priorities = new Priorities();
 		try {
 			Priorities = new ObjectMapper().readValue(code, Priorities.class);

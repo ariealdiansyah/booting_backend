@@ -26,10 +26,23 @@ public class ClassificationsController {
 	private ClassificationsService ClassificationsService;
 
 	@GetMapping("/all")
-	public ResponseEntity<?> getRoles() {
+	public ResponseEntity<?> getClassifications() {
 		List<Classifications> listClassifications = new ArrayList<>();
 		try {
 			listClassifications = ClassificationsService.getListClassifications();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getClassificationsActive() {
+		List<Classifications> listClassifications = new ArrayList<>();
+		try {
+			listClassifications = ClassificationsService.getListClassificationsActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -52,7 +65,7 @@ public class ClassificationsController {
 	}
 
 	@GetMapping("/getclassifications")
-	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
+	public ResponseEntity<?> getClassificationsByCode(@RequestBody String code) {
 		Classifications classifications = new Classifications();
 		try {
 			classifications = new ObjectMapper().readValue(code, Classifications.class);

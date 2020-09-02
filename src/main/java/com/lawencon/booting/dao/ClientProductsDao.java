@@ -18,4 +18,6 @@ public interface ClientProductsDao {
 	List<ClientProducts> getListByCompany(ClientProducts data) throws Exception;
 	
 	List<String> getListIdCompany(Companies data) throws Exception;
+	
+	List<ClientProducts> getListClientProductsActive() throws Exception;
 }

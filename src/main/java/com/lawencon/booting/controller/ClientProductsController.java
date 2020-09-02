@@ -36,6 +36,18 @@ public class ClientProductsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
+	@GetMapping("/all-active")
+	public ResponseEntity<?> getAllClientProductsActive(){
+		List<ClientProducts> listData = new ArrayList<>();
+		try {
+			listData = clientProductsService.getListClientProductsActive();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		ClientProducts clientProducts = new ClientProducts();
