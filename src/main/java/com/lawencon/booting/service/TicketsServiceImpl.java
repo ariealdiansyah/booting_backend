@@ -9,21 +9,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.TicketsDao;
+import com.lawencon.booting.model.Accounts;
 import com.lawencon.booting.model.Classifications;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Priorities;
 import com.lawencon.booting.model.Products;
 import com.lawencon.booting.model.Status;
+import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
+import com.lawencon.booting.utility.Mail;
 
 @Service
 @Transactional
 public class TicketsServiceImpl extends BaseService implements TicketsService {
 
+	@Autowired
+	private AccountsService accountsService;
+	
 	@Autowired
 	private TicketsDao ticketsDao;
 	
@@ -51,6 +57,12 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Autowired
 	private AgentRelationsService agentRelationsService;
 	
+	@Autowired
+	private Mail mail;	
+	
+	@Autowired
+	private TemplateEmailService templateEmailService;
+	
 	@Override
 	public Tickets insert(Tickets data) throws Exception {
 //		data.setId(getUuid());
@@ -74,6 +86,17 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		ticket.setIdCustomer(us);
 		
 		ticket.setCreatedAt(new Date());
+		
+		Accounts acc = new Accounts();
+		acc.setIdUser(us);
+		acc = accountsService.findByUser(acc);
+		TemplateEmail template = new TemplateEmail();
+		template.setCode("TKTTMPL");
+		template = templateEmailService.getTemplateEmailByCode(template);
+		mail
+		.init(acc.getEmail(), "Created Tickets", template.getTemplate(),us.getName(), ticket)
+		.sendMail();
+		
 		
 		return ticketsDao.insert(ticket);
 	}

@@ -81,4 +81,11 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 		em.createQuery("UPDATE Accounts SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
 	}
 
+	@Override
+	public Accounts findByUser(String id) throws Exception {
+		List<Accounts> listAccounts  = em.createQuery("FROM Accounts where idUser.id = :id", Accounts.class)
+		.setParameter("id", id).getResultList();
+		return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
+	}
+	
 }

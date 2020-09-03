@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
 import com.lawencon.booting.model.Accounts;
+import com.lawencon.booting.model.Tickets;
 
 @Component
 public class Mail {
@@ -22,8 +23,7 @@ public class Mail {
 	private String subject;
 	private String body;
 	private String address;
-	private Accounts accounts;
-	private String pwd;
+	final Context ctx = new Context();
 
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -40,8 +40,30 @@ public class Mail {
 		this.body = body;
 		this.subject = subject;
 		this.address = address;
-		this.accounts =accounts;
-		this.pwd = pwd;
+		ctx.setVariable("nama", accounts.getIdUser().getName());
+		ctx.setVariable("email", "Email : " + accounts.getEmail() );
+		ctx.setVariable("pass", "Password : " + pwd );
+		return this;
+	}
+	
+	public Mail init(String address, String subject, String body,String name) {
+		this.body = body;
+		this.subject = subject;
+		this.address = address;
+		ctx.setVariable("nama", name );
+		return this;
+	}
+	
+	public Mail init(String address, String subject, String body,String name,Tickets ticket) {
+		this.body = body;
+		this.subject = subject;
+		this.address = address;
+		ctx.setVariable("subject", this.subject);
+		ctx.setVariable("nama", name );
+		ctx.setVariable("product", ticket.getIdProduct().getName());
+		ctx.setVariable("priority", ticket.getIdPriority().getName());
+		ctx.setVariable("classification", ticket.getIdClassification().getName());
+		ctx.setVariable("desc", ticket.getSubject());
 		return this;
 	}
 
@@ -52,10 +74,9 @@ public class Mail {
 //		context.setVariable("nama", "iqbal");
 		// with attachment file
 		MimeMessage msg = javaMailSender.createMimeMessage();
-		final Context ctx = new Context();
-		ctx.setVariable("nama", "Haloo Iqbal");
-		ctx.setVariable("email", "Email : " + accounts.getEmail() );
-		ctx.setVariable("pass", "Password : " + pwd );
+		
+	
+		
 		final TemplateEngine templateEngine = new TemplateEngine();
 		templateEngine.setTemplateResolver(new StringTemplateResolver());
 		try {
@@ -75,7 +96,7 @@ public class Mail {
 //			helper.setText(htmlMsg, true);
 			helper.setText(result, true);
 			try {
-				helper.setFrom(address, "GooGlo");
+				helper.setFrom(address, "Booting");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

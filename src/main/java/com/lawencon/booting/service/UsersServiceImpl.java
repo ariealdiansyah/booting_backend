@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.UsersDao;
+import com.lawencon.booting.model.Accounts;
+import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.Users;
 import com.lawencon.booting.utility.Mail;
 
@@ -17,6 +19,9 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 
 	@Autowired
 	private UsersDao usersDao;
+	
+	@Autowired
+	private AccountsService accountsService;
 	
 	@Autowired
 	private Mail mail;	
@@ -34,7 +39,21 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	@Override
 	public Users update(Users data) throws Exception {
 		data.setUpdatedAt(new Date());
-		
+		TemplateEmail template = new TemplateEmail();
+		template.setCode("PROTMPL");
+		template = templateEmailService.getTemplateEmailByCode(template);
+		Users us = new Users();
+		us = getUserByNip(data);
+		Accounts acc = new Accounts();
+		acc.setIdUser(us);
+		acc = accountsService.findByUser(acc);
+		data.setId(us.getId());
+		data.setIdCompany(us.getIdCompany());
+		data.setIdRole(us.getIdRole());
+		mail
+		.init(acc.getEmail(),
+				"Profile Updated", template.getTemplate(),data.getName())
+		.sendMail();
 		return usersDao.update(data);
 	}
 
@@ -62,5 +81,6 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	public void deletePath(String id) throws Exception {
 		usersDao.deletePath(id);
 	}
+
 
 }

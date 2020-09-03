@@ -18,7 +18,7 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 	@Override
 	public Users update(Users data) throws Exception {
 		em.merge(data);
-		return null;
+		return data;
 	}
 
 	@Override

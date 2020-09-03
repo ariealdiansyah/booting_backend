@@ -2,6 +2,7 @@ package com.lawencon.booting.service;
 
 import java.util.List;
 
+
 import com.lawencon.booting.model.Users;
 
 public interface UsersService {
@@ -19,4 +20,5 @@ public interface UsersService {
 	Users getUserByNip(Users data) throws Exception;
 	
 	void deletePath(String id) throws Exception;
+
 }

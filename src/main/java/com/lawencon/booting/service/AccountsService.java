@@ -19,4 +19,6 @@ public interface AccountsService {
 	void deletePath(String id) throws Exception;
 	
 	Accounts findByEmail(Accounts data) throws Exception;
+	
+	Accounts findByUser(Accounts data)throws Exception;
 }

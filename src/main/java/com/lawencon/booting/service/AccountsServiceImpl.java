@@ -111,6 +111,11 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public void deletePath(String id) throws Exception {
 		accountsDao.deletePath(id);
 	}
+
+	@Override
+	public Accounts findByUser(Accounts data) throws Exception {
+		return accountsDao.findByUser(data.getIdUser().getId());
+	}
 	
 //	private void test() {
 //		for(int i = 0; i<10; i++ ) {
