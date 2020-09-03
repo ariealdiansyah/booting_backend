@@ -41,7 +41,7 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 
 	@Override
 	public List<String> getListCompanies(Users data) throws Exception {
-		List<Object> listData =  em.createQuery("SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id", Object.class)
+		List<Object> listData =  em.createQuery("SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)", Object.class)
 				.setParameter("id", data.getId()).getResultList();
 		List<String> listComp = new ArrayList<>();
 		listData.forEach(l -> {

@@ -23,7 +23,7 @@ import com.lawencon.booting.model.Accounts;
 import com.lawencon.booting.service.AccountsService;
 
 @RestController
-@RequestMapping("/account")
+@RequestMapping("/accounts")
 public class AccountController {
 
 	@Autowired
@@ -71,11 +71,12 @@ public class AccountController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get-accounts")
-	public ResponseEntity<?> getAccountsByCode(@RequestBody String code) {
+	@GetMapping("/get-accounts/{code}")
+	public ResponseEntity<?> getAccountsByCode(@PathVariable("data") String code) {
 		Accounts account = new Accounts();
+		account.setEmail(code);
 		try {
-			account = new ObjectMapper().readValue(code, Accounts.class);
+//			account = new ObjectMapper().readValue(code, Accounts.class);
 			account = accountService.findByEmail(account);
 		} catch (Exception e) {
 			e.printStackTrace();

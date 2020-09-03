@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.ClientProducts;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.service.ClientProductsService;
 
 @RestController
@@ -61,12 +63,15 @@ public class ClientProductsController {
 		return new ResponseEntity<>(clientProducts, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-client-products")
-	public ResponseEntity<?> getAgentRelationsByCode(@RequestBody String code) {
+	@GetMapping("/get-client-products/{code}")
+	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("code") String code) {
 		ClientProducts clientProducts = new ClientProducts();
+		Companies comp = new Companies();
+		comp.setName(code);
+		clientProducts.setIdCompany(comp);
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
-			clientProducts = new ObjectMapper().readValue(code, ClientProducts.class);
+//			clientProducts = new ObjectMapper().readValue(code, ClientProducts.class);
 			listData = clientProductsService.getListByCompany(clientProducts);
 		} catch (Exception e) {
 			e.printStackTrace();

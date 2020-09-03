@@ -66,11 +66,12 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-users")
-	public ResponseEntity<?> getUserByCode(@RequestBody String code) {
+	@GetMapping("/get-users/{code}")
+	public ResponseEntity<?> getUserByCode(@PathVariable("code") String code) {
 		Users users = new Users();
+		users.setNip(code);
 		try {
-			users = new ObjectMapper().readValue(code, Users.class);
+//			users = new ObjectMapper().readValue(code, Users.class);
 			users = usersService.getUserByNip(users);
 		} catch (Exception e) {
 			e.printStackTrace();

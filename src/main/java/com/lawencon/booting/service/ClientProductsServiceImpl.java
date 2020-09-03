@@ -17,11 +17,16 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 
 	@Autowired
 	private ClientProductsDao clientProductsDao;
+	
+	@Autowired
+	private CompaniesService companiesService;
 
 	@Override
 	public ClientProducts insert(ClientProducts data) throws Exception {
 //		data.setId(getUuid());
 		data.setCreatedAt(new Date());
+		data.setTicketUrgent(3);
+		data.setTicketMedium(7);
 		return clientProductsDao.insert(data);
 	}
 
@@ -43,6 +48,8 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
+		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
+		data.setIdCompany(comp);
 		return clientProductsDao.getListByCompany(data);
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
@@ -46,18 +45,31 @@ public class TicketController {
 		Tickets ticket = new Tickets();
 		try {
 			ticket = new ObjectMapper().readValue(data, Tickets.class);
-			ticketsService.insert(ticket);
+			ticket = ticketsService.insert(ticket);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-		String respon = "";
+//		String respon = "";
+//		try {
+//			respon = new ObjectMapper().writeValueAsString("success");
+//		} catch (JsonProcessingException e) {
+//			e.printStackTrace();
+//		}
+		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/get-ticket/{data}")
+	public ResponseEntity<?> getTicket(@PathVariable("data") String data){
+		Tickets ticket = new Tickets();
+		ticket.setCode(data);
 		try {
-			respon = new ObjectMapper().writeValueAsString("success");
-		} catch (JsonProcessingException e) {
+			ticket = ticketsService.getTicket(ticket);
+		}catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity<>(ticket, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(respon, HttpStatus.CREATED);
+		return new ResponseEntity<>(ticket, HttpStatus.OK);
 	}
 	
 	@GetMapping("/all-status")

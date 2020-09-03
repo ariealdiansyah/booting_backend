@@ -17,6 +17,8 @@ public interface TicketsService {
 
 	Tickets update(Tickets data) throws Exception;
 
+	Tickets getTicket(Tickets data) throws Exception;
+
 	List<Tickets> getListTickets() throws Exception;
 	
 	TicketStatus selectStatus() throws Exception;

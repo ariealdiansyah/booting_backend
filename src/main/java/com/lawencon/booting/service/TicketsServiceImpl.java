@@ -216,4 +216,9 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		data = usersService.getUserByNip(data);
 		return ticketsDao.statusCustomer(data.getId());
 	}
+
+	@Override
+	public Tickets getTicket(Tickets data) throws Exception {
+		return ticketsDao.getTicketByCode(data);
+	}
 }

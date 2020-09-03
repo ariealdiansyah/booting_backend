@@ -36,13 +36,13 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 
 	@Override
 	public List<Tickets> getListByIdUser(String data) throws Exception {
-		return em.createQuery("FROM Tickets WHERE idCustomer.id = :id", Tickets.class)
+		return em.createQuery("FROM Tickets WHERE idCustomer.id = :id ORDER BY createdAt DESC", Tickets.class)
 				.setParameter("id", data).getResultList();
 	}
 
 	@Override
 	public List<Tickets> getListByIdCompany(String data) throws Exception {
-		List<Tickets> a = em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id", Tickets.class)
+		List<Tickets> a = em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id ORDER BY createdAt DESC", Tickets.class)
 				.setParameter("id", data).getResultList();
 
 		return a;
@@ -50,7 +50,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 
 	@Override
 	public List<Tickets> getListByIdAgent(List<String> listData) throws Exception {
-		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id IN (:id)", Tickets.class)
+		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id IN (:id) ORDER BY createdAt DESC", Tickets.class)
 				.setParameter("id", listData).getResultList();
 	}
 
@@ -131,8 +131,9 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and (extract (year from trht.created_at ) = :year) ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("year", data)
-				.getResultList();
+//		@SuppressWarnings("unchecked")
+		List<Object[]> listData = em.createNativeQuery(sql.toString())
+				.setParameter("year", data).getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
 		listData.forEach(l -> {

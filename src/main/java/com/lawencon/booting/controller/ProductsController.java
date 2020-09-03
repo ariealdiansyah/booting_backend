@@ -82,11 +82,12 @@ public class ProductsController {
 		return new ResponseEntity<>(products, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-product")
-	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
+	@GetMapping("/get-product/{code}")
+	public ResponseEntity<?> getRolesByCode(@PathVariable("code") String code) {
 		Products products = new Products();
+		products.setCode(code);
 		try {
-			products = new ObjectMapper().readValue(code, Products.class);
+//			products = new ObjectMapper().readValue(code, Products.class);
 			products = productsService.getProductsByCode(products);
 		} catch (Exception e) {
 			e.printStackTrace();
