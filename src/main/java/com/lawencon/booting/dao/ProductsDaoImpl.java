@@ -46,7 +46,7 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao{
 
 	@Override
 	public List<Products> getListByCompany(List<String> data) throws Exception {
-		return em.createQuery("FROM Products WHERE id in (:id) ", Products.class)
+		return em.createQuery("FROM Products WHERE id in (:id) AND active = true", Products.class)
 				.setParameter("id", data)
 				.getResultList();
 	}

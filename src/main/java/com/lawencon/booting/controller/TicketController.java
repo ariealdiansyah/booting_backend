@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
-import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
@@ -44,8 +44,8 @@ public class TicketController {
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		try {
-			TicketDetails pojo = new ObjectMapper().readValue(data, TicketDetails.class);
-			ticketsService.insert(pojo);
+			Tickets ticket = new ObjectMapper().readValue(data, Tickets.class);
+			ticketsService.insert(ticket);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -71,13 +71,57 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-agent")
-	public ResponseEntity<?> getAllByAgent(@RequestBody String data){
-		List<Tickets> listData = new ArrayList<>();
+	@GetMapping("/status-agent/{data}")
+	public ResponseEntity<?> getStatusAgent(@PathVariable("data") String data){
+		TicketStatus ticketStatus = new TicketStatus();
+		Users us = new Users();
+		us.setNip(data);
 		try {
-			Users us = new ObjectMapper().readValue(data, Users.class);
+			ticketStatus = ticketsService.statusAgent(us);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
+	}
+	
+	@GetMapping("/status-client/{data}")
+	public ResponseEntity<?> getStatusClient(@PathVariable("data") String data){
+		TicketStatus ticketStatus = new TicketStatus();
+		Companies comp = new Companies();
+		comp.setName(data);
+		try {
+			ticketStatus = ticketsService.statusClient(comp);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
+	}
+	
+	@GetMapping("/status-customer/{data}")
+	public ResponseEntity<?> getStatusCustomer(@PathVariable("data") String data){
+		TicketStatus ticketStatus = new TicketStatus();
+		Users us = new Users();
+		us.setNip(data);
+		try {
+			ticketStatus = ticketsService.statusCustomer(us);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
+	}
+	
+	@GetMapping("/all-agent/{data}")
+	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data){
+		List<Tickets> listData = new ArrayList<>();
+		Users us = new Users();
+		us.setNip(data);
+		try {
+//			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdAgent(us);
-			System.out.println(listData);
+			System.out.println(listData.size());
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
@@ -85,13 +129,15 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
-	@GetMapping("/charts")
-	public ResponseEntity<?> getCharts(@RequestBody String data){
+	@GetMapping("/charts/{data}")
+	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
+		TicketCharts tc = new TicketCharts();
+		tc.setYear(Long.parseLong(data));
 		try {
-			TicketCharts tc = new ObjectMapper().readValue(data, TicketCharts.class);
+//			TicketCharts tc = new ObjectMapper().readValue(data, TicketCharts.class);
 			listData = ticketsService.getListTicketCharts(tc);
-			System.out.println(listData);
+//			System.out.println(listData);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
@@ -99,13 +145,15 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-company")
-	public ResponseEntity<?> getAllByCompany(@RequestBody String data){
+	@GetMapping("/all-company/{data}")
+	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data){
 		List<Tickets> listData = new ArrayList<>();
+		Companies comp = new Companies();
+		comp.setName(data);
 		try {
-			Companies us = new ObjectMapper().readValue(data, Companies.class);
-			listData = ticketsService.getListByIdCompany(us);
-			System.out.println(listData);
+//			Companies us = new ObjectMapper().readValue(data, Companies.class);
+			listData = ticketsService.getListByIdCompany(comp);
+			System.out.println(listData.size());
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
@@ -113,13 +161,15 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-customer")
-	public ResponseEntity<?> getAllByCustomer(@RequestBody String data){
+	@GetMapping("/all-customer/{data}")
+	public ResponseEntity<?> getAllByCustomer(@PathVariable("data") String data){
 		List<Tickets> listData = new ArrayList<>();
+		Users us = new Users();
+		us.setNip(data);
 		try {
-			Users us = new ObjectMapper().readValue(data, Users.class);
+//			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdUser(us);
-			System.out.println(listData);
+			System.out.println(listData.size());
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);

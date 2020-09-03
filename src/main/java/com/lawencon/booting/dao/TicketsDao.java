@@ -14,7 +14,15 @@ public interface TicketsDao {
 
 	List<Tickets> getListTickets() throws Exception;
 	
+	Tickets getTicketByCode(Tickets data) throws Exception;
+	
 	TicketStatus selectStatus() throws Exception;
+	
+	TicketStatus statusAgent(List<String> data) throws Exception;
+	
+	TicketStatus statusClient(String data) throws Exception;
+	
+	TicketStatus statusCustomer(String data) throws Exception;
 
 	void delete(String id) throws Exception;
 

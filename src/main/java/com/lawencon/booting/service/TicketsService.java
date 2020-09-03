@@ -20,6 +20,12 @@ public interface TicketsService {
 	List<Tickets> getListTickets() throws Exception;
 	
 	TicketStatus selectStatus() throws Exception;
+	
+	TicketStatus statusAgent(Users data) throws Exception;
+	
+	TicketStatus statusClient(Companies data) throws Exception;
+	
+	TicketStatus statusCustomer(Users data) throws Exception;	
 
 	void delete(String id) throws Exception; 
 

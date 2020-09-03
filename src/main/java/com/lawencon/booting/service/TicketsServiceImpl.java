@@ -54,7 +54,25 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Override
 	public Tickets insert(Tickets data) throws Exception {
 //		data.setId(getUuid());
+		Tickets ticket = new Tickets();
 		data.setCode(code());
+		
+		Products product = productsService.getProductsByCode(data.getIdProduct());
+		ticket.setIdProduct(product);
+		
+		Priorities priority = prioritiesService.getPrioritiesByCode(data.getIdPriority());
+		ticket.setIdPriority(priority);
+		
+		Classifications classification = classificationsService.getClassificationsByCode(data.getIdClassification());
+		ticket.setIdClassification(classification);
+		
+		Status status = statusService.getStatusesByCode(data.getIdStatus());
+		ticket.setIdStatus(status);
+		
+		Users us = usersService.getUserByNip(data.getIdCustomer());
+		ticket.setIdCustomer(us);
+		
+		ticket.setCreatedAt(new Date());
 		
 		return ticketsDao.insert(data);
 	}
@@ -141,9 +159,9 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		List<String> listData = agentRelationsService.getListCompanies(data);
 		if(listData.isEmpty()) {
 			return null; 
-		}else if(listData.size() == 1) {
-			System.out.println(listData.get(0));
-			return ticketsDao.getListByIdCompany(listData.get(0));
+//		}else if(listData.size() == 1) {
+//			System.out.println(listData.get(0));
+//			return ticketsDao.getListByIdCompany(listData.get(0));
 		}else {
 //			String comp = (listData.get(0));
 //			for(int i = 1; i < listData.size(); i++) {
@@ -162,6 +180,39 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception {
+//		data.setYear(2020L);
 		return ticketsDao.getListTicketCharts(data);
+	}
+
+	@Override
+	public TicketStatus statusAgent(Users data) throws Exception {
+		data = usersService.getUserByNip(data);
+		List<String> listData = agentRelationsService.getListCompanies(data);
+		if(listData.isEmpty()) {
+			return null; 
+//		}else if(listData.size() == 1) {
+//			System.out.println(listData.get(0));
+//			return ticketsDao.statusClient(listData.get(0));
+		}else {
+//			String comp = (listData.get(0));
+//			for(int i = 1; i < listData.size(); i++) {
+////				System.out.println(comp + listData.get(i));
+//				comp += (", " + listData.get(i));
+//			}
+//			System.out.println(comp);
+			return ticketsDao.statusAgent(listData);
+		}
+	}
+
+	@Override
+	public TicketStatus statusClient(Companies data) throws Exception {
+		data = companiesService.getCompanyByName(data);
+		return ticketsDao.statusClient(data.getId());
+	}
+
+	@Override
+	public TicketStatus statusCustomer(Users data) throws Exception {
+		data = usersService.getUserByNip(data);
+		return ticketsDao.statusCustomer(data.getId());
 	}
 }
