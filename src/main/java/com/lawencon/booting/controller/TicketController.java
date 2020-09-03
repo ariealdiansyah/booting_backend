@@ -43,8 +43,9 @@ public class TicketController {
 	
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
+		Tickets ticket = new Tickets();
 		try {
-			Tickets ticket = new ObjectMapper().readValue(data, Tickets.class);
+			ticket = new ObjectMapper().readValue(data, Tickets.class);
 			ticketsService.insert(ticket);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,8 +133,8 @@ public class TicketController {
 	@GetMapping("/charts/{data}")
 	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
-		TicketCharts tc = new TicketCharts();
-		tc.setYear(Long.parseLong(data));
+//		TicketCharts tc = new TicketCharts();
+		Long tc = Long.parseLong(data);
 		try {
 //			TicketCharts tc = new ObjectMapper().readValue(data, TicketCharts.class);
 			listData = ticketsService.getListTicketCharts(tc);

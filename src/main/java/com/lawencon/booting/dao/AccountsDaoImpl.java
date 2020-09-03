@@ -60,10 +60,15 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 //		data.setIdUser(user);
 //		data.setPass((String) obj[9]);
 //		return data;
-		
-		List<Accounts> listAccounts  = em.createQuery("FROM Accounts where email = :email AND active = true", Accounts.class)
-				.setParameter("email", data.getEmail()).getResultList();
-		return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
+		if("superadmin".equals(data.getEmail())) {
+			List<Accounts> listAccounts  = em.createQuery("FROM Accounts where email = superadmin", Accounts.class)
+					.getResultList();
+			return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
+		} else {
+			List<Accounts> listAccounts  = em.createQuery("FROM Accounts where email = :email AND active = true", Accounts.class)
+					.setParameter("email", data.getEmail()).getResultList();
+			return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
+		}
 	}
 
 	@Override

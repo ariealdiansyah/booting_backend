@@ -55,7 +55,8 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	public Tickets insert(Tickets data) throws Exception {
 //		data.setId(getUuid());
 		Tickets ticket = new Tickets();
-		data.setCode(code());
+		ticket.setCode(code());
+		ticket.setSubject(data.getSubject());
 		
 		Products product = productsService.getProductsByCode(data.getIdProduct());
 		ticket.setIdProduct(product);
@@ -74,7 +75,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		
 		ticket.setCreatedAt(new Date());
 		
-		return ticketsDao.insert(data);
+		return ticketsDao.insert(ticket);
 	}
 	
 	@Override
@@ -179,7 +180,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	}
 
 	@Override
-	public List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception {
+	public List<TicketCharts> getListTicketCharts(Long data) throws Exception {
 //		data.setYear(2020L);
 		return ticketsDao.getListTicketCharts(data);
 	}

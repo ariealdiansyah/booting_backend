@@ -35,5 +35,5 @@ public interface TicketsService {
 
 	List<Tickets> getListByIdAgent(Users data) throws Exception;
 	
-	List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception;
+	List<TicketCharts> getListTicketCharts(Long data) throws Exception;
 }

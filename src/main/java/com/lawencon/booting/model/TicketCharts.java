@@ -5,7 +5,7 @@ import java.math.BigInteger;
 public class TicketCharts {
 	
 	private String name;
-	private Long year;
+//	private Long year;
 	private BigInteger january;
 	private BigInteger february;
 	private BigInteger march;
@@ -25,12 +25,12 @@ public class TicketCharts {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getYear() {
-		return year;
-	}
-	public void setYear(Long year) {
-		this.year = year;
-	}
+//	public Long getYear() {
+//		return year;
+//	}
+//	public void setYear(Long year) {
+//		this.year = year;
+//	}
 	public BigInteger getJanuary() {
 		return january;
 	}

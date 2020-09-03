@@ -78,7 +78,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TicketCharts> getListTicketCharts(TicketCharts data) throws Exception {
+	public List<TicketCharts> getListTicketCharts(Long data) throws Exception {
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT tms.name, ");
 		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
@@ -131,7 +131,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and (extract (year from trht.created_at ) = :year) ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("year", data.getYear())
+		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("year", data)
 				.getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
