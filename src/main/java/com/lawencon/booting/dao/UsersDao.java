@@ -11,6 +11,8 @@ public interface UsersDao {
 	Users update(Users data) throws Exception;
 
 	List<Users> getListUsers() throws Exception;
+	
+	List<Users> getListUsersByClient(Users data) throws Exception;
 
 	List<Users> getListUsersActive() throws Exception;
 

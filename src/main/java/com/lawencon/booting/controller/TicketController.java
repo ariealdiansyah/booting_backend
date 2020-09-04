@@ -60,7 +60,7 @@ public class TicketController {
 	}
 	
 	@GetMapping("/get-ticket/{data}")
-	public ResponseEntity<?> getTicket(@PathVariable("data") String data){
+	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data){
 		Tickets ticket = new Tickets();
 		ticket.setCode(data);
 		try {

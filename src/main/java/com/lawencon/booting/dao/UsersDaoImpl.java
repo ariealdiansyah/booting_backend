@@ -49,4 +49,11 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		.setParameter("id", id).executeUpdate();
 	}
 
+	@Override
+	public List<Users> getListUsersByClient(Users data) throws Exception {
+		return em.createQuery("FROM Users WHERE active = TRUE and idRole.code ='CTM' and idCompany.name = :company ", Users.class)
+				.setParameter("company", data.getIdCompany().getName())
+				.getResultList();
+	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Users;
 import com.lawencon.booting.service.UsersService;
 
@@ -40,6 +41,25 @@ public class UsersController {
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
+	
+//	/all-client/{data}
+//	idrole = ctm and company name = param
+	
+	@GetMapping("/all-client/{data}")
+	public ResponseEntity<?> getAllClient(@PathVariable("data") String data){
+		Users us = new Users();
+		Companies com = new Companies();
+		com.setName(data);
+		us.setIdCompany(com);
+		List<Users> listData = new ArrayList<>();
+		try {
+			listData = usersService.getListUsersByClient(us);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}	
 	
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getAllActive(){

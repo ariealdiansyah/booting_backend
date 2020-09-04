@@ -13,6 +13,8 @@ public interface UsersService {
 
 	List<Users> getListUsers() throws Exception;
 	
+	List<Users> getListUsersByClient(Users data) throws Exception;
+	
 	List<Users> getListUsersActive() throws Exception;
 
 	void delete(String data) throws Exception;

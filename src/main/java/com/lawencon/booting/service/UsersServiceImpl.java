@@ -82,5 +82,10 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		usersDao.deletePath(id);
 	}
 
+	@Override
+	public List<Users> getListUsersByClient(Users data) throws Exception {
+		return usersDao.getListUsersByClient(data);
+	}
+
 
 }
