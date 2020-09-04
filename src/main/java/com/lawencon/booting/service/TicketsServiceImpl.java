@@ -246,7 +246,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	}
 
 	@Override
-	public List<TicketCharts> getChartsByClient(Long data) throws Exception {
+	public List<TicketCharts> getChartsByClient(Companies data) throws Exception {
 		return ticketsDao.getChartsByClient(data);
 	}
 }

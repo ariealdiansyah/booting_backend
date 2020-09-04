@@ -2,6 +2,7 @@ package com.lawencon.booting.dao;
 
 import java.util.List;
 
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
@@ -34,6 +35,6 @@ public interface TicketsDao {
 	
 	List<TicketCharts> getListTicketCharts(Long data) throws Exception;
 	
-	List<TicketCharts> getChartsByClient(Long data) throws Exception;
+	List<TicketCharts> getChartsByClient(Companies data) throws Exception;
 	
 }

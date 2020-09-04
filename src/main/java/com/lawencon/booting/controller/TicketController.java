@@ -145,6 +145,7 @@ public class TicketController {
 	@GetMapping("/charts/{data}")
 	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
+		
 //		TicketCharts tc = new TicketCharts();
 		Long tc = Long.parseLong(data);
 		try {
@@ -158,12 +159,13 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
-	@GetMapping("/charts-client/{data}")
-	public ResponseEntity<?> getChartsByClient(@PathVariable("data") String data){
+	@GetMapping("/charts-client/{company}")
+	public ResponseEntity<?> getChartsByClient(@PathVariable("company") String company){
 		List<TicketCharts> listData = new ArrayList<>();
-		Long tc = Long.parseLong(data);
+		Companies com = new Companies();
+		com.setName(company);
 		try {
-			listData = ticketsService.getChartsByClient(tc);
+			listData = ticketsService.getChartsByClient(com);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
