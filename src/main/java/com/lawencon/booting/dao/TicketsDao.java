@@ -33,4 +33,7 @@ public interface TicketsDao {
 	List<Tickets> getListByIdAgent(List<String> data) throws Exception;
 	
 	List<TicketCharts> getListTicketCharts(Long data) throws Exception;
+	
+	List<TicketCharts> getChartsByClient(Long data) throws Exception;
+	
 }

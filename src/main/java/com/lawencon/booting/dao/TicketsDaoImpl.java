@@ -223,4 +223,108 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		return !listData.isEmpty() ? listData.get(0) : null;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TicketCharts> getChartsByClient(Long data) throws Exception {
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT tms.name, ");
+		sql.append("(select count(trht.id) from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 1 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as January, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 2 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as February, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 3 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as March, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 4 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as April, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 5 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as May, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 6 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as June, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 7 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as July, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 8 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as August, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 9 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year)  and rs.code = 'CLI' ) as September, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 10 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year)  and rs.code = 'CLI' ) as October, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 11 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI') as November, ");
+		sql.append("(select count(trht.id)from tb_r_hdr_tickets trht ");
+		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
+		sql.append("join tb_m_roles rs on rs.id = usr.id_role ");
+		sql.append("right join tb_m_status tms2 ON tms2.id = trht.id_status ");
+		sql.append("where extract (month from trht.created_at ) = 12 and tms.id = tms2.id ");
+		sql.append("and (extract (year from trht.created_at ) = :year) and rs.code = 'CLI' ) as December ");
+		sql.append("FROM tb_m_status tms ORDER BY tms.name");
+
+//		@SuppressWarnings("unchecked")
+		List<Object[]> listData = em.createNativeQuery(sql.toString())
+				.setParameter("year", data).getResultList();
+		List<TicketCharts> listCharts = new ArrayList<>();
+
+		listData.forEach(l -> {
+			TicketCharts ticket = new TicketCharts();
+			ticket.setName((String) l[0]);
+			ticket.setJanuary((BigInteger) l[1]);
+			ticket.setFebruary((BigInteger) l[2]);
+			ticket.setMarch((BigInteger) l[3]);
+			ticket.setApril((BigInteger) l[4]);
+			ticket.setMay((BigInteger) l[5]);
+			ticket.setJune((BigInteger) l[6]);
+			ticket.setJuly((BigInteger) l[7]);
+			ticket.setAugust((BigInteger) l[8]);
+			ticket.setSeptember((BigInteger) l[9]);
+			ticket.setOctober((BigInteger) l[10]);
+			ticket.setNovember((BigInteger) l[11]);
+			ticket.setDecember((BigInteger) l[12]);
+			listCharts.add(ticket);
+		});
+		return listCharts;
+	}
+
 }

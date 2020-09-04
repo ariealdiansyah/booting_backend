@@ -158,6 +158,19 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
+	@GetMapping("/charts-client/{data}")
+	public ResponseEntity<?> getChartsByClient(@PathVariable("data") String data){
+		List<TicketCharts> listData = new ArrayList<>();
+		Long tc = Long.parseLong(data);
+		try {
+			listData = ticketsService.getChartsByClient(tc);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
 	@GetMapping("/all-company/{data}")
 	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data){
 		List<Tickets> listData = new ArrayList<>();
