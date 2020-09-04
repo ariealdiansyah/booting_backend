@@ -85,18 +85,25 @@
 				<text><![CDATA[Customers Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="180" y="1" width="200" height="32" forecolor="#0800FF" backcolor="#E6E6E6" uuid="f447e7db-c779-45d6-a561-e6039ccd1c51"/>
+				<reportElement mode="Opaque" x="180" y="1" width="170" height="32" forecolor="#0800FF" backcolor="#E6E6E6" uuid="f447e7db-c779-45d6-a561-e6039ccd1c51"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[Companies Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="380" y="1" width="175" height="32" forecolor="#2600FF" backcolor="#E6E6E6" uuid="73d3d6dd-ae5e-47ac-a572-a7e7f8cdcbec"/>
+				<reportElement mode="Opaque" x="350" y="1" width="100" height="32" forecolor="#2600FF" backcolor="#E6E6E6" uuid="73d3d6dd-ae5e-47ac-a572-a7e7f8cdcbec"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial Black" size="12"/>
 				</textElement>
 				<text><![CDATA[Total Ticket]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="450" y="1" width="105" height="32" forecolor="#2600FF" backcolor="#E6E6E6" uuid="31914c7b-0a60-4785-b94d-8f3d93358e95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="12"/>
+				</textElement>
+				<text><![CDATA[Solved Ticket]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -115,7 +122,7 @@
 				<textFieldExpression><![CDATA[$F{companies_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="-1" width="110" height="41" uuid="996b7b15-3d10-4e82-a17e-1a308a791e2e">
+				<reportElement x="350" y="-1" width="100" height="41" uuid="996b7b15-3d10-4e82-a17e-1a308a791e2e">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="866882cc-4017-49b9-952d-ee324925d763"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -133,10 +140,10 @@
 				<textFieldExpression><![CDATA[$F{customers_name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="460" y="-3" width="95" height="42" uuid="b0de983f-c1b5-4574-b127-d1e9cd41b916">
+				<reportElement x="450" y="-3" width="105" height="42" uuid="b0de983f-c1b5-4574-b127-d1e9cd41b916">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8e49511f-2eec-48bb-8f54-e1109bda5416"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{solved_ticket}]]></textFieldExpression>
