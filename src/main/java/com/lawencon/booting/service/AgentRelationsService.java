@@ -3,6 +3,7 @@ package com.lawencon.booting.service;
 import java.util.List;
 
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.ReportAllListClient;
 import com.lawencon.booting.model.Users;
 
 public interface AgentRelationsService {
@@ -18,4 +19,6 @@ public interface AgentRelationsService {
 	List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception;
 
 	List<String> getListCompanies(Users data) throws Exception;
+	
+	
 }

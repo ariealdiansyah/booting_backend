@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.booting.dao.AgentRelationsDao;
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.ReportAllListClient;
 import com.lawencon.booting.model.Users;
 
 @Service
