@@ -64,7 +64,7 @@ public class ClientProductsController {
 	}
 
 	@GetMapping("/get-client-products/{code}")
-	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("code") String code) {
+	public ResponseEntity<?> getClientProducts(@PathVariable("code") String code) {
 		ClientProducts clientProducts = new ClientProducts();
 		Companies comp = new Companies();
 		comp.setName(code);

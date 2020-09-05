@@ -56,4 +56,10 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 				.getResultList();
 	}
 
+	@Override
+	public List<Users> getListAgent() throws Exception {
+		return em.createQuery("FROM Users WHERE idRole.code = 'AGT'", Users.class)
+				.getResultList();
+	}
+
 }

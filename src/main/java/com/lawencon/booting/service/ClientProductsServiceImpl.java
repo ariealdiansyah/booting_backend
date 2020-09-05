@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lawencon.booting.dao.ClientProductsDao;
 import com.lawencon.booting.model.ClientProducts;
 import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.Products;
 
 @Service
 @Transactional
@@ -21,9 +22,18 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	@Autowired
 	private CompaniesService companiesService;
 
+	@Autowired
+	private ProductsService productService;
+	
 	@Override
 	public ClientProducts insert(ClientProducts data) throws Exception {
 //		data.setId(getUuid());
+		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
+		data.setIdCompany(comp);
+		
+		Products prod = productService.getProductsByCode(data.getIdProduct());
+		data.setIdProduct(prod);
+		
 		data.setCreatedAt(new Date());
 		data.setTicketUrgent(3);
 		data.setTicketMedium(7);

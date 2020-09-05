@@ -14,6 +14,8 @@ public interface UsersDao {
 	
 	List<Users> getListUsersByClient(Users data) throws Exception;
 
+	List<Users> getListAgent() throws Exception;
+
 	List<Users> getListUsersActive() throws Exception;
 
 	void delete(String data) throws Exception;

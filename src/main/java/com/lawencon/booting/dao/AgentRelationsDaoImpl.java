@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Users;
 
 @Repository
@@ -49,5 +50,18 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 		});
 		return listComp;
 	}
+
+	@Override
+	public Users getAgentByCompany(Companies data) throws Exception {
+		Users us = new Users();
+		AgentRelations ar = new AgentRelations();
+		List<AgentRelations> listData  = em.createQuery("FROM AgentRelations WHERE idCompany.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)", AgentRelations.class)
+				.setParameter("id", data.getId()).getResultList();
+		ar = !listData.isEmpty() ? listData.get(0) : null;
+		us = ar.getIdAgent();
+		return us;
+	}
+	
+	
 
 }

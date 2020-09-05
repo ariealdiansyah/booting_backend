@@ -18,6 +18,7 @@ import com.lawencon.booting.model.Status;
 import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
+import com.lawencon.booting.model.TicketHeader;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
@@ -241,12 +242,37 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	}
 
 	@Override
-	public Tickets getTicket(Tickets data) throws Exception {
-		return ticketsDao.getTicketByCode(data);
+	public TicketHeader getTicket(Tickets data) throws Exception {
+		TicketHeader ticketHead = new TicketHeader();
+		
+		data = ticketsDao.getTicketByCode(data);
+		ticketHead.setIdTicket(data);
+		
+		Users user = agentRelationsService.getAgentByCompany(data.getIdCustomer().getIdCompany());
+		ticketHead.setIdAgent(user);
+		
+		return ticketHead;
 	}
 
 	@Override
 	public List<TicketCharts> getChartsByClient(Companies data) throws Exception {
 		return ticketsDao.getChartsByClient(data);
+	}
+
+	@Override
+	public List<TicketCharts> getChartsByAgent(Users data) throws Exception {
+		data = usersService.getUserByNip(data);
+		if(data == null) {
+			return null;
+		}
+		List<String> listData = agentRelationsService.getListCompanies(data);
+//		listData.forEach(l->{
+//			System.out.println(l);
+//		});
+		if(listData.isEmpty()) {
+			return null; 
+		}else {
+			return ticketsDao.getChartsByAgent(listData);
+		}
 	}
 }

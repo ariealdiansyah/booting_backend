@@ -3,7 +3,7 @@ package com.lawencon.booting.dao;
 import java.util.List;
 
 import com.lawencon.booting.model.AgentRelations;
-import com.lawencon.booting.model.ReportAllListClient;
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Users;
 
 public interface AgentRelationsDao {
@@ -20,6 +20,6 @@ public interface AgentRelationsDao {
 	
 	List<String> getListCompanies(Users data) throws Exception;
 	
-	
+	Users getAgentByCompany(Companies data) throws Exception;
 
 }

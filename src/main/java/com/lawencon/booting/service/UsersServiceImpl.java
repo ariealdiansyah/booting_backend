@@ -87,5 +87,10 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		return usersDao.getListUsersByClient(data);
 	}
 
+	@Override
+	public List<Users> getListAgents() throws Exception {
+		return usersDao.getListAgent();
+	}
+
 
 }

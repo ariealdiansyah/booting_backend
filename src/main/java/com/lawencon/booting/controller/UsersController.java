@@ -61,6 +61,18 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}	
 	
+	@GetMapping("/all-agent")
+	public ResponseEntity<?> getAllAgent(){
+		List<Users> listData = new ArrayList<>();
+		try {
+			listData = usersService.getListAgents();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}	
+	
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getAllActive(){
 		List<Users> listData = new ArrayList<>();

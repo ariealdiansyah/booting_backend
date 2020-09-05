@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.AgentRelations;
+import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.Users;
 import com.lawencon.booting.service.AgentRelationsService;
 
 @RestController
@@ -49,18 +52,36 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(agentRelations, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-agent-relations")
-	public ResponseEntity<?> getAgentRelationsByCode(@RequestBody String code) {
+	@GetMapping("/get-agent-relations/{code}")
+	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("code") String code) {
 		AgentRelations agentRelations = new AgentRelations();
+		Users us = new Users();
+		us.setNip(code);
+		agentRelations.setIdAgent(us);
 		List<AgentRelations> listData = new ArrayList<>();
 		try {
-			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
+//			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
 			listData = agentRelationsService.getListByIdUser(agentRelations);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/get-agent/{code}")
+	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("code") String code) {
+		Companies comp = new Companies();
+		Users agent = new Users();
+		comp.setName(code);
+		try {
+//			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
+			agent = agentRelationsService.getAgentByCompany(comp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(agent, HttpStatus.OK);
 	}
 
 	@PutMapping("/update")

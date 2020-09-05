@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -49,8 +50,8 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts insert(Accounts data) throws Exception {
 //		data.setId(getUuid());
 		boolean check = true;
-		String pwd = data.getPass();
-		data.setPass(encoder.encode(data.getPass()));
+		String pwd = code();
+		data.setPass(encoder.encode(pwd));
 		data.setCreatedAt(new Date());
 		List<Companies> listComp = new ArrayList<>();
 		listComp = companiesService.getListCompanies();
@@ -115,6 +116,24 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	@Override
 	public Accounts findByUser(Accounts data) throws Exception {
 		return accountsDao.findByUser(data.getIdUser().getId());
+	}
+	
+	public String code() {
+		return RandomStringUtils.randomAlphanumeric(8);
+	}
+
+	@Override
+	public Accounts forgotPass(Accounts data) throws Exception {
+		data = accountsDao.findByEmail(data);
+		String pwd = code();
+		data.setPass(encoder.encode(pwd));
+		TemplateEmail template = new TemplateEmail();
+		template.setCode("TMPL0");
+		template = templateEmailService.getTemplateEmailByCode(template);
+		mail
+		.init(data.getEmail(), "Password Changed", template.getTemplate(),data, pwd)
+		.sendMail();
+		return accountsDao.update(data);
 	}
 	
 //	private void test() {

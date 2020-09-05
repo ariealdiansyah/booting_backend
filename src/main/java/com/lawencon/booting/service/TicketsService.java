@@ -5,6 +5,7 @@ import java.util.List;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
+import com.lawencon.booting.model.TicketHeader;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
@@ -17,7 +18,7 @@ public interface TicketsService {
 
 	Tickets update(Tickets data) throws Exception;
 
-	Tickets getTicket(Tickets data) throws Exception;
+	TicketHeader getTicket(Tickets data) throws Exception;
 
 	List<Tickets> getListTickets() throws Exception;
 	
@@ -40,4 +41,6 @@ public interface TicketsService {
 	List<TicketCharts> getListTicketCharts(Long data) throws Exception;
 	
 	List<TicketCharts> getChartsByClient(Companies data) throws Exception;
+	
+	List<TicketCharts> getChartsByAgent(Users data) throws Exception;
 }

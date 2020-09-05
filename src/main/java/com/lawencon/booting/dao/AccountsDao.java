@@ -20,9 +20,6 @@ public interface AccountsDao {
 	
 	Accounts findByEmail(Accounts data) throws Exception;
 	
-	Accounts findByUser(String id)throws Exception;
-	
-	
-	
+	Accounts findByUser(String id)throws Exception;	
 	
 }

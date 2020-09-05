@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
+import com.lawencon.booting.model.TicketHeader;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
@@ -63,13 +64,14 @@ public class TicketController {
 	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data){
 		Tickets ticket = new Tickets();
 		ticket.setCode(data);
+		TicketHeader ticketHeader = new TicketHeader();
 		try {
-			ticket = ticketsService.getTicket(ticket);
+			ticketHeader = ticketsService.getTicket(ticket);
 		}catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(ticket, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(ticketHeader, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(ticket, HttpStatus.OK);
+		return new ResponseEntity<>(ticketHeader, HttpStatus.OK);
 	}
 	
 	@GetMapping("/all-status")
@@ -126,22 +128,6 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 	
-	@GetMapping("/all-agent/{data}")
-	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data){
-		List<Tickets> listData = new ArrayList<>();
-		Users us = new Users();
-		us.setNip(data);
-		try {
-//			Users us = new ObjectMapper().readValue(data, Users.class);
-			listData = ticketsService.getListByIdAgent(us);
-			System.out.println(listData.size());
-		}catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}
-	
 	@GetMapping("/charts/{data}")
 	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
@@ -166,6 +152,36 @@ public class TicketController {
 		com.setName(company);
 		try {
 			listData = ticketsService.getChartsByClient(com);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/charts-agent/{data}")
+	public ResponseEntity<?> getChartsByAgent(@PathVariable("data") String data){
+		List<TicketCharts> listData = new ArrayList<>();
+		Users user = new Users();
+		user.setNip(data);
+		try {
+			listData = ticketsService.getChartsByAgent(user);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+
+	@GetMapping("/all-agent/{data}")
+	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data){
+		List<Tickets> listData = new ArrayList<>();
+		Users us = new Users();
+		us.setNip(data);
+		try {
+//			Users us = new ObjectMapper().readValue(data, Users.class);
+			listData = ticketsService.getListByIdAgent(us);
+			System.out.println(listData.size());
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);

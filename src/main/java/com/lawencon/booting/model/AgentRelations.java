@@ -8,7 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_m_agent_relations")
+@Table(name = "tb_m_agent_relations")	
+//		@UniqueConstraint( columnNames = {"id_company"}))
 public class AgentRelations extends BaseModel{
 
 //	@Id
