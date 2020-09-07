@@ -145,9 +145,14 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 								HttpMethod.DELETE.name());
 				
 				registry.addMapping("/photo-profile/**")
-				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
-				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
-						HttpMethod.DELETE.name());
+						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
+						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
+								HttpMethod.DELETE.name());
+
+				registry.addMapping("/report/**")
+						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
+						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
+								HttpMethod.DELETE.name());
 			}
 		};
 	}

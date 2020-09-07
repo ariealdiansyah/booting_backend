@@ -1,5 +1,6 @@
 package com.lawencon.booting.utility;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,5 +67,26 @@ public class JasperReportService {
 			return "Gagal Export File";
 		}
 		return "Berhasil Export File";
+	}
+	
+	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip,
+			HttpServletResponse res) {
+		ByteArrayOutputStream baot = new ByteArrayOutputStream();
+		try {
+			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
+			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("Nama Agent", nama);
+			parameters.put("nip", nip);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
+			res.setContentType("application/pdf");
+			res.addHeader("Content-Disposition", "inline; filename=jasperReport.pdf;");
+			JasperExportManager.exportReportToPdfStream(jasperPrint, baot);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return baot.toByteArray();
 	}
 }

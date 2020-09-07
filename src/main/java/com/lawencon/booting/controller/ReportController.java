@@ -51,14 +51,15 @@ public class ReportController {
 		Users users = new Users();
 		List<ReportTotalTicketAgent> listTotalTicket = new ArrayList<>();
 		users.setNip(nip);
+		byte[] baot;
 		try {
 			users = userService.getUserByNip(users);
 			listTotalTicket = reportService.getReportTotalTicketAgent(users);
-			jasperService.totalTicketAgent(listTotalTicket, users.getName(), users.getNip(), res);
+			baot = jasperService.totalTicketAgents(listTotalTicket, users.getName(), users.getNip(), res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(listTotalTicket, HttpStatus.OK);
+		return new ResponseEntity<>(baot, HttpStatus.OK);
 	}
 }
