@@ -108,7 +108,7 @@ public class Mail {
 
 		email.setTo(address);
 		email.setFrom(address);
-		email.setSubject(body);
+		email.setSubject(subject);
 		email.setText(body);
 
 		// javaMailSender.send(email);

@@ -6,9 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lawencon.booting.dao.UsersDao;
 import com.lawencon.booting.model.Accounts;
+import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.PhotoProfile;
+import com.lawencon.booting.model.Roles;
 import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.Users;
 import com.lawencon.booting.utility.Mail;
@@ -24,6 +28,15 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	private AccountsService accountsService;
 	
 	@Autowired
+	private RolesService rolesService;
+	
+	@Autowired
+	private CompaniesService companiesService;
+	
+	@Autowired 
+	private PhotoProfileService photoProfileService;
+	
+	@Autowired
 	private Mail mail;	
 	
 	@Autowired
@@ -37,7 +50,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	}
 
 	@Override
-	public Users update(Users data) throws Exception {
+	public Users update(Users data, MultipartFile file) throws Exception {
 		data.setUpdatedAt(new Date());
 		TemplateEmail template = new TemplateEmail();
 		template.setCode("PROTMPL");
@@ -45,11 +58,21 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		Users us = new Users();
 		us = getUserByNip(data);
 		Accounts acc = new Accounts();
+		Roles roles = new Roles();
+		Companies company = new Companies();
+		company = companiesService.getCompanyByName(data.getIdCompany());
+		roles = rolesService.getRolesByCode(data.getIdRole());
 		acc.setIdUser(us);
 		acc = accountsService.findByUser(acc);
+		PhotoProfile photo = new PhotoProfile();
+		photo = photoProfileService.store(file);
+		us.setIdPhoto(photo);
 		data.setId(us.getId());
 		data.setIdCompany(us.getIdCompany());
 		data.setIdRole(us.getIdRole());
+		data.setIdPhoto(photo);
+		data.setIdRole(roles);
+		data.setIdCompany(company);
 		mail
 		.init(acc.getEmail(),
 				"Profile Updated", template.getTemplate(),data.getName())

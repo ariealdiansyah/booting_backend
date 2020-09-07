@@ -3,7 +3,6 @@ package com.lawencon.booting.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,8 +20,9 @@ public class Users extends BaseModel{
 	@Column(nullable = false, unique = true)
 	private String nip;
 	
-	@Lob
-	private Byte[] profilePhoto;
+	@ManyToOne
+	@JoinColumn(name = "photo_profile")
+	private PhotoProfile idPhoto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_company")
@@ -35,7 +35,7 @@ public class Users extends BaseModel{
 	private String address;
 	private String contact;
 	private String name;
-	
+	 
 //	public String getId() {
 //		return id;
 //	}
@@ -78,5 +78,12 @@ public class Users extends BaseModel{
 	public void setName(String name) {
 		this.name = name;
 	}
+	public PhotoProfile getIdPhoto() {
+		return idPhoto;
+	}
+	public void setIdPhoto(PhotoProfile idPhoto) {
+		this.idPhoto = idPhoto;
+	}
+	
 	
 }

@@ -1,8 +1,5 @@
 package com.lawencon.booting.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -34,30 +30,20 @@ public class PhotoProfileController {
 	private PhotoProfileService photoProfileService;
 	
 	@PostMapping("/uploads")
-	  public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("files") MultipartFile[] files) {
-	    String message = "";
+	  public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("files") MultipartFile file) {
+		String message = "";
 	    try {
-	    	List<String> fileNames = new ArrayList<>();
+	    	photoProfileService.store(file);
 
-	        Arrays.asList(files).stream().forEach(file -> {
-	          try {
-	        	  photoProfileService.store(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	          fileNames.add(file.getOriginalFilename());
-	        });
-
-	      message = "Uploaded the file successfully: " + files;
+	      message = "Uploaded the file successfully: " + file.getOriginalFilename();
 	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
 	    } catch (Exception e) {
-	      message = "Could not upload the file: " + files + "!";
+	      message = "Could not upload the file: " + file.getOriginalFilename() + "!";
 	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
 	    }
 	  }
 	
 	@GetMapping("/all")
-	@ResponseBody
 	  public ResponseEntity<List<ResponseFile>> getListFiles() {
 	    List<ResponseFile> files = photoProfileService.getAllFiles().map(dbFile -> {
 	      String fileDownloadUri = ServletUriComponentsBuilder

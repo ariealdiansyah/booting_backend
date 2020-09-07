@@ -2,6 +2,7 @@ package com.lawencon.booting.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lawencon.booting.model.Users;
 
@@ -9,7 +10,7 @@ public interface UsersService {
 
 	Users insert(Users data) throws Exception;
 
-	Users update(Users data) throws Exception;
+	Users update(Users data,MultipartFile file) throws Exception;
 
 	List<Users> getListUsers() throws Exception;
 	
