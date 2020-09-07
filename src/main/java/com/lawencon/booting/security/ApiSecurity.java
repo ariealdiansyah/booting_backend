@@ -55,6 +55,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.POST, "/accounts/insert");
+		web.ignoring().antMatchers(HttpMethod.PUT, "/accounts/forgot", "/accounts/update");
 		web.ignoring().antMatchers("/v2/api-docs/**");
 		web.ignoring().antMatchers("/swagger.json");
 		web.ignoring().antMatchers("/swagger-ui.html");
