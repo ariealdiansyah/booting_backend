@@ -122,9 +122,11 @@ public class AccountController {
 	@PutMapping("/forgot")
 	public ResponseEntity<?> forgotPass(@RequestBody String data){
 		Accounts acc = new Accounts();
+//		acc.setEmail(data);
 		try {
-			acc = new ObjectMapper().readValue(data, Accounts.class);
+			acc = new ObjectMapper().	readValue(data, Accounts.class);
 			acc = accountService.forgotPass(acc);
+			acc.setPass(null);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

@@ -17,9 +17,9 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public Accounts update(Accounts data) throws Exception {
-		em.merge(data);
-		data.setPass(null);
-		return data;
+		return em.merge(data);
+//		data.setPass(null);
+//		return data;
 	}
 
 	@Override
