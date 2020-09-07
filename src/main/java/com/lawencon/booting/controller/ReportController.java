@@ -3,6 +3,8 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,14 +47,14 @@ public class ReportController {
 	}
 	
 	@GetMapping("/totalTicketAgent/{nip}")
-	public ResponseEntity<?> totalTicketAgent(@PathVariable("nip") String nip) {
+	public ResponseEntity<?> totalTicketAgent(@PathVariable("nip") String nip, HttpServletResponse res) {
 		Users users = new Users();
 		List<ReportTotalTicketAgent> listTotalTicket = new ArrayList<>();
 		users.setNip(nip);
 		try {
 			users = userService.getUserByNip(users);
 			listTotalTicket = reportService.getReportTotalTicketAgent(users);
-			jasperService.totalTicketAgent(listTotalTicket, users.getName(), users.getNip());
+			jasperService.totalTicketAgent(listTotalTicket, users.getName(), users.getNip(), res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -1,9 +1,17 @@
 package com.lawencon.booting.utility;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -39,19 +47,21 @@ public class JasperReportService {
 		return "Berhasil Export File";
 	}
 	
-	public String totalTicketAgent(List<ReportTotalTicketAgent> data, String nama, String nip) {
+	public String totalTicketAgent(List<ReportTotalTicketAgent> data, String nama, String nip, HttpServletResponse res) {
 		try {
 			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
-			String path = "C://Users//Dell//Documents//Lawencon//Final Project//";
+			String path = "classpath";
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("Nama Agent", nama);
 			parameters.put("nip", nip);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "//totalTicketByAgentFixed.pdf");
-
-		} catch (Exception e) {
+			res.setContentType("application/pdf");
+			res.addHeader("Content-Disposition", "inline; filename=jasperReport.pdf;");
+			JasperExportManager.exportReportToPdfStream(jasperPrint, res.getOutputStream());
+//			JasperExportManager.exportReportToPdfFile(jasperPrint );
+			} catch (Exception e) {
 			e.printStackTrace();
 			return "Gagal Export File";
 		}
