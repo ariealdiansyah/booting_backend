@@ -2,16 +2,10 @@ package com.lawencon.booting.utility;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
@@ -51,7 +45,7 @@ public class JasperReportService {
 	public String totalTicketAgent(List<ReportTotalTicketAgent> data, String nama, String nip, HttpServletResponse res) {
 		try {
 			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
-			String path = "classpath";
+//			String path = "classpath";
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
