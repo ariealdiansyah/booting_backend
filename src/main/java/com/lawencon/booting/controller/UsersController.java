@@ -49,8 +49,8 @@ public class UsersController {
 //	/all-client/{data}
 //	idrole = ctm and company name = param
 	
-	@GetMapping("/all-client/{data}")
-	public ResponseEntity<?> getAllClient(@PathVariable("data") String data){
+	@GetMapping("/all-customer/{data}")
+	public ResponseEntity<?> getAllCustomer(@PathVariable("data") String data){
 		Users us = new Users();
 		Companies com = new Companies();
 		com.setName(data);
@@ -63,7 +63,7 @@ public class UsersController {
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}	
+	}
 	
 	@GetMapping("/all-agent")
 	public ResponseEntity<?> getAllAgent(){
@@ -76,6 +76,18 @@ public class UsersController {
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}	
+	
+	@GetMapping("/all-clients")
+	public ResponseEntity<?> getAllClients(){
+		List<Users> listData = new ArrayList<>();
+		try {
+			listData = usersService.getListClients();
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
 	
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getAllActive(){
@@ -131,22 +143,22 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody String data) {
-		Users users = new Users();
-		String result ="";
-		try {
-			users = new ObjectMapper().readValue(data, Users.class);
-			users = usersService.getUserByNip(users);
-			usersService.delete(users.getId());
-			result = new ObjectMapper().writeValueAsString("Delete Success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
+//	@DeleteMapping("/delete")
+//	public ResponseEntity<?> delete(@RequestBody String data) {
+//		Users users = new Users();
+//		String result ="";
+//		try {
+//			users = new ObjectMapper().readValue(data, Users.class);
+//			users = usersService.getUserByNip(users);
+//			usersService.delete(users.getId());
+//			result = new ObjectMapper().writeValueAsString("Delete Success");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+//		}
+//
+//		return new ResponseEntity<>(result, HttpStatus.OK);
+//	}
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {

@@ -16,6 +16,8 @@ public interface UsersService {
 	
 	List<Users> getListAgents() throws Exception;
 	
+	List<Users> getListClients() throws Exception;
+	
 	List<Users> getListUsersByClient(Users data) throws Exception;
 	
 	List<Users> getListUsersActive() throws Exception;

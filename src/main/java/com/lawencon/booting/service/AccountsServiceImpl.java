@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lawencon.booting.dao.AccountsDao;
 import com.lawencon.booting.model.Accounts;
 import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.ForgotPass;
 import com.lawencon.booting.model.Roles;
 import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.Users;
@@ -81,11 +82,25 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 		return accountsDao.insert(data);
 	}
 
+//	@Override
+//	public Accounts update(Accounts data) throws Exception {
+//		data.setUpdatedAt(new Date());
+//		data.setPass(encoder.encode(data.getPass()));
+//		return accountsDao.update(data);
+//	}
+	
 	@Override
-	public Accounts update(Accounts data) throws Exception {
-		data.setUpdatedAt(new Date());
-		data.setPass(encoder.encode(data.getPass()));
-		return accountsDao.update(data);
+	public Accounts update(ForgotPass data) throws Exception {
+		
+		Accounts acc = accountsDao.findByEmail(data.getIdAccount());
+		boolean check = encoder.matches(data.getPass(), acc.getPass());
+		if(!check) {
+			return null;
+		}else {
+			System.out.println(data.getIdAccount().getPass());
+			acc.setPass(encoder.encode(data.getIdAccount().getPass()));
+			return accountsDao.update(acc);
+		}
 	}
 
 	@Override
@@ -126,6 +141,7 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts forgotPass(Accounts data) throws Exception {
 		data = accountsDao.findByEmail(data);
 		String pwd = code();
+		System.out.println(pwd);
 		data.setPass(encoder.encode(pwd));
 		TemplateEmail template = new TemplateEmail();
 		template.setCode("TMPL0");

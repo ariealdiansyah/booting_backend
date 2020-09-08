@@ -128,7 +128,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 	
-	@GetMapping("/charts/{data}")
+	@GetMapping("/charts/{=}")
 	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
 		

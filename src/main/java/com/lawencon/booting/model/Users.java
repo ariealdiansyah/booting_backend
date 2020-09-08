@@ -21,7 +21,7 @@ public class Users extends BaseModel{
 	private String nip;
 	
 	@ManyToOne
-	@JoinColumn(name = "photo_profile")
+	@JoinColumn(name = "id_photo_profile")
 	private PhotoProfile idPhoto;
 
 	@ManyToOne

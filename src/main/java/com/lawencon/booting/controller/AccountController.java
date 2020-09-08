@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Accounts;
+import com.lawencon.booting.model.ForgotPass;
 import com.lawencon.booting.service.AccountsService;
 
 @RestController
@@ -85,12 +86,27 @@ public class AccountController {
 		return new ResponseEntity<>(account, HttpStatus.OK);
 	}
 
+//	@PutMapping("/update")
+//	public ResponseEntity<?> update(@RequestBody String data) {
+//		Accounts acoount = new Accounts();
+//		try {
+//			acoount = new ObjectMapper().readValue(data, Accounts.class);
+//			acoount = accountService.update(acoount);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+//		}
+//
+//		return new ResponseEntity<>(acoount, HttpStatus.OK);
+//	}
+	
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody String data) {
+		ForgotPass accHelper = new ForgotPass();
 		Accounts acoount = new Accounts();
 		try {
-			acoount = new ObjectMapper().readValue(data, Accounts.class);
-			acoount = accountService.update(acoount);
+			accHelper = new ObjectMapper().readValue(data, ForgotPass.class);
+			acoount = accountService.update(accHelper);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -124,7 +140,7 @@ public class AccountController {
 		Accounts acc = new Accounts();
 //		acc.setEmail(data);
 		try {
-			acc = new ObjectMapper().	readValue(data, Accounts.class);
+			acc = new ObjectMapper().readValue(data, Accounts.class);
 			acc = accountService.forgotPass(acc);
 			acc.setPass(null);
 		} catch (Exception e) {
