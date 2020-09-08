@@ -53,10 +53,7 @@ public class PhotoProfileController {
 	          .toUriString();
 
 	      return new ResponseFile(
-	          dbFile.getName(),
-	          fileDownloadUri,
-	          dbFile.getType(),
-	          dbFile.getData().length);
+	          fileDownloadUri);
 	    }).collect(Collectors.toList());
 
 	    return ResponseEntity.status(HttpStatus.OK).body(files);
