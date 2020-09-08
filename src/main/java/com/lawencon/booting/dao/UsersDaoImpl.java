@@ -33,7 +33,7 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 
 	@Override
 	public void delete(String data) throws Exception {
-		em.remove(data);
+		em.createQuery("DELETE from Users where id = :id").setParameter("id", data).executeUpdate();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 
 	@Override
 	public void deletePath(String id) throws Exception {
-		em.createQuery("UPDATE Users SET active = false WHERE id = :id", Users.class)
+		em.createQuery("UPDATE Users SET active = false WHERE id = :id")
 		.setParameter("id", id).executeUpdate();
 	}
 

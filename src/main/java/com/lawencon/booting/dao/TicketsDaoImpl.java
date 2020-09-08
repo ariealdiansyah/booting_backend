@@ -10,6 +10,7 @@ import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
+import com.lawencon.booting.utility.Hibernate;
 
 @Repository
 public class TicketsDaoImpl extends BaseDao implements TicketsDao {
@@ -20,10 +21,19 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		return data;
 	}
 
-	@Override
-	public Tickets update(Tickets data) throws Exception {
-		return em.merge(data);
-	}
+//	@Override
+//	public void updateClose(String id, String data) throws Exception {
+//		em.createQuery("UPDATE Tickets SET idStatus.id = :id WHERE code = :code")
+//				.setParameter("id", id).setParameter("code", data)
+//				.executeUpdate();
+//	}
+//	
+//	@Override
+//	public void updateReopen(String id, String data) throws Exception {
+//		em.createQuery("UPDATE Tickets SET idStatus.id = :id WHERE code = :code")
+//			.setParameter("id", id).setParameter("code", data)
+//			.executeUpdate();
+//	}
 
 	@Override
 	public List<Tickets> getListTickets() throws Exception {
@@ -478,6 +488,30 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 			listCharts.add(ticket);
 		});
 		return listCharts;
+	}
+
+	@Override
+	public List<?> getListRelations(String data) throws Exception {
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT usr.name as agent, tkt.idCustomer.idCompany.name as company, ");
+		query.append("tkt.idCustomer.name as customer, count(tkt.id) as total, ");
+		query.append("count(sts.id) as open, count(sts2.id) as close, count(sts3.id) as reopen ");
+		query.append("FROM Tickets tkt LEFT JOIN Status sts ON sts.id = tkt.idStatus.id AND sts.code = 'OP' ");
+		query.append("LEFT JOIN Status sts2 ON sts2.id = tkt.idStatus.id AND sts2.code = 'CL' ");
+		query.append("LEFT JOIN Status sts3 ON sts3.id = tkt.idStatus.id AND sts3.code = 'RO' ");
+		query.append("LEFT JOIN AgentRelations ar ON ar.idCompany.id = tkt.idCustomer.idCompany.id ");
+		query.append("LEFT JOIN Users usr ON usr.id = ar.idAgent.id ");
+		query.append("WHERE tkt.idCustomer.idCompany.id = :id ");
+		query.append("GROUP BY agent, company, customer ");
+		List<Object[]> listData = em.createQuery(query.toString(), Object[].class)
+				.setParameter("id", data).getResultList();
+		
+		return Hibernate.bMapperList(listData, "agent", "company", "customer", "total", "open", "close", "reopen");
+	}
+
+	@Override
+	public Tickets update(Tickets data) throws Exception {
+		return em.merge(data);
 	}
 
 }

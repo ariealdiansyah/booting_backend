@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.TicketCharts;
@@ -41,6 +43,19 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 	
+	@PutMapping("/update")
+	public ResponseEntity<?> update(@RequestBody String data){
+		Tickets ticket = new Tickets();
+		try {
+			ticket = new ObjectMapper().readValue(data, Tickets.class);
+			ticket = ticketsService.update(ticket);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+		return new ResponseEntity<>(ticket, HttpStatus.OK);
+	}
+	
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Tickets ticket = new Tickets();
@@ -51,12 +66,15 @@ public class TicketController {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-//		String respon = "";
-//		try {
-//			respon = new ObjectMapper().writeValueAsString("success");
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
+		String respon = "";
+		try {
+			respon = new ObjectMapper().writeValueAsString("you have no tickets left");
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		if(ticket == null) {
+			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
+		}
 		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
 	}
 	
@@ -128,7 +146,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 	
-	@GetMapping("/charts/{=}")
+	@GetMapping("/charts/{data}")
 	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
 		List<TicketCharts> listData = new ArrayList<>();
 		
@@ -217,6 +235,18 @@ public class TicketController {
 		}catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
+	@GetMapping("/list-agent/{code}")
+	public ResponseEntity<?> getListAgent(@PathVariable("code") String code) {
+		List<?> listData = new ArrayList<>();
+		try {
+			listData = ticketsService.getListRelations(code);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}

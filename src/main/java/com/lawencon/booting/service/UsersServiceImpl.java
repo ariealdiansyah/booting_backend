@@ -77,6 +77,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		.init(acc.getEmail(),
 				"Profile Updated", template.getTemplate(),data.getName())
 		.sendMail();
+		data.setUpdatedAt(new Date());
 		return usersDao.update(data);
 	}
 

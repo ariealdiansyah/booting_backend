@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.lawencon.booting.model.ClientProducts;
 import com.lawencon.booting.model.Companies;
+import com.lawencon.booting.model.TicketPriority;
 
 @Repository
 public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao {
@@ -53,6 +54,14 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 	@Override
 	public List<ClientProducts> getListClientProductsActive() throws Exception {
 		return em.createQuery("FROM ClientProducts WHERE active = TRUE", ClientProducts.class).getResultList();
+	}
+
+	@Override
+	public ClientProducts getData(TicketPriority data) throws Exception {
+		return em.createQuery("FROM ClientProducts WHERE idProduct.id = :idP AND idCompany.id = :idC", ClientProducts.class)
+				.setParameter("idP", data.getIdProduct())
+				.setParameter("idC", data.getIdCompany())
+				.getSingleResult();
 	}
 
 }

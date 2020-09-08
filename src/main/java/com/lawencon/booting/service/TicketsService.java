@@ -17,7 +17,7 @@ public interface TicketsService {
 	Tickets insert(TicketDetails data) throws Exception;
 
 	Tickets update(Tickets data) throws Exception;
-
+	
 	TicketHeader getTicket(Tickets data) throws Exception;
 
 	List<Tickets> getListTickets() throws Exception;
@@ -43,4 +43,6 @@ public interface TicketsService {
 	List<TicketCharts> getChartsByClient(Companies data) throws Exception;
 	
 	List<TicketCharts> getChartsByAgent(Users data) throws Exception;
+	
+	List<?> getListRelations(String data) throws Exception;
 }

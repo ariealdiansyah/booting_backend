@@ -130,7 +130,7 @@ public class UsersController {
 
 	@PutMapping(value = "/update")
 	public ResponseEntity<?> update(@RequestPart(value = "users") String data,
-			@RequestPart(value = "file") MultipartFile file) throws URISyntaxException {
+			@RequestPart(value = "file", required = false) MultipartFile file) throws URISyntaxException {
 		Users users = new Users();
 		try {
 			users = new ObjectMapper().readValue(data, Users.class);

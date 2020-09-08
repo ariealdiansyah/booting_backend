@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lawencon.booting.dao.TicketsDao;
 import com.lawencon.booting.model.Accounts;
 import com.lawencon.booting.model.Classifications;
+import com.lawencon.booting.model.ClientProducts;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Priorities;
 import com.lawencon.booting.model.Products;
@@ -19,6 +20,7 @@ import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.model.TicketCharts;
 import com.lawencon.booting.model.TicketDetails;
 import com.lawencon.booting.model.TicketHeader;
+import com.lawencon.booting.model.TicketPriority;
 import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Tickets;
 import com.lawencon.booting.model.Users;
@@ -45,10 +47,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	
 	@Autowired
 	private ClassificationsService classificationsService;
-	
-	@Autowired
-	private TicketDetailService ticketDetailService;
-	
+		
 	@Autowired
 	private StatusService statusService;	
 	
@@ -63,6 +62,9 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	
 	@Autowired
 	private TemplateEmailService templateEmailService;
+	
+	@Autowired
+	private ClientProductsService clientProductsService;
 	
 	@Override
 	public Tickets insert(Tickets data) throws Exception {
@@ -85,6 +87,29 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		
 		Users us = usersService.getUserByNip(data.getIdCustomer());
 		ticket.setIdCustomer(us);
+		
+		String code = priority.getCode();
+		TicketPriority tp = new TicketPriority();
+		
+		ClientProducts cp = new ClientProducts();
+		tp.setIdCompany(us.getIdCompany().getId());
+		tp.setIdProduct(product.getId());
+		
+		cp = clientProductsService.getData(tp);
+		
+		if("URG".equals(code) && cp.getTicketUrgent() != 0) {
+//			clientProductsService.updateUrgent(tp);
+			cp.setTicketUrgent(cp.getTicketUrgent() - 1);
+			cp.setUpdatedBy(data.getCreatedBy());
+			cp.setUpdatedAt(new Date());
+			clientProductsService.update(cp);
+		}else if("MED".equals(code) && cp.getTicketMedium() != 0) {
+//			clientProductsService.updateMedium(tp);
+			cp.setTicketMedium(cp.getTicketMedium() - 1);
+			cp.setUpdatedBy(data.getCreatedBy());
+			cp.setUpdatedAt(new Date());
+			clientProductsService.update(cp);
+		}
 		
 		ticket.setCreatedAt(new Date());
 		
@@ -133,15 +158,9 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		ticketDtl.setIdTicket(ticket);
 		ticketDtl.setSender(data.getSender());
 		
-		ticketDetailService.insert(ticketDtl);
+//		ticketDetailService.insert(ticketDtl);
 		
 		return ticket;
-	}
-
-	@Override
-	public Tickets update(Tickets data) throws Exception {
-		data.setUpdatedAt(new Date());
-		return ticketsDao.update(data);
 	}
 
 	@Override
@@ -275,4 +294,18 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 			return ticketsDao.getChartsByAgent(listData);
 		}
 	}
+
+	@Override
+	public List<?> getListRelations(String data) throws Exception {
+		return ticketsDao.getListRelations(data);
+	}
+
+	@Override
+	public Tickets update(Tickets data) throws Exception {
+		Status sts = statusService.getStatusesByCode(data.getIdStatus());
+		data.setIdStatus(sts);
+		data.setUpdatedAt(new Date());
+		return ticketsDao.update(data);
+	}
+	
 }

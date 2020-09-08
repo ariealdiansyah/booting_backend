@@ -111,7 +111,7 @@ public class AccountController {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-
+		acoount.setPass(null);
 		return new ResponseEntity<>(acoount, HttpStatus.OK);
 	}
 

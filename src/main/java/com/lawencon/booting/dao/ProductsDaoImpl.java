@@ -53,7 +53,7 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao{
 
 	@Override
 	public void deletePath(String id) throws Exception {
-		em.createQuery("UPDATE Products SET active = false WHERE id = :id", Products.class)
+		em.createQuery("UPDATE Products SET active = false WHERE id = :id")
 		.setParameter("id", id).executeUpdate();
 	}
 

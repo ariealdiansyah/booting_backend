@@ -11,6 +11,7 @@ import com.lawencon.booting.dao.ClientProductsDao;
 import com.lawencon.booting.model.ClientProducts;
 import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.Products;
+import com.lawencon.booting.model.TicketPriority;
 
 @Service
 @Transactional
@@ -45,6 +46,8 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 		data.setUpdatedAt(new Date());
 		return clientProductsDao.update(data);
 	}
+	
+	
 
 	@Override
 	public List<ClientProducts> getListClientProducts() throws Exception {
@@ -72,4 +75,11 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	public List<ClientProducts> getListClientProductsActive() throws Exception {
 		return clientProductsDao.getListClientProductsActive();
 	}
+
+	@Override
+	public ClientProducts getData(TicketPriority data) throws Exception {
+		return clientProductsDao.getData(data);
+	}
+
+	
 }

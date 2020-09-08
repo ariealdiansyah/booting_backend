@@ -12,10 +12,12 @@ public interface TicketsDao {
 	Tickets insert(Tickets data) throws Exception;
 
 	Tickets update(Tickets data) throws Exception;
-
+	
 	List<Tickets> getListTickets() throws Exception;
 	
 	Tickets getTicketByCode(Tickets data) throws Exception;
+	
+	List<?> getListRelations(String data) throws Exception;
 	
 	TicketStatus selectStatus() throws Exception;
 	
