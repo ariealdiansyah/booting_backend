@@ -26,7 +26,7 @@ public class MailController {
 		.init(address, subject, body)
 		.sendMail();
 		
-		return new ResponseEntity<>("Kirim Berhasil Ok", HttpStatus.OK);
+		return new ResponseEntity<>("Success", HttpStatus.OK);
 	}
 
 }

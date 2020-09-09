@@ -83,7 +83,7 @@ public class ProductsController {
 	}
 
 	@GetMapping("/get-product/{code}")
-	public ResponseEntity<?> getRolesByCode(@PathVariable("code") String code) {
+	public ResponseEntity<?> getProductsByCode(@PathVariable("code") String code) {
 		Products products = new Products();
 		products.setCode(code);
 		try {

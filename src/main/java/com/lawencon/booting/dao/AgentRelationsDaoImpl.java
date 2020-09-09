@@ -35,8 +35,8 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 
 	@Override
 	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
-		return em.createQuery("FROM AgentRelations WHERE idAgent = :idAgent", AgentRelations.class)
-				.setParameter("idAgent", data.getIdAgent().getId())
+		return em.createQuery("FROM AgentRelations WHERE idAgent.nip = :idAgent", AgentRelations.class)
+				.setParameter("idAgent", data.getIdAgent().getNip())
 				.getResultList();
 	}
 
