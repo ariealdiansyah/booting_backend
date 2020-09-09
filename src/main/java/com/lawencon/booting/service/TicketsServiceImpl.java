@@ -97,18 +97,25 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		
 		cp = clientProductsService.getData(tp);
 		
-		if("URG".equals(code) && cp.getTicketUrgent() != 0) {
-//			clientProductsService.updateUrgent(tp);
-			cp.setTicketUrgent(cp.getTicketUrgent() - 1);
-			cp.setUpdatedBy(data.getCreatedBy());
-			cp.setUpdatedAt(new Date());
-			clientProductsService.update(cp);
-		}else if("MED".equals(code) && cp.getTicketMedium() != 0) {
-//			clientProductsService.updateMedium(tp);
-			cp.setTicketMedium(cp.getTicketMedium() - 1);
-			cp.setUpdatedBy(data.getCreatedBy());
-			cp.setUpdatedAt(new Date());
-			clientProductsService.update(cp);
+		if("URG".equals(code)) {
+			if (cp.getTicketUrgent() != 0) {
+				cp.setTicketUrgent(cp.getTicketUrgent() - 1);
+				cp.setUpdatedBy(data.getCreatedBy());
+				cp.setUpdatedAt(new Date());
+				clientProductsService.update(cp);
+			} else {
+				return null;
+			}
+		}
+		if("MED".equals(code)) {
+			if (cp.getTicketMedium() != 0) {
+				cp.setTicketMedium(cp.getTicketMedium() - 1);
+				cp.setUpdatedBy(data.getCreatedBy());
+				cp.setUpdatedAt(new Date());
+				clientProductsService.update(cp);
+			} else {
+				return null;
+			}
 		}
 		
 		ticket.setCreatedAt(new Date());
