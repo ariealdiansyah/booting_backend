@@ -21,20 +21,6 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		return data;
 	}
 
-//	@Override
-//	public void updateClose(String id, String data) throws Exception {
-//		em.createQuery("UPDATE Tickets SET idStatus.id = :id WHERE code = :code")
-//				.setParameter("id", id).setParameter("code", data)
-//				.executeUpdate();
-//	}
-//	
-//	@Override
-//	public void updateReopen(String id, String data) throws Exception {
-//		em.createQuery("UPDATE Tickets SET idStatus.id = :id WHERE code = :code")
-//			.setParameter("id", id).setParameter("code", data)
-//			.executeUpdate();
-//	}
-
 	@Override
 	public List<Tickets> getListTickets() throws Exception {
 		return em.createQuery("FROM Tickets ORDER BY createdAt DESC", Tickets.class).getResultList();
@@ -53,7 +39,8 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 
 	@Override
 	public List<Tickets> getListByIdCompany(String data) throws Exception {
-		List<Tickets> a = em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id ORDER BY createdAt DESC", Tickets.class)
+		List<Tickets> a = em
+				.createQuery("FROM Tickets WHERE idCustomer.idCompany.id = :id ORDER BY createdAt DESC", Tickets.class)
 				.setParameter("id", data).getResultList();
 
 		return a;
@@ -61,8 +48,8 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 
 	@Override
 	public List<Tickets> getListByIdAgent(List<String> listData) throws Exception {
-		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id IN (:id) ORDER BY createdAt DESC", Tickets.class)
-				.setParameter("id", listData).getResultList();
+		return em.createQuery("FROM Tickets WHERE idCustomer.idCompany.id IN (:id) ORDER BY createdAt DESC",
+				Tickets.class).setParameter("id", listData).getResultList();
 	}
 
 	@Override
@@ -80,10 +67,6 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 				ticket.setTicketReopen((Long) obj.get(i)[0]);
 			}
 		}
-//		ticket.setTicketOpen((Long) obj.get(0)[0]);
-//		ticket.setTicketClose((Long) obj.get(1)[0]);
-//		ticket.setTicketReopen((Long) obj.get(2)[0]);
-//		System.out.println(ticket);
 		return ticket;
 	}
 
@@ -142,9 +125,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and (extract (year from trht.created_at ) = :year) ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-//		@SuppressWarnings("unchecked")
-		List<Object[]> listData = em.createNativeQuery(sql.toString())
-				.setParameter("year", data).getResultList();
+		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("year", data).getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
 		listData.forEach(l -> {
@@ -200,9 +181,6 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 				ticket.setTicketReopen((Long) obj.get(i)[0]);
 			}
 		}
-//		ticket.setTicketOpen((Long) obj.get(0)[0]);
-//		ticket.setTicketClose((Long) obj.get(1)[0]);
-//		ticket.setTicketReopen((Long) obj.get(2)[0]);
 		return ticket;
 	}
 
@@ -221,9 +199,6 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 				ticket.setTicketReopen((Long) obj.get(i)[0]);
 			}
 		}
-//		ticket.setTicketOpen((Long) obj.get(0)[0]);
-//		ticket.setTicketClose((Long) obj.get(1)[0]);
-//		ticket.setTicketReopen((Long) obj.get(2)[0]);
 		return ticket;
 	}
 
@@ -238,7 +213,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 	@Override
 	public List<TicketCharts> getChartsByClient(Companies data) throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT tms.name, ");	
+		sql.append("SELECT tms.name, ");
 		sql.append("(select count(trht.id) from tb_r_hdr_tickets trht ");
 		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
 		sql.append("join tb_m_companies com on com.id  = usr.id_company ");
@@ -337,9 +312,8 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and com.name = :company ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-//		@SuppressWarnings("unchecked")
-		List<Object[]> listData = em.createNativeQuery(sql.toString())
-				.setParameter("company", data.getName()).getResultList();
+		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("company", data.getName())
+				.getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
 		listData.forEach(l -> {
@@ -366,7 +340,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 	@Override
 	public List<TicketCharts> getChartsByAgent(List<String> data) throws Exception {
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT tms.name, ");	
+		sql.append("SELECT tms.name, ");
 		sql.append("(select count(trht.id) from tb_r_hdr_tickets trht ");
 		sql.append("join tb_m_users usr on usr.id = trht.id_customer ");
 		sql.append("join tb_m_companies com on com.id  = usr.id_company ");
@@ -465,9 +439,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and com.id IN (:id) ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-//		@SuppressWarnings("unchecked")
-		List<Object[]> listData = em.createNativeQuery(sql.toString())
-				.setParameter("id", data).getResultList();
+		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("id", data).getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
 		listData.forEach(l -> {
@@ -503,9 +475,9 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		query.append("LEFT JOIN Users usr ON usr.id = ar.idAgent.id ");
 		query.append("WHERE tkt.idCustomer.idCompany.id = :id ");
 		query.append("GROUP BY agent, company, customer ");
-		List<Object[]> listData = em.createQuery(query.toString(), Object[].class)
-				.setParameter("id", data).getResultList();
-		
+		List<Object[]> listData = em.createQuery(query.toString(), Object[].class).setParameter("id", data)
+				.getResultList();
+
 		return Hibernate.bMapperList(listData, "agent", "company", "customer", "total", "open", "close", "reopen");
 	}
 

@@ -26,19 +26,19 @@ public class AgentRelationsController {
 
 	@Autowired
 	private AgentRelationsService agentRelationsService;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<AgentRelations> listData = new ArrayList<>();
 		try {
 			listData = agentRelationsService.getListAgentRelations();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		AgentRelations agentRelations = new AgentRelations();
@@ -60,7 +60,6 @@ public class AgentRelationsController {
 		agentRelations.setIdAgent(us);
 		List<AgentRelations> listData = new ArrayList<>();
 		try {
-//			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
 			listData = agentRelationsService.getListByIdUser(agentRelations);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,14 +67,13 @@ public class AgentRelationsController {
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/get-agent/{code}")
 	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("code") String code) {
 		Companies comp = new Companies();
 		Users agent = new Users();
 		comp.setName(code);
 		try {
-//			agentRelations = new ObjectMapper().readValue(code, AgentRelations.class);
 			agent = agentRelationsService.getAgentByCompany(comp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,19 +96,4 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(agentRelations, HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/delete")
-//	public ResponseEntity<?> delete(@RequestBody String data) {
-//		AgentRelations agentRelations = new AgentRelations();
-//		String result ="";
-//		try {
-//			agentRelations = new ObjectMapper().readValue(data, AgentRelations.class);
-//			agentRelations = agentRelationsService.getCompanyByCode(agentRelations);
-//			agentRelationsService.delete(agentRelations.getId());
-//			result = new ObjectMapper().writeValueAsString("Delete Success");
-//		} catch (Exception e) {
-//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-//		}
-//
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
 }

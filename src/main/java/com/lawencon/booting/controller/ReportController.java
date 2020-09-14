@@ -23,29 +23,29 @@ import com.lawencon.booting.utility.JasperReportService;
 @RestController
 @RequestMapping("/report")
 public class ReportController {
-	
+
 	@Autowired
 	private JasperReportService jasperService;
-	
+
 	@Autowired
 	private ReportService reportService;
-	
+
 	@Autowired
 	private UsersService userService;
-	
+
 	@GetMapping("/listClientAll")
 	public ResponseEntity<?> listClientAll() {
 		List<ReportAllListClient> listData = new ArrayList<>();
 		try {
 			listData = reportService.getReportListAllAgentRelations();
 			jasperService.allListClient(listData);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/totalTicketAgent/{nip}")
 	public ResponseEntity<?> totalTicketAgent(@PathVariable("nip") String nip, HttpServletResponse res) {
 		Users users = new Users();

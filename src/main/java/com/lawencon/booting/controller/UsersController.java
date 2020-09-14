@@ -31,26 +31,21 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
-	
-	
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListUsers();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
-//	/all-client/{data}
-//	idrole = ctm and company name = param
-	
+
 	@GetMapping("/all-customer/{data}")
-	public ResponseEntity<?> getAllCustomer(@PathVariable("data") String data){
+	public ResponseEntity<?> getAllCustomer(@PathVariable("data") String data) {
 		Users us = new Users();
 		Companies com = new Companies();
 		com.setName(data);
@@ -58,49 +53,49 @@ public class UsersController {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListUsersByClient(us);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-agent")
-	public ResponseEntity<?> getAllAgent(){
+	public ResponseEntity<?> getAllAgent() {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListAgents();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}	
-	
+	}
+
 	@GetMapping("/all-clients")
-	public ResponseEntity<?> getAllClients(){
+	public ResponseEntity<?> getAllClients() {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListClients();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
-	public ResponseEntity<?> getAllActive(){
+	public ResponseEntity<?> getAllActive() {
 		List<Users> listData = new ArrayList<>();
 		try {
 			listData = usersService.getListUsersActive();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Users users = new Users();
@@ -119,7 +114,6 @@ public class UsersController {
 		Users users = new Users();
 		users.setNip(code);
 		try {
-//			users = new ObjectMapper().readValue(code, Users.class);
 			users = usersService.getUserByNip(users);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -134,7 +128,7 @@ public class UsersController {
 		Users users = new Users();
 		try {
 			users = new ObjectMapper().readValue(data, Users.class);
-			users = usersService.update(users,file);
+			users = usersService.update(users, file);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
@@ -143,23 +137,6 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/delete")
-//	public ResponseEntity<?> delete(@RequestBody String data) {
-//		Users users = new Users();
-//		String result ="";
-//		try {
-//			users = new ObjectMapper().readValue(data, Users.class);
-//			users = usersService.getUserByNip(users);
-//			usersService.delete(users.getId());
-//			result = new ObjectMapper().writeValueAsString("Delete Success");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-//		}
-//
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
-	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";

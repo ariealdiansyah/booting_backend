@@ -1,7 +1,5 @@
 package com.lawencon.booting.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,7 @@ public class NotificationsController {
 
 	@Autowired
 	private NotificationsService notificationsService;
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		try {
@@ -39,18 +37,4 @@ public class NotificationsController {
 		}
 		return new ResponseEntity<>(respon, HttpStatus.CREATED);
 	}
-	
-//	@GetMapping("/update/{id}")
-//	public ResponseEntity<?> getMhsByPath(@PathVariable("id") String id) {
-//		Notifications notif = new Notifications();
-//		try {
-//			notif = notificationsService.update(notif);
-//		} catch (Exception e) {
-//			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//		}
-//
-//		return new ResponseEntity<>(notif, HttpStatus.OK);
-//	}
-	
-
 }

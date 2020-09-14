@@ -25,45 +25,42 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 
 	@Autowired
 	private AccountsDao accountsDao;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder encoder;
-	
+
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private CompaniesService companiesService;
-	
+
 	@Autowired
 	private RolesService roleService;
-	
+
 	@Autowired
-	private Mail mail;	
-	
+	private Mail mail;
+
 	@Autowired
 	private TemplateEmailService templateEmailService;
-	
-//	@Autowired
-//	private TicketsServiceImpl ticket;
+
 
 	@Override
 	public Accounts insert(Accounts data) throws Exception {
-//		data.setId(getUuid());
 		boolean check = true;
 		String pwd = code();
 		data.setPass(encoder.encode(pwd));
 		data.setCreatedAt(new Date());
 		List<Companies> listComp = new ArrayList<>();
 		listComp = companiesService.getListCompanies();
-		for(int i = 0; i < listComp.size(); i++) {
-			if(listComp.get(i).getName().equalsIgnoreCase(data.getIdUser().getIdCompany().getName())) {
+		for (int i = 0; i < listComp.size(); i++) {
+			if (listComp.get(i).getName().equalsIgnoreCase(data.getIdUser().getIdCompany().getName())) {
 				data.getIdUser().setIdCompany(listComp.get(i));
 				check = false;
 				break;
 			}
 		}
-		if(check == true) {
+		if (check == true) {
 			Companies comp = new Companies();
 			comp = companiesService.insert(data.getIdUser().getIdCompany());
 			data.getIdUser().setIdCompany(comp);
@@ -76,27 +73,19 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 		TemplateEmail template = new TemplateEmail();
 		template.setCode("TMPL0");
 		template = templateEmailService.getTemplateEmailByCode(template);
-		mail
-		.init(data.getEmail(), "Created Account", template.getTemplate(),data, pwd)
-		.sendMail();
+		mail.init(data.getEmail(), "Created Account", template.getTemplate(), data, pwd).sendMail();
 		return accountsDao.insert(data);
 	}
 
-//	@Override
-//	public Accounts update(Accounts data) throws Exception {
-//		data.setUpdatedAt(new Date());
-//		data.setPass(encoder.encode(data.getPass()));
-//		return accountsDao.update(data);
-//	}
-	
+
 	@Override
 	public Accounts update(ForgotPass data) throws Exception {
-		
+
 		Accounts acc = accountsDao.findByEmail(data.getIdAccount());
 		boolean check = encoder.matches(data.getPass(), acc.getPass());
-		if(!check) {
+		if (!check) {
 			return null;
-		}else {
+		} else {
 			System.out.println(data.getIdAccount().getPass());
 			acc.setPass(encoder.encode(data.getIdAccount().getPass()));
 			return accountsDao.update(acc);
@@ -132,7 +121,7 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts findByUser(Accounts data) throws Exception {
 		return accountsDao.findByUser(data.getIdUser().getId());
 	}
-	
+
 	public String code() {
 		return RandomStringUtils.randomAlphanumeric(8);
 	}
@@ -146,22 +135,8 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 		TemplateEmail template = new TemplateEmail();
 		template.setCode("TMPL0");
 		template = templateEmailService.getTemplateEmailByCode(template);
-		mail
-		.init(data.getEmail(), "Password Changed", template.getTemplate(),data, pwd)
-		.sendMail();
+		mail.init(data.getEmail(), "Password Changed", template.getTemplate(), data, pwd).sendMail();
 		return accountsDao.update(data);
 	}
-	
-//	private void test() {
-//		for(int i = 0; i<10; i++ ) {
-//			System.out.println("");
-//			Users data = new Users();
-//			try {
-//				data = users.insert(data);
-//				System.out.println(data.getId() + " == " + ticket.code());
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}		
-//	}
+
 }

@@ -36,14 +36,14 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 	@Override
 	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
 		return em.createQuery("FROM AgentRelations WHERE idAgent.nip = :idAgent", AgentRelations.class)
-				.setParameter("idAgent", data.getIdAgent().getNip())
-				.getResultList();
+				.setParameter("idAgent", data.getIdAgent().getNip()).getResultList();
 	}
 
 	@Override
 	public List<String> getListCompanies(Users data) throws Exception {
-		List<Object> listData =  em.createQuery("SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)", Object.class)
-				.setParameter("id", data.getId()).getResultList();
+		List<Object> listData = em.createQuery(
+				"SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)",
+				Object.class).setParameter("id", data.getId()).getResultList();
 		List<String> listComp = new ArrayList<>();
 		listData.forEach(l -> {
 			listComp.add(l.toString());
@@ -55,13 +55,12 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 	public Users getAgentByCompany(Companies data) throws Exception {
 		Users us = new Users();
 		AgentRelations ar = new AgentRelations();
-		List<AgentRelations> listData  = em.createQuery("FROM AgentRelations WHERE idCompany.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)", AgentRelations.class)
-				.setParameter("id", data.getId()).getResultList();
+		List<AgentRelations> listData = em.createQuery(
+				"FROM AgentRelations WHERE idCompany.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)",
+				AgentRelations.class).setParameter("id", data.getId()).getResultList();
 		ar = !listData.isEmpty() ? listData.get(0) : null;
 		us = ar.getIdAgent();
 		return us;
 	}
-	
-	
 
 }

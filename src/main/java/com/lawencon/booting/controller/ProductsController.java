@@ -41,7 +41,7 @@ public class ProductsController {
 
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-actice")
 	public ResponseEntity<?> getAllActive() {
 		List<Products> listProducts = new ArrayList<>();
@@ -54,12 +54,13 @@ public class ProductsController {
 
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
-	
-	@GetMapping("/all-bycompany")
-	public ResponseEntity<?> getByCompany(@RequestBody String data) {
+
+	@GetMapping("/all-bycompany/{data}")
+	public ResponseEntity<?> getByCompany(@PathVariable("data") String data) {
 		List<Products> listProducts = new ArrayList<>();
+		Companies comp = new Companies();
+		comp.setName(data);
 		try {
-			Companies comp = new ObjectMapper().readValue(data, Companies.class);
 			listProducts = productsService.getListByCompany(comp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -87,7 +88,6 @@ public class ProductsController {
 		Products products = new Products();
 		products.setCode(code);
 		try {
-//			products = new ObjectMapper().readValue(code, Products.class);
 			products = productsService.getProductsByCode(products);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,7 +113,7 @@ public class ProductsController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Products products = new Products();
-		String result ="";
+		String result = "";
 		try {
 			products = new ObjectMapper().readValue(data, Products.class);
 			products = productsService.getProductsByCode(products);
@@ -126,7 +126,7 @@ public class ProductsController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";

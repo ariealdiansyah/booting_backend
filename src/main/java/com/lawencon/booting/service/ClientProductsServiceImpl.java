@@ -28,7 +28,6 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	
 	@Override
 	public ClientProducts insert(ClientProducts data) throws Exception {
-//		data.setId(getUuid());
 		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
 		data.setIdCompany(comp);
 		

@@ -32,72 +32,71 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Autowired
 	private AccountsService accountsService;
-	
+
 	@Autowired
 	private TicketsDao ticketsDao;
-	
+
 	@Autowired
 	private UsersService usersService;
-	
+
 	@Autowired
 	private ProductsService productsService;
-	
+
 	@Autowired
 	private PrioritiesService prioritiesService;
-	
+
 	@Autowired
 	private ClassificationsService classificationsService;
-		
+
 	@Autowired
-	private StatusService statusService;	
-	
+	private StatusService statusService;
+
 	@Autowired
 	private CompaniesService companiesService;
-	
+
 	@Autowired
 	private AgentRelationsService agentRelationsService;
-	
+
 	@Autowired
-	private Mail mail;	
-	
+	private Mail mail;
+
 	@Autowired
 	private TemplateEmailService templateEmailService;
-	
+
 	@Autowired
 	private ClientProductsService clientProductsService;
-	
+
 	@Override
 	public Tickets insert(Tickets data) throws Exception {
-//		data.setId(getUuid());
 		Tickets ticket = new Tickets();
 		ticket.setCode(code());
 		ticket.setSubject(data.getSubject());
-		
+
 		Products product = productsService.getProductsByCode(data.getIdProduct());
 		ticket.setIdProduct(product);
-		
+
 		Priorities priority = prioritiesService.getPrioritiesByCode(data.getIdPriority());
 		ticket.setIdPriority(priority);
-		
+
 		Classifications classification = classificationsService.getClassificationsByCode(data.getIdClassification());
 		ticket.setIdClassification(classification);
-		
+
 		Status status = statusService.getStatusesByCode(data.getIdStatus());
 		ticket.setIdStatus(status);
-		
+
 		Users us = usersService.getUserByNip(data.getIdCustomer());
 		ticket.setIdCustomer(us);
-		
+
 		String code = priority.getCode();
 		TicketPriority tp = new TicketPriority();
-		
+
 		ClientProducts cp = new ClientProducts();
 		tp.setIdCompany(us.getIdCompany().getId());
 		tp.setIdProduct(product.getId());
-		
+
 		cp = clientProductsService.getData(tp);
-		
-		if("URG".equals(code)) {
+
+		if ("URG".equals(code)) {
 			if (cp.getTicketUrgent() != 0) {
 				cp.setTicketUrgent(cp.getTicketUrgent() - 1);
 				cp.setUpdatedBy(data.getCreatedBy());
@@ -107,7 +106,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 				return null;
 			}
 		}
-		if("MED".equals(code)) {
+		if ("MED".equals(code)) {
 			if (cp.getTicketMedium() != 0) {
 				cp.setTicketMedium(cp.getTicketMedium() - 1);
 				cp.setUpdatedBy(data.getCreatedBy());
@@ -117,56 +116,51 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 				return null;
 			}
 		}
-		
+
 		ticket.setCreatedAt(new Date());
-		
+
 		Accounts acc = new Accounts();
 		acc.setIdUser(us);
 		acc = accountsService.findByUser(acc);
 		TemplateEmail template = new TemplateEmail();
 		template.setCode("TKTTMPL");
 		template = templateEmailService.getTemplateEmailByCode(template);
-		mail
-		.init(acc.getEmail(), "Created Tickets", template.getTemplate(),us.getName(), ticket)
-		.sendMail();
-		
-		
+		mail.init(acc.getEmail(), "Created Tickets", template.getTemplate(), us.getName(), ticket).sendMail();
+
 		return ticketsDao.insert(ticket);
 	}
-	
+
 	@Override
 	public Tickets insert(TicketDetails data) throws Exception {
 		Tickets ticket = new Tickets();
 		TicketDetails ticketDtl = new TicketDetails();
 		ticketDtl = data;
 		ticket = data.getIdTicket();
-//		ticket.setId(getUuid());
 		ticket.setCode(code());
-		
+
 		Products product = productsService.getProductsByCode(data.getIdTicket().getIdProduct());
 		ticket.setIdProduct(product);
-		
+
 		Priorities priority = prioritiesService.getPrioritiesByCode(data.getIdTicket().getIdPriority());
 		ticket.setIdPriority(priority);
-		
-		Classifications classification = classificationsService.getClassificationsByCode(data.getIdTicket().getIdClassification());
+
+		Classifications classification = classificationsService
+				.getClassificationsByCode(data.getIdTicket().getIdClassification());
 		ticket.setIdClassification(classification);
-		
+
 		Status status = statusService.getStatusesByCode(data.getIdTicket().getIdStatus());
 		ticket.setIdStatus(status);
-		
+
 		Users us = usersService.getUserByNip(data.getIdTicket().getIdCustomer());
 		ticket.setIdCustomer(us);
-		
+
 		ticket.setCreatedAt(new Date());
 		ticket.setCreatedBy(data.getSender());
-		
+
 		ticket = ticketsDao.insert(ticket);
 		ticketDtl.setIdTicket(ticket);
 		ticketDtl.setSender(data.getSender());
-		
-//		ticketDetailService.insert(ticketDtl);
-		
+
 		return ticket;
 	}
 
@@ -182,12 +176,10 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public List<Tickets> getListByIdUser(Users data) throws Exception {
-//		Users user = new Users();
-//		user.setNip(data);
 		data = usersService.getUserByNip(data);
 		return ticketsDao.getListByIdUser(data.getId());
 	}
-	
+
 	public String code() {
 		String codeA = RandomStringUtils.randomAlphabetic(4);
 		String codeB = RandomStringUtils.randomNumeric(3);
@@ -196,30 +188,17 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public List<Tickets> getListByIdCompany(Companies data) throws Exception {
-//		Companies company = new Companies();
-//		company.setName(data);
 		data = companiesService.getCompanyByName(data);
 		return ticketsDao.getListByIdCompany(data.getId());
 	}
 
 	@Override
 	public List<Tickets> getListByIdAgent(Users data) throws Exception {
-//		Users user = new Users();
-//		user.setNip(data);
 		data = usersService.getUserByNip(data);
 		List<String> listData = agentRelationsService.getListCompanies(data);
-		if(listData.isEmpty()) {
-			return null; 
-//		}else if(listData.size() == 1) {
-//			System.out.println(listData.get(0));
-//			return ticketsDao.getListByIdCompany(listData.get(0));
-		}else {
-//			String comp = (listData.get(0));
-//			for(int i = 1; i < listData.size(); i++) {
-////				System.out.println(comp + listData.get(i));
-//				comp += (", " + listData.get(i));
-//			}
-//			System.out.println(comp);
+		if (listData.isEmpty()) {
+			return null;
+		} else {
 			return ticketsDao.getListByIdAgent(listData);
 		}
 	}
@@ -231,7 +210,6 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public List<TicketCharts> getListTicketCharts(Long data) throws Exception {
-//		data.setYear(2020L);
 		return ticketsDao.getListTicketCharts(data);
 	}
 
@@ -239,18 +217,9 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	public TicketStatus statusAgent(Users data) throws Exception {
 		data = usersService.getUserByNip(data);
 		List<String> listData = agentRelationsService.getListCompanies(data);
-		if(listData.isEmpty()) {
-			return null; 
-//		}else if(listData.size() == 1) {
-//			System.out.println(listData.get(0));
-//			return ticketsDao.statusClient(listData.get(0));
-		}else {
-//			String comp = (listData.get(0));
-//			for(int i = 1; i < listData.size(); i++) {
-////				System.out.println(comp + listData.get(i));
-//				comp += (", " + listData.get(i));
-//			}
-//			System.out.println(comp);
+		if (listData.isEmpty()) {
+			return null;
+		} else {
 			return ticketsDao.statusAgent(listData);
 		}
 	}
@@ -270,13 +239,13 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Override
 	public TicketHeader getTicket(Tickets data) throws Exception {
 		TicketHeader ticketHead = new TicketHeader();
-		
+
 		data = ticketsDao.getTicketByCode(data);
 		ticketHead.setIdTicket(data);
-		
+
 		Users user = agentRelationsService.getAgentByCompany(data.getIdCustomer().getIdCompany());
 		ticketHead.setIdAgent(user);
-		
+
 		return ticketHead;
 	}
 
@@ -288,16 +257,13 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 	@Override
 	public List<TicketCharts> getChartsByAgent(Users data) throws Exception {
 		data = usersService.getUserByNip(data);
-		if(data == null) {
+		if (data == null) {
 			return null;
 		}
 		List<String> listData = agentRelationsService.getListCompanies(data);
-//		listData.forEach(l->{
-//			System.out.println(l);
-//		});
-		if(listData.isEmpty()) {
-			return null; 
-		}else {
+		if (listData.isEmpty()) {
+			return null;
+		} else {
 			return ticketsDao.getChartsByAgent(listData);
 		}
 	}
@@ -314,5 +280,5 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 		data.setUpdatedAt(new Date());
 		return ticketsDao.update(data);
 	}
-	
+
 }

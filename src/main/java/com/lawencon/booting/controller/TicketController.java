@@ -30,21 +30,21 @@ public class TicketController {
 
 	@Autowired
 	private TicketsService ticketsService;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<Tickets> listData = new ArrayList<>();
 		try {
 			listData = ticketsService.getListTickets();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestBody String data){
+	public ResponseEntity<?> update(@RequestBody String data) {
 		Tickets ticket = new Tickets();
 		try {
 			ticket = new ObjectMapper().readValue(data, Tickets.class);
@@ -55,7 +55,7 @@ public class TicketController {
 		}
 		return new ResponseEntity<>(ticket, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Tickets ticket = new Tickets();
@@ -72,119 +72,115 @@ public class TicketController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		if(ticket == null) {
+		if (ticket == null) {
 			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/get-ticket/{data}")
-	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data){
+	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data) {
 		Tickets ticket = new Tickets();
 		ticket.setCode(data);
 		TicketHeader ticketHeader = new TicketHeader();
 		try {
 			ticketHeader = ticketsService.getTicket(ticket);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(ticketHeader, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(ticketHeader, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-status")
-	public ResponseEntity<?> getAllStatus(){
+	public ResponseEntity<?> getAllStatus() {
 		TicketStatus ticketStatus = new TicketStatus();
 		try {
 			ticketStatus = ticketsService.selectStatus();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/status-agent/{data}")
-	public ResponseEntity<?> getStatusAgent(@PathVariable("data") String data){
+	public ResponseEntity<?> getStatusAgent(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
 		us.setNip(data);
 		try {
 			ticketStatus = ticketsService.statusAgent(us);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/status-client/{data}")
-	public ResponseEntity<?> getStatusClient(@PathVariable("data") String data){
+	public ResponseEntity<?> getStatusClient(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Companies comp = new Companies();
 		comp.setName(data);
 		try {
 			ticketStatus = ticketsService.statusClient(comp);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/status-customer/{data}")
-	public ResponseEntity<?> getStatusCustomer(@PathVariable("data") String data){
+	public ResponseEntity<?> getStatusCustomer(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
 		us.setNip(data);
 		try {
 			ticketStatus = ticketsService.statusCustomer(us);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(ticketStatus, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/charts/{data}")
-	public ResponseEntity<?> getCharts(@PathVariable("data") String data){
+	public ResponseEntity<?> getCharts(@PathVariable("data") String data) {
 		List<TicketCharts> listData = new ArrayList<>();
-		
-//		TicketCharts tc = new TicketCharts();
 		Long tc = Long.parseLong(data);
 		try {
-//			TicketCharts tc = new ObjectMapper().readValue(data, TicketCharts.class);
 			listData = ticketsService.getListTicketCharts(tc);
-//			System.out.println(listData);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/charts-client/{company}")
-	public ResponseEntity<?> getChartsByClient(@PathVariable("company") String company){
+	public ResponseEntity<?> getChartsByClient(@PathVariable("company") String company) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Companies com = new Companies();
 		com.setName(company);
 		try {
 			listData = ticketsService.getChartsByClient(com);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/charts-agent/{data}")
-	public ResponseEntity<?> getChartsByAgent(@PathVariable("data") String data){
+	public ResponseEntity<?> getChartsByAgent(@PathVariable("data") String data) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Users user = new Users();
 		user.setNip(data);
 		try {
 			listData = ticketsService.getChartsByAgent(user);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
@@ -192,53 +188,50 @@ public class TicketController {
 	}
 
 	@GetMapping("/all-agent/{data}")
-	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data){
+	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
 		us.setNip(data);
 		try {
-//			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdAgent(us);
 			System.out.println(listData.size());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-company/{data}")
-	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data){
+	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Companies comp = new Companies();
 		comp.setName(data);
 		try {
-//			Companies us = new ObjectMapper().readValue(data, Companies.class);
 			listData = ticketsService.getListByIdCompany(comp);
 			System.out.println(listData.size());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-customer/{data}")
-	public ResponseEntity<?> getAllByCustomer(@PathVariable("data") String data){
+	public ResponseEntity<?> getAllByCustomer(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
 		us.setNip(data);
 		try {
-//			Users us = new ObjectMapper().readValue(data, Users.class);
 			listData = ticketsService.getListByIdUser(us);
 			System.out.println(listData.size());
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/list-agent/{code}")
 	public ResponseEntity<?> getListAgent(@PathVariable("code") String code) {
 		List<?> listData = new ArrayList<>();
@@ -250,5 +243,5 @@ public class TicketController {
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 }

@@ -20,7 +20,6 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 
 	@Override
 	public Companies insert(Companies data) throws Exception {
-//		data.setId(getUuid());
 		data.setCreatedAt(new Date());
 		return companiesDao.insert(data);
 	}

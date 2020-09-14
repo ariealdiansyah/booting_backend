@@ -25,31 +25,31 @@ public class ClientProductsController {
 
 	@Autowired
 	private ClientProductsService clientProductsService;
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
 			listData = clientProductsService.getListClientProducts();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
-	public ResponseEntity<?> getAllClientProductsActive(){
+	public ResponseEntity<?> getAllClientProductsActive() {
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
 			listData = clientProductsService.getListClientProductsActive();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		ClientProducts clientProducts = new ClientProducts();
@@ -71,7 +71,6 @@ public class ClientProductsController {
 		clientProducts.setIdCompany(comp);
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
-//			clientProducts = new ObjectMapper().readValue(code, ClientProducts.class);
 			listData = clientProductsService.getListByCompany(clientProducts);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,19 +93,4 @@ public class ClientProductsController {
 		return new ResponseEntity<>(clientProducts, HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/delete")
-//	public ResponseEntity<?> delete(@RequestBody String data) {
-//		AgentRelations agentRelations = new AgentRelations();
-//		String result ="";
-//		try {
-//			agentRelations = new ObjectMapper().readValue(data, AgentRelations.class);
-//			agentRelations = agentRelationsService.getCompanyByCode(agentRelations);
-//			agentRelationsService.delete(agentRelations.getId());
-//			result = new ObjectMapper().writeValueAsString("Delete Success");
-//		} catch (Exception e) {
-//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-//		}
-//
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
 }

@@ -28,7 +28,6 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
-//		data.setId(getUuid());
 		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
 		data.setIdCompany(comp);
 		

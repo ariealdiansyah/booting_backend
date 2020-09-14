@@ -37,7 +37,7 @@ public class PrioritiesController {
 
 		return new ResponseEntity<>(listPriorities, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getPrioritiesActive() {
 		List<Priorities> listPriorities = new ArrayList<>();
@@ -81,7 +81,7 @@ public class PrioritiesController {
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Priorities priorities = new Priorities();
 		try {
-			
+
 			priorities = new ObjectMapper().readValue(data, Priorities.class);
 			priorities = prioritiesService.update(priorities);
 		} catch (Exception e) {
@@ -95,7 +95,7 @@ public class PrioritiesController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Priorities priorities = new Priorities();
-		String result ="";
+		String result = "";
 		try {
 			priorities = new ObjectMapper().readValue(data, Priorities.class);
 			priorities = prioritiesService.getPrioritiesByCode(priorities);

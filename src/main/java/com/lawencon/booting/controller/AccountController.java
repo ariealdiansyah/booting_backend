@@ -28,7 +28,7 @@ public class AccountController {
 
 	@Autowired
 	private AccountsService accountService;
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Accounts acc = new Accounts();
@@ -39,45 +39,38 @@ public class AccountController {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-//		String respon = "";
-//		try {
-//			respon = new ObjectMapper().writeValueAsString("Admin berhasil ditambah");
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
 		return new ResponseEntity<>(acc, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<?> getAll(){
+	public ResponseEntity<?> getAll() {
 		List<Accounts> listData = new ArrayList<>();
 		try {
 			listData = accountService.getListAccounts();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
-	public ResponseEntity<?> getAllActive(){
+	public ResponseEntity<?> getAllActive() {
 		List<Accounts> listData = new ArrayList<>();
 		try {
 			listData = accountService.getListAccountsActive();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/get-accounts/{code}")
 	public ResponseEntity<?> getAccountsByCode(@PathVariable("data") String code) {
 		Accounts account = new Accounts();
 		account.setEmail(code);
 		try {
-//			account = new ObjectMapper().readValue(code, Accounts.class);
 			account = accountService.findByEmail(account);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,20 +79,6 @@ public class AccountController {
 		return new ResponseEntity<>(account, HttpStatus.OK);
 	}
 
-//	@PutMapping("/update")
-//	public ResponseEntity<?> update(@RequestBody String data) {
-//		Accounts acoount = new Accounts();
-//		try {
-//			acoount = new ObjectMapper().readValue(data, Accounts.class);
-//			acoount = accountService.update(acoount);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-//		}
-//
-//		return new ResponseEntity<>(acoount, HttpStatus.OK);
-//	}
-	
 	@PutMapping("/update")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		ForgotPass accHelper = new ForgotPass();
@@ -134,11 +113,10 @@ public class AccountController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/forgot")
-	public ResponseEntity<?> forgotPass(@RequestBody String data){
+	public ResponseEntity<?> forgotPass(@RequestBody String data) {
 		Accounts acc = new Accounts();
-//		acc.setEmail(data);
 		try {
 			acc = new ObjectMapper().readValue(data, Accounts.class);
 			acc = accountService.forgotPass(acc);

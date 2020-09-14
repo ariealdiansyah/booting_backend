@@ -37,7 +37,7 @@ public class StatusController {
 
 		return new ResponseEntity<>(listStatus, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getStatusActive() {
 		List<Status> listStatus = new ArrayList<>();
@@ -94,7 +94,7 @@ public class StatusController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Status status = new Status();
-		String result ="";
+		String result = "";
 		try {
 			status = new ObjectMapper().readValue(data, Status.class);
 			status = statusService.getStatusesByCode(status);

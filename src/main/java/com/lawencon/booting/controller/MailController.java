@@ -15,17 +15,16 @@ import com.lawencon.booting.utility.Mail;
 @RequestMapping("/mail")
 @CrossOrigin("http://127.0.0.1:5500")
 public class MailController {
-	
+
 	@Autowired
-	private Mail mail;	
-	
+	private Mail mail;
+
 	@PostMapping("/kirim/{address}/{subject}/{body}")
-	public ResponseEntity<?> sendMail(@PathVariable(name = "address") String address, @PathVariable(name = "subject") String subject, @PathVariable(name = "body") String body) {
-		
-		mail
-		.init(address, subject, body)
-		.sendMail();
-		
+	public ResponseEntity<?> sendMail(@PathVariable(name = "address") String address,
+			@PathVariable(name = "subject") String subject, @PathVariable(name = "body") String body) {
+
+		mail.init(address, subject, body).sendMail();
+
 		return new ResponseEntity<>("Success", HttpStatus.OK);
 	}
 

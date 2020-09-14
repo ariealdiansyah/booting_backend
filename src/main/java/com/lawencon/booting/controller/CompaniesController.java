@@ -39,7 +39,7 @@ public class CompaniesController {
 		}
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getAllActive() {
 		List<Companies> listData = new ArrayList<>();
@@ -70,7 +70,6 @@ public class CompaniesController {
 		Companies companies = new Companies();
 		companies.setName(name);
 		try {
-//			companies = new ObjectMapper().readValue(code, Companies.class);
 			companies = companiesService.getCompanyByName(companies);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -113,21 +112,5 @@ public class CompaniesController {
 
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
-	
-//	@PostMapping("/delete")
-//	public ResponseEntity<?> delete(@RequestBody String data) {
-//		Companies companies = new Companies();
-//		String result = "";
-//		try {
-//			companies = new ObjectMapper().readValue(data, Companies.class);
-//			companies = companiesService.getCompanyByName(companies);
-//			companiesService.delete(companies.getId());
-//			result = new ObjectMapper().writeValueAsString("Delete Success");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-//		}
-//
-//		return new ResponseEntity<>(result, HttpStatus.OK);
-//	}
+
 }

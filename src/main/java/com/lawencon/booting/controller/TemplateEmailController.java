@@ -13,15 +13,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.TemplateEmail;
 import com.lawencon.booting.service.TemplateEmailService;
 
-
 @RestController
 @RequestMapping("/template")
 @CrossOrigin("http://127.0.0.1:5500")
 public class TemplateEmailController {
-	
+
 	@Autowired
 	private TemplateEmailService templateEmailService;
-	
+
 	@PostMapping("/insert")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		TemplateEmail template = new TemplateEmail();
@@ -33,7 +32,5 @@ public class TemplateEmailController {
 		}
 		return new ResponseEntity<>(template, HttpStatus.CREATED);
 	}
-	
-	
 
 }

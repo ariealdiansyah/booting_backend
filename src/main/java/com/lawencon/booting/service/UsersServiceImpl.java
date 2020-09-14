@@ -23,28 +23,28 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 
 	@Autowired
 	private UsersDao usersDao;
-	
+
 	@Autowired
 	private AccountsService accountsService;
-	
+
 	@Autowired
 	private RolesService rolesService;
-	
+
 	@Autowired
 	private CompaniesService companiesService;
-	
-	@Autowired 
-	private PhotoProfileService photoProfileService;
-	
+
 	@Autowired
-	private Mail mail;	
-	
+	private PhotoProfileService photoProfileService;
+
+	@Autowired
+	private Mail mail;
+
 	@Autowired
 	private TemplateEmailService templateEmailService;
 
 	@Override
 	public Users insert(Users data) throws Exception {
-		data.setId(getUuid());		
+		data.setId(getUuid());
 		data.setCreatedAt(new Date());
 		return usersDao.insert(data);
 	}
@@ -73,10 +73,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		data.setIdPhoto(photo);
 		data.setIdRole(roles);
 		data.setIdCompany(company);
-		mail
-		.init(acc.getEmail(),
-				"Profile Updated", template.getTemplate(),data.getName())
-		.sendMail();
+		mail.init(acc.getEmail(), "Profile Updated", template.getTemplate(), data.getName()).sendMail();
 		data.setUpdatedAt(new Date());
 		return usersDao.update(data);
 	}
@@ -85,7 +82,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	public List<Users> getListUsers() throws Exception {
 		return usersDao.getListUsers();
 	}
-	
+
 	@Override
 	public List<Users> getListUsersActive() throws Exception {
 		return usersDao.getListUsersActive();
@@ -120,6 +117,5 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 	public List<Users> getListClients() throws Exception {
 		return usersDao.getListClients();
 	}
-
 
 }

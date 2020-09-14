@@ -19,7 +19,6 @@ public class RolesServiceImpl extends BaseService implements RolesService{
 
 	@Override
 	public Roles insert(Roles data) throws Exception {
-//		data.setId(getUuid());
 		data.setCreatedAt(new Date());
 		return rolesDao.insert(data);
 	}

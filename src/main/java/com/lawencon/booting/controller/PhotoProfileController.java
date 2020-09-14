@@ -21,53 +21,48 @@ import com.lawencon.booting.service.PhotoProfileService;
 import com.lawencon.booting.utility.ResponseFile;
 import com.lawencon.booting.utility.ResponseMessage;
 
-
 @RestController
 @RequestMapping("/photo-profile")
 public class PhotoProfileController {
 
 	@Autowired
 	private PhotoProfileService photoProfileService;
-	
+
 	@PostMapping("/uploads")
-	  public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("files") MultipartFile file) {
+	public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("files") MultipartFile file) {
 		String message = "";
-	    try {
-	    	photoProfileService.store(file);
+		try {
+			photoProfileService.store(file);
 
-	      message = "Uploaded photo successfully: " + file.getOriginalFilename();
-	      return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-	    } catch (Exception e) {
-	      message = "Could not upload photo: " + file.getOriginalFilename() + "!";
-	      return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-	    }
-	  }
-	
+			message = "Uploaded photo successfully: " + file.getOriginalFilename();
+			return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+		} catch (Exception e) {
+			message = "Could not upload photo: " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+		}
+	}
+
 	@GetMapping("/all")
-	  public ResponseEntity<List<ResponseFile>> getListFiles() {
-	    List<ResponseFile> files = photoProfileService.getAllFiles().map(dbFile -> {
-	      String fileDownloadUri = ServletUriComponentsBuilder
-	          .fromCurrentContextPath()
-	          .path("/files/")
-	          .path(dbFile.getId())
-	          .toUriString();
+	public ResponseEntity<List<ResponseFile>> getListFiles() {
+		List<ResponseFile> files = photoProfileService.getAllFiles().map(dbFile -> {
+			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")
+					.path(dbFile.getId()).toUriString();
 
-	      return new ResponseFile(
-	          fileDownloadUri);
-	    }).collect(Collectors.toList());
+			return new ResponseFile(fileDownloadUri);
+		}).collect(Collectors.toList());
 
-	    return ResponseEntity.status(HttpStatus.OK).body(files);
-	  }
+		return ResponseEntity.status(HttpStatus.OK).body(files);
+	}
 
-	  @GetMapping("/files/{id}")
-	  public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+	@GetMapping("/files/{id}")
+	public ResponseEntity<byte[]> getFile(@PathVariable String id) {
 		PhotoProfile photo = new PhotoProfile();
 		photo.setId(id);
-	    PhotoProfile fileDB = photoProfileService.getFile(photo);
+		PhotoProfile fileDB = photoProfileService.getFile(photo);
 
-	    return ResponseEntity.ok()
-	        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-	        .body(fileDB.getData());
-	  }
-	
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
+				.body(fileDB.getData());
+	}
+
 }

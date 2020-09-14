@@ -24,7 +24,7 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 	public List<Companies> getListCompanies() throws Exception {
 		return em.createQuery("FROM Companies", Companies.class).getResultList();
 	}
-	
+
 	@Override
 	public List<Companies> getListCompaniesActive() throws Exception {
 		return em.createQuery("FROM Companies WHERE active = true", Companies.class).getResultList();
@@ -33,19 +33,16 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 	@Override
 	public void delete(String id) throws Exception {
 		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id).executeUpdate();
-//		em.createQuery("UPDATE Companies SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
 	}
-	
+
 	@Override
 	public void deletePath(String id) throws Exception {
-//		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id);
-		em.createQuery("UPDATE Companies SET active = false WHERE id = :id")
-		.setParameter("id", id).executeUpdate();
+		em.createQuery("UPDATE Companies SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override
 	public Companies getCompanyByName(Companies data) throws Exception {
-		List<Companies> listCompany  = em.createQuery("FROM Companies where name = :name", Companies.class)
+		List<Companies> listCompany = em.createQuery("FROM Companies where name = :name", Companies.class)
 				.setParameter("name", data.getName()).getResultList();
 		return !listCompany.isEmpty() ? listCompany.get(0) : null;
 	}

@@ -37,7 +37,7 @@ public class ClassificationsController {
 
 		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/all-active")
 	public ResponseEntity<?> getClassificationsActive() {
 		List<Classifications> listClassifications = new ArrayList<>();
@@ -94,7 +94,7 @@ public class ClassificationsController {
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Classifications classifications = new Classifications();
-		String result ="";
+		String result = "";
 		try {
 			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.getClassificationsByCode(classifications);
