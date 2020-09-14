@@ -42,7 +42,7 @@ public class ProductsController {
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-actice")
+	@GetMapping("/")
 	public ResponseEntity<?> getAllActive() {
 		List<Products> listProducts = new ArrayList<>();
 		try {
@@ -55,7 +55,7 @@ public class ProductsController {
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-bycompany/{data}")
+	@GetMapping("/company/{data}")
 	public ResponseEntity<?> getByCompany(@PathVariable("data") String data) {
 		List<Products> listProducts = new ArrayList<>();
 		Companies comp = new Companies();
@@ -70,7 +70,7 @@ public class ProductsController {
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Products products = new Products();
 		try {
@@ -83,7 +83,7 @@ public class ProductsController {
 		return new ResponseEntity<>(products, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-product/{code}")
+	@GetMapping("/{code}")
 	public ResponseEntity<?> getProductsByCode(@PathVariable("code") String code) {
 		Products products = new Products();
 		products.setCode(code);
@@ -96,7 +96,7 @@ public class ProductsController {
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Products roles = new Products();
 		try {
@@ -110,24 +110,7 @@ public class ProductsController {
 		return new ResponseEntity<>(roles, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody String data) {
-		Products products = new Products();
-		String result = "";
-		try {
-			products = new ObjectMapper().readValue(data, Products.class);
-			products = productsService.getProductsByCode(products);
-			productsService.deleteProducts(products.getId());
-			result = new ObjectMapper().writeValueAsString("Delete Success");
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
-
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";
 		try {

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class RolesController {
 	@Autowired
 	private RolesService rolesService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getRoles() {
 		List<Roles> listRoles = new ArrayList<>();
 		try {
@@ -38,7 +39,7 @@ public class RolesController {
 		return new ResponseEntity<>(listRoles, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Roles roles = new Roles();
 		try {
@@ -51,11 +52,11 @@ public class RolesController {
 		return new ResponseEntity<>(roles, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getrole")
-	public ResponseEntity<?> getRolesByCode(@RequestBody String code) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getRolesByCode(@PathVariable("code") String code) {
 		Roles roles = new Roles();
+		roles.setCode(code);
 		try {
-			roles = new ObjectMapper().readValue(code, Roles.class);
 			roles = rolesService.getRolesByCode(roles);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +65,7 @@ public class RolesController {
 		return new ResponseEntity<>(roles, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Roles roles = new Roles();
 		try {
@@ -78,7 +79,7 @@ public class RolesController {
 		return new ResponseEntity<>(roles, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Roles roles = new Roles();
 		String result = "";

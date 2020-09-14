@@ -29,7 +29,7 @@ public class AccountController {
 	@Autowired
 	private AccountsService accountService;
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Accounts acc = new Accounts();
 		try {
@@ -54,7 +54,7 @@ public class AccountController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getAllActive() {
 		List<Accounts> listData = new ArrayList<>();
 		try {
@@ -66,8 +66,8 @@ public class AccountController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/get-accounts/{code}")
-	public ResponseEntity<?> getAccountsByCode(@PathVariable("data") String code) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getAccountsByCode(@PathVariable("code") String code) {
 		Accounts account = new Accounts();
 		account.setEmail(code);
 		try {
@@ -79,7 +79,7 @@ public class AccountController {
 		return new ResponseEntity<>(account, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		ForgotPass accHelper = new ForgotPass();
 		Accounts acoount = new Accounts();
@@ -94,7 +94,7 @@ public class AccountController {
 		return new ResponseEntity<>(acoount, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";
 		try {

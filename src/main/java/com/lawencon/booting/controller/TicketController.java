@@ -31,7 +31,7 @@ public class TicketController {
 	@Autowired
 	private TicketsService ticketsService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<Tickets> listData = new ArrayList<>();
 		try {
@@ -43,7 +43,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Tickets ticket = new Tickets();
 		try {
@@ -56,7 +56,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticket, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Tickets ticket = new Tickets();
 		try {
@@ -78,7 +78,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-ticket/{data}")
+	@GetMapping("/{data}")
 	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data) {
 		Tickets ticket = new Tickets();
 		ticket.setCode(data);
@@ -92,7 +92,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketHeader, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-status")
+	@GetMapping("/status")
 	public ResponseEntity<?> getAllStatus() {
 		TicketStatus ticketStatus = new TicketStatus();
 		try {
@@ -104,7 +104,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status-agent/{data}")
+	@GetMapping("/status/agent/{data}")
 	public ResponseEntity<?> getStatusAgent(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
@@ -118,7 +118,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status-client/{data}")
+	@GetMapping("/status/client/{data}")
 	public ResponseEntity<?> getStatusClient(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Companies comp = new Companies();
@@ -132,7 +132,7 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status-customer/{data}")
+	@GetMapping("/status/customer/{data}")
 	public ResponseEntity<?> getStatusCustomer(@PathVariable("data") String data) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
@@ -159,7 +159,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/charts-client/{company}")
+	@GetMapping("/charts/client/{company}")
 	public ResponseEntity<?> getChartsByClient(@PathVariable("company") String company) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Companies com = new Companies();
@@ -173,7 +173,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/charts-agent/{data}")
+	@GetMapping("/charts/agent/{data}")
 	public ResponseEntity<?> getChartsByAgent(@PathVariable("data") String data) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Users user = new Users();
@@ -187,7 +187,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-agent/{data}")
+	@GetMapping("/agent/{data}")
 	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
@@ -202,7 +202,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-company/{data}")
+	@GetMapping("/client/{data}")
 	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Companies comp = new Companies();
@@ -217,7 +217,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-customer/{data}")
+	@GetMapping("/customer/{data}")
 	public ResponseEntity<?> getAllByCustomer(@PathVariable("data") String data) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
@@ -232,7 +232,7 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/list-agent/{code}")
+	@GetMapping("/relation/{code}")
 	public ResponseEntity<?> getListAgent(@PathVariable("code") String code) {
 		List<?> listData = new ArrayList<>();
 		try {

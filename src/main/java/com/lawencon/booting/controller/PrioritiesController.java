@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class PrioritiesController {
 		return new ResponseEntity<>(listPriorities, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getPrioritiesActive() {
 		List<Priorities> listPriorities = new ArrayList<>();
 		try {
@@ -51,7 +52,7 @@ public class PrioritiesController {
 		return new ResponseEntity<>(listPriorities, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Priorities Priorities = new Priorities();
 		try {
@@ -64,20 +65,20 @@ public class PrioritiesController {
 		return new ResponseEntity<>(Priorities, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getpriorities")
-	public ResponseEntity<?> getPrioritiesByCode(@RequestBody String code) {
-		Priorities Priorities = new Priorities();
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getPrioritiesByCode(@PathVariable("code") String code) {
+		Priorities priorities = new Priorities();
+		priorities.setCode(code);
 		try {
-			Priorities = new ObjectMapper().readValue(code, Priorities.class);
-			Priorities = prioritiesService.getPrioritiesByCode(Priorities);
+			priorities = prioritiesService.getPrioritiesByCode(priorities);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(Priorities, HttpStatus.OK);
+		return new ResponseEntity<>(priorities, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Priorities priorities = new Priorities();
 		try {
@@ -92,7 +93,7 @@ public class PrioritiesController {
 		return new ResponseEntity<>(priorities, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Priorities priorities = new Priorities();
 		String result = "";

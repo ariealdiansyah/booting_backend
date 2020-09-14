@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class StatusController {
 		return new ResponseEntity<>(listStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getStatusActive() {
 		List<Status> listStatus = new ArrayList<>();
 		try {
@@ -51,7 +52,7 @@ public class StatusController {
 		return new ResponseEntity<>(listStatus, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Status status = new Status();
 		try {
@@ -64,11 +65,11 @@ public class StatusController {
 		return new ResponseEntity<>(status, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getstatus")
-	public ResponseEntity<?> getStatusByCode(@RequestBody String code) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getStatusByCode(@PathVariable("code") String code) {
 		Status status = new Status();
+		status.setCode(code);
 		try {
-			status = new ObjectMapper().readValue(code, Status.class);
 			status = statusService.getStatusesByCode(status);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,7 +78,7 @@ public class StatusController {
 		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Status priorities = new Status();
 		try {
@@ -91,7 +92,7 @@ public class StatusController {
 		return new ResponseEntity<>(priorities, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
+	@DeleteMapping("/")
 	public ResponseEntity<?> delete(@RequestBody String data) {
 		Status status = new Status();
 		String result = "";

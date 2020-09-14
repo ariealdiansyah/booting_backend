@@ -32,7 +32,7 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<Users> listData = new ArrayList<>();
 		try {
@@ -44,7 +44,7 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-customer/{data}")
+	@GetMapping("/customer/{data}")
 	public ResponseEntity<?> getAllCustomer(@PathVariable("data") String data) {
 		Users us = new Users();
 		Companies com = new Companies();
@@ -60,7 +60,7 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-agent")
+	@GetMapping("/agent")
 	public ResponseEntity<?> getAllAgent() {
 		List<Users> listData = new ArrayList<>();
 		try {
@@ -72,7 +72,7 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-clients")
+	@GetMapping("/client")
 	public ResponseEntity<?> getAllClients() {
 		List<Users> listData = new ArrayList<>();
 		try {
@@ -84,7 +84,7 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/active")
 	public ResponseEntity<?> getAllActive() {
 		List<Users> listData = new ArrayList<>();
 		try {
@@ -96,7 +96,7 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Users users = new Users();
 		try {
@@ -109,7 +109,7 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-users/{code}")
+	@GetMapping("/{code}")
 	public ResponseEntity<?> getUserByCode(@PathVariable("code") String code) {
 		Users users = new Users();
 		users.setNip(code);
@@ -122,7 +122,7 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/update")
+	@PutMapping(value = "/")
 	public ResponseEntity<?> update(@RequestPart(value = "users") String data,
 			@RequestPart(value = "file", required = false) MultipartFile file) throws URISyntaxException {
 		Users users = new Users();
@@ -137,7 +137,7 @@ public class UsersController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";
 		try {

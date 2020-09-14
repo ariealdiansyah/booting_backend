@@ -28,8 +28,8 @@ public class PhotoProfileController {
 	@Autowired
 	private PhotoProfileService photoProfileService;
 
-	@PostMapping("/uploads")
-	public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("files") MultipartFile file) {
+	@PostMapping("/")
+	public ResponseEntity<ResponseMessage> uploadsFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
 		try {
 			photoProfileService.store(file);
@@ -42,7 +42,7 @@ public class PhotoProfileController {
 		}
 	}
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<List<ResponseFile>> getListFiles() {
 		List<ResponseFile> files = photoProfileService.getAllFiles().map(dbFile -> {
 			String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/")

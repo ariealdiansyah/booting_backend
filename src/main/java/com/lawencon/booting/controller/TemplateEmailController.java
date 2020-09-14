@@ -21,7 +21,7 @@ public class TemplateEmailController {
 	@Autowired
 	private TemplateEmailService templateEmailService;
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		TemplateEmail template = new TemplateEmail();
 		try {
