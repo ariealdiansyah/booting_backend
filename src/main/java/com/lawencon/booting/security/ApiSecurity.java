@@ -26,16 +26,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		// Pilih salah satu
-//		http.cors().and().csrf().disable().authorizeRequests()
-//		.anyRequest()
-//		.authenticated()
-//		.and()
-//		.httpBasic();
-
-		http.cors()
-//		.configurationSource(corsConfigurationSource())
-				.and().csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		http.cors().and().csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
 
 		http.addFilter(new AuthenticationFilter(super.authenticationManager(), accountsService));
 
@@ -56,7 +47,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring().antMatchers(HttpMethod.POST, "/accounts/insert", "/photo-profile/uploads");
 		web.ignoring().antMatchers(HttpMethod.PUT, "/accounts/forgot", "/accounts/update");
-		web.ignoring().antMatchers(HttpMethod.GET,"/photo-profile/**", "/report/**");
+		web.ignoring().antMatchers(HttpMethod.GET, "/photo-profile/**", "/report/**");
 		web.ignoring().antMatchers("/v2/api-docs/**");
 		web.ignoring().antMatchers("/swagger.json");
 		web.ignoring().antMatchers("/swagger-ui.html");
@@ -74,14 +65,6 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 				registry.addMapping("/api/login")
 						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
 						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name());
-
-//				registry.addMapping("/admin/**")
-//				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-//				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
-//				
-//				registry.addMapping("/client/**")
-//				.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200")
-//				.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name());
 
 				registry.addMapping("/accounts/**")
 						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
@@ -142,7 +125,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
 						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
 								HttpMethod.DELETE.name());
-				
+
 				registry.addMapping("/photo-profile/**")
 						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
 						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
@@ -155,12 +138,5 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 			}
 		};
 	}
-
-//	@Bean
-//    public CorsConfigurationSource corsConfigurationSource()  {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-//        return source;
-//    }
 
 }

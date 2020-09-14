@@ -24,18 +24,18 @@ import com.lawencon.booting.service.AccountsService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
-	
+public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+
 	private AuthenticationManager am;
-	
+
 	private AccountsService accountsService;
-		
+
 	public AuthenticationFilter(AuthenticationManager am, AccountsService accountsService) {
 		this.am = am;
 		this.accountsService = accountsService;
 		super.setFilterProcessesUrl("/api/login");
-	}	
-	
+	}
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -47,24 +47,21 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 		}
 		return am.authenticate(new UsernamePasswordAuthenticationToken(acc.getEmail(), acc.getPass()));
 	}
-	
+
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 		String secretKey = "$2y$12$pYlKn7Tybq/emyVvZcuE2eN9xTRC5kEUrnDLwbIfZQgh4gprma8r2";
 		SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 		long expiredDate = 9999999;
-		
-		String tokenStr = Jwts.builder()
-				.signWith(key)
-				.setSubject(authResult.getName())
-				.setExpiration(new Date(new Date().getTime()+expiredDate))
-				.compact();
-		
+
+		String tokenStr = Jwts.builder().signWith(key).setSubject(authResult.getName())
+				.setExpiration(new Date(new Date().getTime() + expiredDate)).compact();
+
 		Accounts account = new Accounts();
 		account.setEmail(authResult.getName());
 		LoginHelper logHelp = new LoginHelper();
-		
+
 		try {
 			Accounts acc = accountsService.findByEmail(account);
 			acc.setPass(null);
@@ -73,13 +70,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println(logHelp.getToken() + " -- " + logHelp.getAccount().getIdUser().getIdCompany().getName());
-		
+
 		response.setContentType("application/json");
 		response.getWriter().append(new ObjectMapper().writeValueAsString(logHelp));
 	}
-	
+
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
