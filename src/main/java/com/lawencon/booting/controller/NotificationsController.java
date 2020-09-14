@@ -20,7 +20,7 @@ public class NotificationsController {
 	@Autowired
 	private NotificationsService notificationsService;
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		try {
 			Notifications notif = new ObjectMapper().readValue(data, Notifications.class);

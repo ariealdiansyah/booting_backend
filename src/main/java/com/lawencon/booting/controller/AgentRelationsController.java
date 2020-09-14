@@ -39,7 +39,7 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		AgentRelations agentRelations = new AgentRelations();
 		try {
@@ -52,7 +52,7 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(agentRelations, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-agent-relations/{code}")
+	@GetMapping("/{code}")
 	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("code") String code) {
 		AgentRelations agentRelations = new AgentRelations();
 		Users us = new Users();
@@ -68,7 +68,7 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/get-agent/{code}")
+	@GetMapping("/company/{code}")
 	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("code") String code) {
 		Companies comp = new Companies();
 		Users agent = new Users();
@@ -82,7 +82,7 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(agent, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		AgentRelations agentRelations = new AgentRelations();
 		try {

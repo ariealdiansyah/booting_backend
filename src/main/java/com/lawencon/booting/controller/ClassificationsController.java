@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,7 @@ public class ClassificationsController {
 		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getClassificationsActive() {
 		List<Classifications> listClassifications = new ArrayList<>();
 		try {
@@ -51,7 +52,7 @@ public class ClassificationsController {
 		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Classifications classifications = new Classifications();
 		try {
@@ -64,11 +65,11 @@ public class ClassificationsController {
 		return new ResponseEntity<>(classifications, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getclassifications")
-	public ResponseEntity<?> getClassificationsByCode(@RequestBody String code) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getClassificationsByCode(@PathVariable("code") String code) {
 		Classifications classifications = new Classifications();
+		classifications.setCode(code);
 		try {
-			classifications = new ObjectMapper().readValue(code, Classifications.class);
 			classifications = ClassificationsService.getClassificationsByCode(classifications);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,7 +78,7 @@ public class ClassificationsController {
 		return new ResponseEntity<>(classifications, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Classifications classifications = new Classifications();
 		try {
@@ -91,12 +92,12 @@ public class ClassificationsController {
 		return new ResponseEntity<>(classifications, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<?> delete(@RequestBody String data) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id) {
 		Classifications classifications = new Classifications();
+		classifications.setCode(id);
 		String result = "";
 		try {
-			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.getClassificationsByCode(classifications);
 			ClassificationsService.deleteClassifications(classifications.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");

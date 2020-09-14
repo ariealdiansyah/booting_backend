@@ -38,7 +38,7 @@ public class ClientProductsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getAllClientProductsActive() {
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
@@ -50,7 +50,7 @@ public class ClientProductsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		ClientProducts clientProducts = new ClientProducts();
 		try {
@@ -63,7 +63,7 @@ public class ClientProductsController {
 		return new ResponseEntity<>(clientProducts, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-client-products/{code}")
+	@GetMapping("/{code}")
 	public ResponseEntity<?> getClientProducts(@PathVariable("code") String code) {
 		ClientProducts clientProducts = new ClientProducts();
 		Companies comp = new Companies();
@@ -79,7 +79,7 @@ public class ClientProductsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		ClientProducts clientProducts = new ClientProducts();
 		try {

@@ -40,7 +40,7 @@ public class CompaniesController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/all-active")
+	@GetMapping("/")
 	public ResponseEntity<?> getAllActive() {
 		List<Companies> listData = new ArrayList<>();
 		try {
@@ -52,7 +52,7 @@ public class CompaniesController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Companies companies = new Companies();
 		try {
@@ -65,7 +65,7 @@ public class CompaniesController {
 		return new ResponseEntity<>(companies, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/get-companies/{name}")
+	@GetMapping("/{name}")
 	public ResponseEntity<?> getCompaniesByName(@PathVariable("name") String name) {
 		Companies companies = new Companies();
 		companies.setName(name);
@@ -78,7 +78,7 @@ public class CompaniesController {
 		return new ResponseEntity<>(companies, HttpStatus.OK);
 	}
 
-	@PutMapping("/update")
+	@PutMapping("/")
 	public ResponseEntity<?> update(@RequestBody String data) {
 		Companies companies = new Companies();
 		try {
@@ -92,7 +92,7 @@ public class CompaniesController {
 		return new ResponseEntity<>(companies, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
 		String result = "";
 		try {
