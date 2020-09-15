@@ -13,6 +13,7 @@ import org.springframework.util.ResourceUtils;
 
 import com.lawencon.booting.model.ReportAllListClient;
 import com.lawencon.booting.model.ReportTotalTicketAgent;
+import com.lawencon.booting.model.TicketStatus;
 
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -43,15 +44,20 @@ public class JasperReportService {
 		return baos.toByteArray();
 	}
 	
-	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, HttpServletResponse res) {
+	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, TicketStatus ticketStatus, HttpServletResponse res) {
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 		try {
-			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
+			File file = ResourceUtils.getFile("classpath:TicketSummary.jrxml");
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
+			Long total = ticketStatus.getTicketClose() + ticketStatus.getTicketOpen() + ticketStatus.getTicketReopen();
 			parameters.put("Nama Agent", nama);
-			parameters.put("nip", nip);
+			parameters.put("nip agent", nip);
+			parameters.put("total", total);
+			parameters.put("open", ticketStatus.getTicketOpen());
+			parameters.put("close", ticketStatus.getTicketClose());
+			parameters.put("reopen", ticketStatus.getTicketReopen());
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
 			res.setContentType("application/pdf");
 			res.addHeader("Content-Disposition", "inline; filename=TicketReportSummary.pdf;");

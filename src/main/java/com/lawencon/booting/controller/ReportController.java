@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.booting.model.ReportAllListClient;
 import com.lawencon.booting.model.ReportTotalTicketAgent;
+import com.lawencon.booting.model.TicketStatus;
 import com.lawencon.booting.model.Users;
 import com.lawencon.booting.service.ReportService;
+import com.lawencon.booting.service.TicketsService;
 import com.lawencon.booting.service.UsersService;
 import com.lawencon.booting.utility.JasperReportService;
 
@@ -29,6 +31,9 @@ public class ReportController {
 
 	@Autowired
 	private ReportService reportService;
+	
+	@Autowired
+	private TicketsService ticketService;
 
 	@Autowired
 	private UsersService userService;
@@ -55,8 +60,9 @@ public class ReportController {
 		byte[] baot;
 		try {
 			users = userService.getUserByNip(users);
+			TicketStatus ticketStatus = ticketService.statusAgent(users);
 			listTotalTicket = reportService.getReportTotalTicketAgent(users);
-			baot = jasperService.totalTicketAgents(listTotalTicket, users.getName(), users.getNip(), res);
+			baot = jasperService.totalTicketAgents(listTotalTicket, users.getName(), users.getNip(), ticketStatus, res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

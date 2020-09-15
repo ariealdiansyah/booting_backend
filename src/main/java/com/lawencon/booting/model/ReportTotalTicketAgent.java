@@ -4,8 +4,33 @@ public class ReportTotalTicketAgent {
 
 	private String customers_name;
 	private String companies_name;
-	private Long total_ticket;
-	private Long solved_ticket;
+	private String subject;
+	private String ticket_status;
+	private String classification;
+	
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getTicket_status() {
+		return ticket_status;
+	}
+
+	public void setTicket_status(String ticket_status) {
+		this.ticket_status = ticket_status;
+	}
+
+	public String getClassification() {
+		return classification;
+	}
+
+	public void setClassification(String classification) {
+		this.classification = classification;
+	}
 
 	public String getCustomers_name() {
 		return customers_name;
@@ -21,22 +46,6 @@ public class ReportTotalTicketAgent {
 
 	public void setCompanies_name(String companies_name) {
 		this.companies_name = companies_name;
-	}
-
-	public Long getTotal_ticket() {
-		return total_ticket;
-	}
-
-	public void setTotal_ticket(Long total_ticket) {
-		this.total_ticket = total_ticket;
-	}
-
-	public Long getSolved_ticket() {
-		return solved_ticket;
-	}
-
-	public void setSolved_ticket(Long solved_ticket) {
-		this.solved_ticket = solved_ticket;
 	}
 
 }

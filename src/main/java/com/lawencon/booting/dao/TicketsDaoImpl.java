@@ -439,7 +439,7 @@ public class TicketsDaoImpl extends BaseDao implements TicketsDao {
 		sql.append("and com.id IN (:id) ) as December ");
 		sql.append("FROM tb_m_status tms ORDER BY tms.name");
 
-		List<Object[]> listData = em.createNativeQuery(sql.toString()).setParameter("id", data).getResultList();
+		List<Object[]> listData = em.createNativeQuery(sql.toString(), Object[].class).setParameter("id", data).getResultList();
 		List<TicketCharts> listCharts = new ArrayList<>();
 
 		listData.forEach(l -> {
