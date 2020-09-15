@@ -47,7 +47,7 @@ public class JasperReportService {
 	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, TicketStatus ticketStatus, HttpServletResponse res) {
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 		try {
-			File file = ResourceUtils.getFile("classpath:TicketSummary.jrxml");
+			File file = ResourceUtils.getFile("classpath:ticket_summary.jrxml");
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
