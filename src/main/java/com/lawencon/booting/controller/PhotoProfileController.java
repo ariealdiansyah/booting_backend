@@ -22,7 +22,7 @@ import com.lawencon.booting.utility.ResponseFile;
 import com.lawencon.booting.utility.ResponseMessage;
 
 @RestController
-@RequestMapping("/photo-profile")
+@RequestMapping("/photo")
 public class PhotoProfileController {
 
 	@Autowired
@@ -55,7 +55,7 @@ public class PhotoProfileController {
 	}
 
 	@GetMapping("/files/{id}")
-	public ResponseEntity<byte[]> getFile(@PathVariable String id) {
+	public ResponseEntity<byte[]> getFile(@PathVariable("id") String id) {
 		PhotoProfile photo = new PhotoProfile();
 		photo.setId(id);
 		PhotoProfile fileDB = photoProfileService.getFile(photo);

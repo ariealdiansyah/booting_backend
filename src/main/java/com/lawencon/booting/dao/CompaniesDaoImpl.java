@@ -22,12 +22,12 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 
 	@Override
 	public List<Companies> getListCompanies() throws Exception {
-		return em.createQuery("FROM Companies", Companies.class).getResultList();
+		return em.createQuery("FROM Companies ORDER BY createdAt DESC", Companies.class).getResultList();
 	}
 
 	@Override
 	public List<Companies> getListCompaniesActive() throws Exception {
-		return em.createQuery("FROM Companies WHERE active = true", Companies.class).getResultList();
+		return em.createQuery("FROM Companies WHERE active = true ORDER BY createdAt DESC", Companies.class).getResultList();
 	}
 
 	@Override

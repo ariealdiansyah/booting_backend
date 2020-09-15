@@ -55,11 +55,11 @@ public class ProductsController {
 		return new ResponseEntity<>(listProducts, HttpStatus.OK);
 	}
 
-	@GetMapping("/company/{data}")
-	public ResponseEntity<?> getByCompany(@PathVariable("data") String data) {
+	@GetMapping("/company/{name}")
+	public ResponseEntity<?> getByCompany(@PathVariable("name") String name) {
 		List<Products> listProducts = new ArrayList<>();
 		Companies comp = new Companies();
-		comp.setName(data);
+		comp.setName(name);
 		try {
 			listProducts = productsService.getListByCompany(comp);
 		} catch (Exception e) {

@@ -22,7 +22,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public List<Accounts> getListAccounts() throws Exception {
-		return em.createQuery("FROM Accounts", Accounts.class).getResultList();
+		return em.createQuery("FROM Accounts ORDER BY createdAt DESC", Accounts.class).getResultList();
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 
 	@Override
 	public List<Accounts> getListAccountsActive() throws Exception {
-		return em.createQuery("FROM Accounts WHERE active = true", Accounts.class).getResultList();
+		return em.createQuery("FROM Accounts WHERE active = true ORDER BY createdAt DESC", Accounts.class).getResultList();
 	}
 
 	@Override

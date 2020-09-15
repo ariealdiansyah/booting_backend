@@ -52,11 +52,11 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(agentRelations, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{code}")
-	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("code") String code) {
+	@GetMapping("/{nip}")
+	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("nip") String nip) {
 		AgentRelations agentRelations = new AgentRelations();
 		Users us = new Users();
-		us.setNip(code);
+		us.setNip(nip);
 		agentRelations.setIdAgent(us);
 		List<AgentRelations> listData = new ArrayList<>();
 		try {
@@ -68,11 +68,11 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/company/{code}")
-	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("code") String code) {
+	@GetMapping("/company/{name}")
+	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("name") String name) {
 		Companies comp = new Companies();
 		Users agent = new Users();
-		comp.setName(code);
+		comp.setName(name);
 		try {
 			agent = agentRelationsService.getAgentByCompany(comp);
 		} catch (Exception e) {

@@ -66,10 +66,10 @@ public class AccountController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/{code}")
-	public ResponseEntity<?> getAccountsByCode(@PathVariable("code") String code) {
+	@GetMapping("/{email}")
+	public ResponseEntity<?> getAccountsByCode(@PathVariable("email") String email) {
 		Accounts account = new Accounts();
-		account.setEmail(code);
+		account.setEmail(email);
 		try {
 			account = accountService.findByEmail(account);
 		} catch (Exception e) {

@@ -25,7 +25,7 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 
 	@Override
 	public List<AgentRelations> getListAgentRelations() throws Exception {
-		return em.createQuery("FROM AgentRelations", AgentRelations.class).getResultList();
+		return em.createQuery("FROM AgentRelations ORDER BY createdAt DESC", AgentRelations.class).getResultList();
 	}
 
 	@Override
@@ -35,14 +35,14 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 
 	@Override
 	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
-		return em.createQuery("FROM AgentRelations WHERE idAgent.nip = :idAgent", AgentRelations.class)
+		return em.createQuery("FROM AgentRelations WHERE idAgent.nip = :idAgent ORDER BY createdAt DESC", AgentRelations.class)
 				.setParameter("idAgent", data.getIdAgent().getNip()).getResultList();
 	}
 
 	@Override
 	public List<String> getListCompanies(Users data) throws Exception {
 		List<Object> listData = em.createQuery(
-				"SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)",
+				"SELECT ar.idCompany.id FROM AgentRelations ar WHERE ar.idAgent.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate) ORDER BY createdAt DESC",
 				Object.class).setParameter("id", data.getId()).getResultList();
 		List<String> listComp = new ArrayList<>();
 		listData.forEach(l -> {
@@ -56,7 +56,7 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 		Users us = new Users();
 		AgentRelations ar = new AgentRelations();
 		List<AgentRelations> listData = em.createQuery(
-				"FROM AgentRelations WHERE idCompany.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate)",
+				"FROM AgentRelations WHERE idCompany.id = :id AND (current_timestamp > startDate AND current_timestamp < endDate) ORDER BY createdAt DESC",
 				AgentRelations.class).setParameter("id", data.getId()).getResultList();
 		ar = !listData.isEmpty() ? listData.get(0) : null;
 		us = ar.getIdAgent();

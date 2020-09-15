@@ -23,12 +23,12 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao {
 
 	@Override
 	public List<Products> getListProducts() throws Exception {
-		return em.createQuery("FROM Products", Products.class).getResultList();
+		return em.createQuery("FROM Products ORDER BY createdAt DESC", Products.class).getResultList();
 	}
 
 	@Override
 	public List<Products> getListProductsActive() throws Exception {
-		return em.createQuery("FROM Products WHERE actice = true", Products.class).getResultList();
+		return em.createQuery("FROM Products WHERE actice = true ORDER BY createdAt DESC", Products.class).getResultList();
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao {
 
 	@Override
 	public List<Products> getListByCompany(List<String> data) throws Exception {
-		return em.createQuery("FROM Products WHERE id in (:id) AND active = true", Products.class)
+		return em.createQuery("FROM Products WHERE id in (:id) AND active = true ORDER BY createdAt DESC", Products.class)
 				.setParameter("id", data).getResultList();
 	}
 

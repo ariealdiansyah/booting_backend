@@ -23,7 +23,7 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 
 	@Override
 	public List<Classifications> getListClassifications() throws Exception {
-		return em.createQuery("FROM Classifications", Classifications.class).getResultList();
+		return em.createQuery("FROM Classifications ORDER BY createdAt DESC", Classifications.class).getResultList();
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 
 	@Override
 	public List<Classifications> getListClassificationsActive() throws Exception {
-		return em.createQuery("FROM Classifications WHERE active = TRUE", Classifications.class).getResultList();
+		return em.createQuery("FROM Classifications WHERE active = TRUE ORDER BY createdAt DESC", Classifications.class).getResultList();
 	}
 
 }

@@ -92,12 +92,12 @@ public class StatusController {
 		return new ResponseEntity<>(priorities, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/")
-	public ResponseEntity<?> delete(@RequestBody String data) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id) {
 		Status status = new Status();
 		String result = "";
 		try {
-			status = new ObjectMapper().readValue(data, Status.class);
+			status = new ObjectMapper().readValue(id, Status.class);
 			status = statusService.getStatusesByCode(status);
 			statusService.deleteStatuses(status.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");

@@ -78,10 +78,10 @@ public class TicketController {
 		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{data}")
-	public ResponseEntity<?> getTicketByCode(@PathVariable("data") String data) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getTicketByCode(@PathVariable("code") String code) {
 		Tickets ticket = new Tickets();
-		ticket.setCode(data);
+		ticket.setCode(code);
 		TicketHeader ticketHeader = new TicketHeader();
 		try {
 			ticketHeader = ticketsService.getTicket(ticket);
@@ -104,11 +104,11 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status/agent/{data}")
-	public ResponseEntity<?> getStatusAgent(@PathVariable("data") String data) {
+	@GetMapping("/status/agent/{nip}")
+	public ResponseEntity<?> getStatusAgent(@PathVariable("nip") String nip) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
-		us.setNip(data);
+		us.setNip(nip);
 		try {
 			ticketStatus = ticketsService.statusAgent(us);
 		} catch (Exception e) {
@@ -118,11 +118,11 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status/client/{data}")
-	public ResponseEntity<?> getStatusClient(@PathVariable("data") String data) {
+	@GetMapping("/status/client/{company}")
+	public ResponseEntity<?> getStatusClient(@PathVariable("company") String company) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Companies comp = new Companies();
-		comp.setName(data);
+		comp.setName(company);
 		try {
 			ticketStatus = ticketsService.statusClient(comp);
 		} catch (Exception e) {
@@ -132,11 +132,11 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status/customer/{data}")
-	public ResponseEntity<?> getStatusCustomer(@PathVariable("data") String data) {
+	@GetMapping("/status/customer/{nip}")
+	public ResponseEntity<?> getStatusCustomer(@PathVariable("nip") String nip) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Users us = new Users();
-		us.setNip(data);
+		us.setNip(nip);
 		try {
 			ticketStatus = ticketsService.statusCustomer(us);
 		} catch (Exception e) {
@@ -146,10 +146,10 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/charts/{data}")
-	public ResponseEntity<?> getCharts(@PathVariable("data") String data) {
+	@GetMapping("/charts/{year}")
+	public ResponseEntity<?> getCharts(@PathVariable("year") String year) {
 		List<TicketCharts> listData = new ArrayList<>();
-		Long tc = Long.parseLong(data);
+		Long tc = Long.parseLong(year);
 		try {
 			listData = ticketsService.getListTicketCharts(tc);
 		} catch (Exception e) {
@@ -173,11 +173,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/charts/agent/{data}")
-	public ResponseEntity<?> getChartsByAgent(@PathVariable("data") String data) {
+	@GetMapping("/charts/agent/{nip}")
+	public ResponseEntity<?> getChartsByAgent(@PathVariable("nip") String nip) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Users user = new Users();
-		user.setNip(data);
+		user.setNip(nip);
 		try {
 			listData = ticketsService.getChartsByAgent(user);
 		} catch (Exception e) {
@@ -187,11 +187,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/agent/{data}")
-	public ResponseEntity<?> getAllByAgent(@PathVariable("data") String data) {
+	@GetMapping("/agent/{nip}")
+	public ResponseEntity<?> getAllByAgent(@PathVariable("nip") String nip) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
-		us.setNip(data);
+		us.setNip(nip);
 		try {
 			listData = ticketsService.getListByIdAgent(us);
 			System.out.println(listData.size());
@@ -202,11 +202,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/client/{data}")
-	public ResponseEntity<?> getAllByCompany(@PathVariable("data") String data) {
+	@GetMapping("/client/{company}")
+	public ResponseEntity<?> getAllByCompany(@PathVariable("company") String company) {
 		List<Tickets> listData = new ArrayList<>();
 		Companies comp = new Companies();
-		comp.setName(data);
+		comp.setName(company);
 		try {
 			listData = ticketsService.getListByIdCompany(comp);
 			System.out.println(listData.size());
@@ -217,11 +217,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/customer/{data}")
-	public ResponseEntity<?> getAllByCustomer(@PathVariable("data") String data) {
+	@GetMapping("/customer/{nip}")
+	public ResponseEntity<?> getAllByCustomer(@PathVariable("nip") String nip) {
 		List<Tickets> listData = new ArrayList<>();
 		Users us = new Users();
-		us.setNip(data);
+		us.setNip(nip);
 		try {
 			listData = ticketsService.getListByIdUser(us);
 			System.out.println(listData.size());
@@ -232,11 +232,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/relation/{code}")
-	public ResponseEntity<?> getListAgent(@PathVariable("code") String code) {
+	@GetMapping("/relation/{idCompany}")
+	public ResponseEntity<?> getListAgent(@PathVariable("idCompany") String idCompany) {
 		List<?> listData = new ArrayList<>();
 		try {
-			listData = ticketsService.getListRelations(code);
+			listData = ticketsService.getListRelations(idCompany);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

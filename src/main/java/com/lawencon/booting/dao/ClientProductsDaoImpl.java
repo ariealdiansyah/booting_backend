@@ -25,7 +25,7 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 
 	@Override
 	public List<ClientProducts> getListClientProducts() throws Exception {
-		return em.createQuery("FROM ClientProducts", ClientProducts.class).getResultList();
+		return em.createQuery("FROM ClientProducts ORDER BY createdAt DESC", ClientProducts.class).getResultList();
 	}
 
 	@Override
@@ -35,14 +35,14 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
-		return em.createQuery("FROM ClientProducts WHERE idCompany.id = :idCompany", ClientProducts.class)
+		return em.createQuery("FROM ClientProducts WHERE idCompany.id = :idCompany ORDER BY createdAt DESC", ClientProducts.class)
 				.setParameter("idCompany", data.getIdCompany().getId()).getResultList();
 	}
 
 	@Override
 	public List<String> getListIdCompany(Companies data) throws Exception {
 		List<Object> listData = em
-				.createQuery("SELECT idProducts.id FROM ClientProducts WHERE idCompany.id = :id", Object.class)
+				.createQuery("SELECT idProducts.id FROM ClientProducts WHERE idCompany.id = :id ORDER BY createdAt DESC", Object.class)
 				.setParameter("id", data.getId()).getResultList();
 		List<String> ListProducts = new ArrayList<>();
 		listData.forEach(l -> {
@@ -53,7 +53,7 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 
 	@Override
 	public List<ClientProducts> getListClientProductsActive() throws Exception {
-		return em.createQuery("FROM ClientProducts WHERE active = TRUE", ClientProducts.class).getResultList();
+		return em.createQuery("FROM ClientProducts WHERE active = TRUE ORDER BY createdAt DESC", ClientProducts.class).getResultList();
 	}
 
 	@Override

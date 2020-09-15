@@ -85,12 +85,12 @@ public class RolesController {
 		return new ResponseEntity<>(roles, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/")
-	public ResponseEntity<?> delete(@RequestBody String data) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id) {
 		Roles roles = new Roles();
 		String result = "";
 		try {
-			roles = new ObjectMapper().readValue(data, Roles.class);
+			roles = new ObjectMapper().readValue(id, Roles.class);
 			roles = rolesService.getRolesByCode(roles);
 			rolesService.deleteRoles(roles.getId());
 			result = new ObjectMapper().writeValueAsString("Delete Success");

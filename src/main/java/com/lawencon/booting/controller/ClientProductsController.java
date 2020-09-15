@@ -63,11 +63,11 @@ public class ClientProductsController {
 		return new ResponseEntity<>(clientProducts, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{code}")
-	public ResponseEntity<?> getClientProducts(@PathVariable("code") String code) {
+	@GetMapping("/{name}")
+	public ResponseEntity<?> getClientProducts(@PathVariable("name") String name) {
 		ClientProducts clientProducts = new ClientProducts();
 		Companies comp = new Companies();
-		comp.setName(code);
+		comp.setName(name);
 		clientProducts.setIdCompany(comp);
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
