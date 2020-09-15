@@ -24,47 +24,26 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Service
 public class JasperReportService {
 
-	public String allListClient(List<ReportAllListClient> data) {
+	public byte[] allListClient(List<ReportAllListClient> data, HttpServletResponse res) {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
-			File file = ResourceUtils.getFile("classpath:list_client_all.jrxml");
-			String path = "C://Users//Dell//Documents//Lawencon//Final Project//";
+			File file = ResourceUtils.getFile("classpath:list_client.jrxml");
 			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("List Client", "List Client");
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
-			JasperExportManager.exportReportToPdfFile(jasperPrint, path + "//listClient.pdf");
-
+			res.setContentType("application/pdf");
+			res.addHeader("Content-Disposition", "inline; filename=ListClient.pdf;");
+			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "Gagal Export File";
+			return null;
 		}
-		return "Berhasil Export File";
+		return baos.toByteArray();
 	}
 	
-	public String totalTicketAgent(List<ReportTotalTicketAgent> data, String nama, String nip, HttpServletResponse res) {
-		try {
-			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
-//			String path = "classpath";
-			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
-			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
-			Map<String, Object> parameters = new HashMap<String, Object>();
-			parameters.put("Nama Agent", nama);
-			parameters.put("nip", nip);
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
-			res.setContentType("application/pdf");
-			res.addHeader("Content-Disposition", "inline; filename=jasperReport.pdf;");
-			JasperExportManager.exportReportToPdfStream(jasperPrint, res.getOutputStream());
-//			JasperExportManager.exportReportToPdfFile(jasperPrint );
-			} catch (Exception e) {
-			e.printStackTrace();
-			return "Gagal Export File";
-		}
-		return "Berhasil Export File";
-	}
-	
-	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip,
-			HttpServletResponse res) {
+	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, HttpServletResponse res) {
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 		try {
 			File file = ResourceUtils.getFile("classpath:total_ticket_agent.jrxml");
@@ -75,7 +54,7 @@ public class JasperReportService {
 			parameters.put("nip", nip);
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
 			res.setContentType("application/pdf");
-			res.addHeader("Content-Disposition", "inline; filename=jasperReport.pdf;");
+			res.addHeader("Content-Disposition", "inline; filename=TicketReportSummary.pdf;");
 			JasperExportManager.exportReportToPdfStream(jasperPrint, baot);
 		} catch (Exception e) {
 			e.printStackTrace();

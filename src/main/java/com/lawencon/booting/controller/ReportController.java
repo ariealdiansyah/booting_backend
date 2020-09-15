@@ -33,17 +33,18 @@ public class ReportController {
 	@Autowired
 	private UsersService userService;
 
-	@GetMapping("/listClientAll")
-	public ResponseEntity<?> listClientAll() {
+	@GetMapping("/listClient")
+	public ResponseEntity<?> listClientAll(HttpServletResponse res) {
 		List<ReportAllListClient> listData = new ArrayList<>();
+		byte[] baos;
 		try {
 			listData = reportService.getReportListAllAgentRelations();
-			jasperService.allListClient(listData);
+			baos = jasperService.allListClient(listData, res);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
+		return new ResponseEntity<>(baos, HttpStatus.OK);
 	}
 
 	@GetMapping("/totalTicketAgent/{nip}")
