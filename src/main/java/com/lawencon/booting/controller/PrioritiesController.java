@@ -93,14 +93,11 @@ public class PrioritiesController {
 		return new ResponseEntity<>(priorities, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/")
-	public ResponseEntity<?> delete(@RequestBody String data) {
-		Priorities priorities = new Priorities();
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id) {
 		String result = "";
 		try {
-			priorities = new ObjectMapper().readValue(data, Priorities.class);
-			priorities = prioritiesService.getPrioritiesByCode(priorities);
-			prioritiesService.deletePriorities(priorities.getId());
+			prioritiesService.deletePriorities(id);
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
 			e.printStackTrace();

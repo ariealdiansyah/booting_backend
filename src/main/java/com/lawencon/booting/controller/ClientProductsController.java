@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.ClientProducts;
 import com.lawencon.booting.model.Companies;
@@ -51,18 +53,22 @@ public class ClientProductsController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<?> insert(@RequestBody String data) {
+	public ResponseEntity<?> insert(@RequestBody String data) throws JsonProcessingException {
 		ClientProducts clientProducts = new ClientProducts();
+		String respon = "";
 		try {
 			clientProducts = new ObjectMapper().readValue(data, ClientProducts.class);
 			clientProducts = clientProductsService.insert(clientProducts);
+		}catch (DataIntegrityViolationException e) {
+			respon = new ObjectMapper().writeValueAsString("duplicate key value violates unique constraint");
+			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(clientProducts, HttpStatus.CREATED);
 	}
-
+	
 	@GetMapping("/{name}")
 	public ResponseEntity<?> getClientProducts(@PathVariable("name") String name) {
 		ClientProducts clientProducts = new ClientProducts();

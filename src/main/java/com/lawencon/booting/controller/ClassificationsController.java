@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawencon.booting.model.Classifications;
 import com.lawencon.booting.service.ClassificationsService;
@@ -53,11 +55,15 @@ public class ClassificationsController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<?> insert(@RequestBody String data) {
+	public ResponseEntity<?> insert(@RequestBody String data) throws JsonProcessingException {
 		Classifications classifications = new Classifications();
+		String respon = "";
 		try {
 			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.insert(classifications);
+		}catch (DataIntegrityViolationException e) {
+			respon = new ObjectMapper().writeValueAsString("duplicate key value violates unique constraint");
+			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
