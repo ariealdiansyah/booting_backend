@@ -64,13 +64,14 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		roles = rolesService.getRolesByCode(data.getIdRole());
 		acc.setIdUser(us);
 		acc = accountsService.findByUser(acc);
-		PhotoProfile photo = new PhotoProfile();
-		photo = photoProfileService.store(file);
-		us.setIdPhoto(photo);
+		if(file != null) {
+			PhotoProfile photo = new PhotoProfile();
+			photo = photoProfileService.store(file);
+			data.setIdPhoto(photo);
+		}
 		data.setId(us.getId());
 		data.setIdCompany(us.getIdCompany());
 		data.setIdRole(us.getIdRole());
-		data.setIdPhoto(photo);
 		data.setIdRole(roles);
 		data.setIdCompany(company);
 		mail.init(acc.getEmail(), "Profile Updated", template.getTemplate(), data.getName()).sendMail();
