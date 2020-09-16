@@ -45,9 +45,9 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers(HttpMethod.POST, "/accounts/insert", "/photo-profile/uploads");
+		web.ignoring().antMatchers(HttpMethod.POST, "/accounts/insert", "/photo/uploads");
 		web.ignoring().antMatchers(HttpMethod.PUT, "/accounts/forgot", "/accounts/update");
-		web.ignoring().antMatchers(HttpMethod.GET, "/photo-profile/**", "/report/**");
+		web.ignoring().antMatchers(HttpMethod.GET, "/photo/**", "/report/**");
 		web.ignoring().antMatchers("/v2/api-docs/**");
 		web.ignoring().antMatchers("/swagger.json");
 		web.ignoring().antMatchers("/swagger-ui.html");
@@ -126,7 +126,7 @@ public class ApiSecurity extends WebSecurityConfigurerAdapter {
 						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
 								HttpMethod.DELETE.name());
 
-				registry.addMapping("/photo-profile/**")
+				registry.addMapping("/photo/**")
 						.allowedOrigins("http://127.0.0.1:5500", "http://localhost:4200", "http://147.139.130.49")
 						.allowedMethods(HttpMethod.POST.name(), HttpMethod.GET.name(), HttpMethod.PUT.name(),
 								HttpMethod.DELETE.name());

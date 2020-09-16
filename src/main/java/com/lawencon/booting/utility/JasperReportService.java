@@ -68,4 +68,29 @@ public class JasperReportService {
 		}
 		return baot.toByteArray();
 	}
+
+	public byte[] ticketCompany(List<ReportTotalTicketAgent> listData, String name, TicketStatus ticketStatus,
+			HttpServletResponse res) {
+		ByteArrayOutputStream baot = new ByteArrayOutputStream();
+		try {
+			File files = ResourceUtils.getFile("classpath:company.jrxml");
+			JasperReport jasper = JasperCompileManager.compileReport(files.getAbsolutePath());
+			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(listData);
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			Long total = ticketStatus.getTicketClose() + ticketStatus.getTicketOpen() + ticketStatus.getTicketReopen();
+			parameters.put("nama", name);
+			parameters.put("total", total);
+			parameters.put("open", ticketStatus.getTicketOpen());
+			parameters.put("close", ticketStatus.getTicketClose());
+			parameters.put("reopen", ticketStatus.getTicketReopen());
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parameters, ds);
+			res.setContentType("application/pdf");
+			res.addHeader("Content-Disposition", "inline; filename=TicketCompanySummary.pdf;");
+			JasperExportManager.exportReportToPdfStream(jasperPrint, baot);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return baot.toByteArray();
+	}
 }

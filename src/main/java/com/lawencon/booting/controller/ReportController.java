@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.booting.model.Companies;
 import com.lawencon.booting.model.ReportAllListClient;
 import com.lawencon.booting.model.ReportTotalTicketAgent;
 import com.lawencon.booting.model.TicketStatus;
@@ -63,6 +64,23 @@ public class ReportController {
 			TicketStatus ticketStatus = ticketService.statusAgent(users);
 			listTotalTicket = reportService.getReportTotalTicketAgent(users);
 			baot = jasperService.totalTicketAgents(listTotalTicket, users.getName(), users.getNip(), ticketStatus, res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(baot, HttpStatus.OK);
+	}
+	
+	@GetMapping("/company/{name}")
+	public ResponseEntity<?> ticketCompany(@PathVariable("name") String name, HttpServletResponse res){
+		List<ReportTotalTicketAgent> listData = new ArrayList<>();
+		Companies comp = new Companies();
+		byte[] baot;
+		try {
+			comp.setName(name);
+			TicketStatus ticketStatus = ticketService.statusClient(comp);
+			listData = reportService.getReportTicketCompany(comp);
+			baot = jasperService.ticketCompany(listData, name , ticketStatus, res);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
