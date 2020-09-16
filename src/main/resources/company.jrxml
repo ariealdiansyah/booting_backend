@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.14.0.final using JasperReports Library version 6.14.0-2ab0d8625be255bf609c78e1181801213e51db8f  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="test2" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2883ea27-0592-48ec-a912-08d65328017e">
+	<parameter name="nama" class="java.lang.String"/>
+	<parameter name="total" class="java.lang.Long"/>
+	<parameter name="open" class="java.lang.Long"/>
+	<parameter name="close" class="java.lang.Long"/>
+	<parameter name="reopen" class="java.lang.Long"/>
+	<field name="customers_name" class="java.lang.String"/>
+	<field name="subject" class="java.lang.String"/>
+	<field name="ticket_status" class="java.lang.String"/>
+	<field name="classification" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="b09c980d-1ed1-4656-9056-9311fa1b79a9"/>
+				<staticText>
+					<reportElement x="140" y="0" width="440" height="43" forecolor="#FFFFFF" uuid="32ae16ed-a305-449c-a45f-f0af152f8860"/>
+					<textElement textAlignment="Right">
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PT Lawencon International]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="400" y="46" width="180" height="20" forecolor="#FFFFFF" uuid="d45720ad-93f0-4c67-a17e-e5e78318f088"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Ticket Management System]]></text>
+				</staticText>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement x="480" y="70" width="100" height="13" forecolor="#FFFFFF" uuid="eb39957e-45e0-407d-b2c8-fd78a34251fb"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<image>
+					<reportElement x="0" y="0" width="100" height="92" uuid="6cbc9e27-f023-4296-b2ae-e2fe5053f19f"/>
+					<imageExpression><![CDATA["lwncn.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="142">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="30" uuid="c2b32c79-8f08-4a76-ade2-22a482eb8d03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ticket Report Summary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="69" width="140" height="20" uuid="ed10b158-f307-4302-8217-bd43c010bcf9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Nama Company	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="89" width="140" height="20" uuid="83c7f5a3-82e6-42fc-bc5a-ea199f4bf795"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Total Ticket 		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="69" width="90" height="20" uuid="ec23bf3b-5c56-49d1-a477-4062970be712"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Open 		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="89" width="90" height="20" uuid="cac534d3-cbc3-4347-aa26-6b85cba7beb6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Close 		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="109" width="90" height="20" uuid="b5e77627-4391-4eb7-91cb-f844024f85af"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Reopen 	:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="69" width="210" height="20" uuid="b9de42b2-9aab-4996-9dc2-95978dbbf7dd"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="90" width="210" height="19" uuid="2092cd95-4f65-42b4-8896-a088090b3164"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="70" width="81" height="20" uuid="c6dc8d5f-79f3-44d0-96ad-5517349571c9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{open}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="90" width="81" height="19" uuid="f774419f-82ff-418d-9219-c248677e877a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{close}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="474" y="110" width="81" height="19" uuid="dadc4a47-a9df-411d-865b-c571167f1543"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{reopen}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="bd333c07-0938-4a06-b718-60fc2e6242f6"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="c9b10f75-efce-423a-803e-5b63b313d222">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="beed2548-a444-4760-8306-e945baf08a4c"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detail Ticket]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="128">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="122" width="555" height="1" uuid="5eaa2924-9d4a-4a7d-8384-7f7b17f8bcc4"/>
+			</line>
+			<textField>
+				<reportElement x="105" y="50" width="275" height="20" uuid="bdfc758f-d51a-4f65-bba6-ab1ea44decb8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="beed2548-a444-4760-8306-e945baf08a4c"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{customers_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="30" width="275" height="20" uuid="5694547e-8a80-4c75-88a2-de9f6d333d19">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e7e91b22-a4a0-4ab4-b291-98be6424c326"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subject}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="70" width="138" height="20" uuid="d0dd7dd5-3c7a-46b2-9cdc-44f1780aac66">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="50e3d5c0-f2e6-4748-952e-a7374ab40f91"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ticket_status}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="105" y="91" width="138" height="20" uuid="7f0f11e8-1315-4d53-b844-097e6657cd7c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a46844f-145f-429f-a971-f2d22af461e1"/>
+				</reportElement>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classification}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="30" width="100" height="20" uuid="05bc79cb-e129-42cc-8edc-86f247a6278f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Subject	 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="100" height="20" uuid="04d6c4ca-c24d-4b63-815b-400eace3fdeb"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[PIC		 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="100" height="20" uuid="2e115ac2-7708-4521-b9e1-b4b0b088bc42"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Status		 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="100" height="20" uuid="0f9f92de-4d58-4481-9658-cdba7c6793ca"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Classification :]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="acf5a72c-7bea-4c0f-8708-9e38b888c811"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="67f4b20e-78c4-487d-8c4a-2336d10ca345"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

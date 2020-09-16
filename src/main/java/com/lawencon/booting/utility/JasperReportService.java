@@ -70,7 +70,7 @@ public class JasperReportService {
 	}
 
 	public byte[] ticketCompany(List<ReportTotalTicketAgent> listData, String name, TicketStatus ticketStatus,
-			HttpServletResponse res) {
+			HttpServletResponse res) throws Exception{
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 		try {
 			File files = ResourceUtils.getFile("classpath:company.jrxml");
