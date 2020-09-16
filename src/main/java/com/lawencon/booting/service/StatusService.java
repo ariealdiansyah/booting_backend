@@ -16,5 +16,4 @@ public interface StatusService {
 
 	void deleteStatuses(String id) throws Exception;
 	
-	List<Status> getListStatusActive() throws Exception;
 }

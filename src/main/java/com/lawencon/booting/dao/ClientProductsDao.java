@@ -16,6 +16,8 @@ public interface ClientProductsDao {
 
 	void delete(String id) throws Exception;
 	
+	void deletePath(String id) throws Exception;
+	
 	ClientProducts getData(TicketPriority data) throws Exception;
 	
 	List<ClientProducts> getListByCompany(ClientProducts data) throws Exception;

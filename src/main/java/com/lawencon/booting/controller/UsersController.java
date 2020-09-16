@@ -84,18 +84,6 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/active")
-	public ResponseEntity<?> getAllActive() {
-		List<Users> listData = new ArrayList<>();
-		try {
-			listData = usersService.getListUsersActive();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}
-
 	@PostMapping("/")
 	public ResponseEntity<?> insert(@RequestBody String data) {
 		Users users = new Users();

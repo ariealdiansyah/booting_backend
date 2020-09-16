@@ -18,10 +18,10 @@ public interface ClientProductsService {
 
 	void delete(String id) throws Exception;
 	
+	public void deletePath(String id) throws Exception;
+	
 	List<ClientProducts> getListByCompany(ClientProducts data) throws Exception;
 	
 	List<String> getListIdCompany(Companies data) throws Exception;
-	
-	List<ClientProducts> getListClientProductsActive() throws Exception;
-	
+		
 }

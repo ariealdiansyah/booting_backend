@@ -29,7 +29,7 @@ public class AgentRelationsController {
 	@Autowired
 	private AgentRelationsService agentRelationsService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<AgentRelations> listData = new ArrayList<>();
 		try {

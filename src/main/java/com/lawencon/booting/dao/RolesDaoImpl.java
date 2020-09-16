@@ -23,14 +23,13 @@ public class RolesDaoImpl extends BaseDao implements RolesDao{
 
 	@Override
 	public List<Roles> getListRoles() throws Exception {
-		return em.createQuery("FROM Roles", Roles.class).getResultList();
+		return em.createQuery("FROM Roles WHERE active = true", Roles.class).getResultList();
 	}
 
 	@Override
 	public void deleteRoles(String id) throws Exception {
 		em.createQuery("DELETE from Roles where id = :id")
-		.setParameter("id", id);
-		
+		.setParameter("id", id).executeUpdate();
 	}
 
 	@Override

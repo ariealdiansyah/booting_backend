@@ -39,11 +39,6 @@ public class ProductsServiceImpl extends BaseService implements ProductsService{
 	}
 	
 	@Override
-	public List<Products> getListProductsActive() throws Exception {
-		return productsDao.getListProductsActive();
-	}
-
-	@Override
 	public void deleteProducts(String id) throws Exception {
 		productsDao.deleteProducts(id);
 		

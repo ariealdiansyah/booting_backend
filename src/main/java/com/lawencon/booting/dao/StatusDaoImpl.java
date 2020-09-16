@@ -40,9 +40,4 @@ public class StatusDaoImpl extends BaseDao implements StatusDao{
 		 return !listStatuses.isEmpty() ? listStatuses.get(0): null;
 	}
 
-	@Override
-	public List<Status> getListStatusActive() throws Exception {
-		return em.createQuery("FROM Status WHERE active = true", Status.class).getResultList();
-	}
-
 }

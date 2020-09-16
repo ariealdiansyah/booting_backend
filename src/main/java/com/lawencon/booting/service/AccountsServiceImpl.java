@@ -80,7 +80,6 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 
 	@Override
 	public Accounts update(ForgotPass data) throws Exception {
-
 		Accounts acc = accountsDao.findByEmail(data.getIdAccount());
 		boolean check = encoder.matches(data.getPass(), acc.getPass());
 		if (!check) {
@@ -93,11 +92,6 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	}
 
 	@Override
-	public List<Accounts> getListAccounts() throws Exception {
-		return accountsDao.getListAccounts();
-	}
-
-	@Override
 	public void deleteAccounts(String id) throws Exception {
 		accountsDao.deleteAccounts(id);
 	}
@@ -106,12 +100,7 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	public Accounts findByEmail(Accounts data) throws Exception {
 		return accountsDao.findByEmail(data);
 	}
-
-	@Override
-	public List<Accounts> getListAccountsActive() throws Exception {
-		return accountsDao.getListAccountsActive();
-	}
-
+	
 	@Override
 	public void deletePath(String id) throws Exception {
 		accountsDao.deletePath(id);

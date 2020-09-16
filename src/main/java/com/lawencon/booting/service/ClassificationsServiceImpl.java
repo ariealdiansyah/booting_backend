@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.booting.dao.ClassificationsDao;
 import com.lawencon.booting.model.Classifications;
+import com.lawencon.booting.model.Users;
 
 @Service
 @Transactional
@@ -16,6 +17,9 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 
 	@Autowired
 	private ClassificationsDao classificationsDao;
+	
+	@Autowired
+	private UsersService userService;
 	
 	@Override
 	public Classifications insert(Classifications data) throws Exception {
@@ -30,8 +34,16 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 	}
 
 	@Override
-	public List<Classifications> getListClassifications() throws Exception {
-		return classificationsDao.getListClassifications();
+	public List<Classifications> getListClassifications(String nip) throws Exception {
+		Users user = new Users();
+		user.setNip(nip);
+		user = userService.getUserByNip(user);
+		if("ADM".equals(user.getIdRole().getCode())) {
+			return classificationsDao.getListClassifications();
+		} else {
+			return classificationsDao.getListClassificationsActive();
+		}
+		
 	}
 
 	@Override
@@ -43,11 +55,6 @@ public class ClassificationsServiceImpl extends BaseService implements Classific
 	@Override
 	public Classifications getClassificationsByCode(Classifications data) throws Exception {
 		return classificationsDao.getClassificationsByCode(data.getCode());
-	}
-
-	@Override
-	public List<Classifications> getListClassificationsActive() throws Exception {
-		return classificationsDao.getListClassificationsActive();
 	}
 
 }

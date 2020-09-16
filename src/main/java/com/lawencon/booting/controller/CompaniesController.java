@@ -30,23 +30,11 @@ public class CompaniesController {
 	@Autowired
 	private CompaniesService companiesService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<Companies> listData = new ArrayList<>();
 		try {
 			listData = companiesService.getListCompanies();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getAllActive() {
-		List<Companies> listData = new ArrayList<>();
-		try {
-			listData = companiesService.getListCompaniesActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);

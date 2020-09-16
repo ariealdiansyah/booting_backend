@@ -50,9 +50,4 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 		companiesDao.deletePath(id);
 	}
 
-	@Override
-	public List<Companies> getListCompaniesActive() throws Exception {
-		return companiesDao.getListCompaniesActive() ;
-	}
-
 }

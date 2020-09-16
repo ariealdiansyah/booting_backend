@@ -29,11 +29,6 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 	}
 
 	@Override
-	public void delete(String id) throws Exception {
-		em.createQuery("DELETE from AgentRelations where id = :id").setParameter("id", id);
-	}
-
-	@Override
 	public List<AgentRelations> getListByIdUser(AgentRelations data) throws Exception {
 		return em.createQuery("FROM AgentRelations WHERE idAgent.nip = :idAgent ORDER BY createdAt DESC", AgentRelations.class)
 				.setParameter("idAgent", data.getIdAgent().getNip()).getResultList();

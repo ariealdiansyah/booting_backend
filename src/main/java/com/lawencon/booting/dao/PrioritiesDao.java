@@ -16,5 +16,4 @@ public interface PrioritiesDao {
 
 	void deletePriorities(String id) throws Exception;
 	
-	List<Priorities> getListPrioritiesActive() throws Exception;
 }

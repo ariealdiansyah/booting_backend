@@ -1,8 +1,5 @@
 package com.lawencon.booting.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.PersistenceException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,30 +43,6 @@ public class AccountController {
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(acc, HttpStatus.CREATED);
-	}
-
-	@GetMapping("/all")
-	public ResponseEntity<?> getAll() {
-		List<Accounts> listData = new ArrayList<>();
-		try {
-			listData = accountService.getListAccounts();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getAllActive() {
-		List<Accounts> listData = new ArrayList<>();
-		try {
-			listData = accountService.getListAccountsActive();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
 	@GetMapping("/{email}")

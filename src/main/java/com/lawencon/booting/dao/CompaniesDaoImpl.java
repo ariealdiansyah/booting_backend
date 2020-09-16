@@ -26,11 +26,6 @@ public class CompaniesDaoImpl extends BaseDao implements CompaniesDao {
 	}
 
 	@Override
-	public List<Companies> getListCompaniesActive() throws Exception {
-		return em.createQuery("FROM Companies WHERE active = true ORDER BY createdAt DESC", Companies.class).getResultList();
-	}
-
-	@Override
 	public void delete(String id) throws Exception {
 		em.createQuery("DELETE from Companies where id = :id").setParameter("id", id).executeUpdate();
 	}

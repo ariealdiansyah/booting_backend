@@ -26,24 +26,11 @@ public class PrioritiesController {
 	@Autowired
 	private PrioritiesService prioritiesService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getPriorities() {
 		List<Priorities> listPriorities = new ArrayList<>();
 		try {
 			listPriorities = prioritiesService.getListPriorities();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(listPriorities, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getPrioritiesActive() {
-		List<Priorities> listPriorities = new ArrayList<>();
-		try {
-			listPriorities = prioritiesService.getListPrioritiesActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

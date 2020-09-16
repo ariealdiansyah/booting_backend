@@ -30,7 +30,14 @@ public class ClientProductsDaoImpl extends BaseDao implements ClientProductsDao 
 
 	@Override
 	public void delete(String id) throws Exception {
-		em.createQuery("DELETE from ClientProducts where id = :id").setParameter("id", id);
+		em.createQuery("DELETE from ClientProducts where id = :id")
+		.setParameter("id", id).executeUpdate();
+	}
+	
+	@Override
+	public void deletePath(String id) throws Exception {
+		em.createQuery("UPDATE ClientProducts SET active = false where id = :id")
+		.setParameter("id", id).executeUpdate();
 	}
 
 	@Override

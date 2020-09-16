@@ -3,10 +3,13 @@ package com.lawencon.booting.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,23 +31,11 @@ public class ClientProductsController {
 	@Autowired
 	private ClientProductsService clientProductsService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<ClientProducts> listData = new ArrayList<>();
 		try {
 			listData = clientProductsService.getListClientProducts();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
-		}
-		return new ResponseEntity<>(listData, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getAllClientProductsActive() {
-		List<ClientProducts> listData = new ArrayList<>();
-		try {
-			listData = clientProductsService.getListClientProductsActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
@@ -97,6 +88,26 @@ public class ClientProductsController {
 		}
 
 		return new ResponseEntity<>(clientProducts, HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") String id){
+		String result = "";
+		try {
+			clientProductsService.delete(id);
+			result = new ObjectMapper().writeValueAsString("Delete Success");
+		} catch (PersistenceException e) {
+			try {
+				clientProductsService.deletePath(id);
+				result = new ObjectMapper().writeValueAsString("Delete Success");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 
 }

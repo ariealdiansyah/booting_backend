@@ -57,6 +57,11 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	public void delete(String id) throws Exception {
 		clientProductsDao.delete(id);
 	}
+	
+	@Override
+	public void deletePath(String id) throws Exception {
+		clientProductsDao.deletePath(id);
+	}
 
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
@@ -68,11 +73,6 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	@Override
 	public List<String> getListIdCompany(Companies data) throws Exception {
 		return clientProductsDao.getListIdCompany(data);
-	}
-
-	@Override
-	public List<ClientProducts> getListClientProductsActive() throws Exception {
-		return clientProductsDao.getListClientProductsActive();
 	}
 
 	@Override

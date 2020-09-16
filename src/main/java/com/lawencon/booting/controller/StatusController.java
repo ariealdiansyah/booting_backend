@@ -28,24 +28,11 @@ public class StatusController {
 	@Autowired
 	private StatusService statusService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getStatus() {
 		List<Status> listStatus = new ArrayList<>();
 		try {
 			listStatus = statusService.getListStatuses();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(listStatus, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getStatusActive() {
-		List<Status> listStatus = new ArrayList<>();
-		try {
-			listStatus = statusService.getListStatusActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

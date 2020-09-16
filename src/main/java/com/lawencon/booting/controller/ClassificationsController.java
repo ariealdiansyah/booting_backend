@@ -28,24 +28,12 @@ public class ClassificationsController {
 	@Autowired
 	private ClassificationsService ClassificationsService;
 
-	@GetMapping("/all")
-	public ResponseEntity<?> getClassifications() {
+	@GetMapping("/{nip}")
+	public ResponseEntity<?> getClassifications(@PathVariable("nip") String nip) {
 		List<Classifications> listClassifications = new ArrayList<>();
+		
 		try {
-			listClassifications = ClassificationsService.getListClassifications();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getClassificationsActive() {
-		List<Classifications> listClassifications = new ArrayList<>();
-		try {
-			listClassifications = ClassificationsService.getListClassificationsActive();
+			listClassifications = ClassificationsService.getListClassifications(nip);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

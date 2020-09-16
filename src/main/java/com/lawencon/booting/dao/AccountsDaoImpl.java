@@ -21,11 +21,6 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 	}
 
 	@Override
-	public List<Accounts> getListAccounts() throws Exception {
-		return em.createQuery("FROM Accounts ORDER BY createdAt DESC", Accounts.class).getResultList();
-	}
-
-	@Override
 	public void deleteAccounts(String id) throws Exception {
 		em.createQuery("DELETE from Accounts where id = :id").setParameter("id", id).executeUpdate();
 	}
@@ -42,11 +37,6 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 					.setParameter("email", data.getEmail()).getResultList();
 			return !listAccounts.isEmpty() ? listAccounts.get(0) : null;
 		}
-	}
-
-	@Override
-	public List<Accounts> getListAccountsActive() throws Exception {
-		return em.createQuery("FROM Accounts WHERE active = true ORDER BY createdAt DESC", Accounts.class).getResultList();
 	}
 
 	@Override

@@ -12,8 +12,6 @@ public interface ProductsDao {
 
 	List<Products> getListProducts() throws Exception;
 
-	List<Products> getListProductsActive() throws Exception;
-
 	Products getProductsByCode(String code) throws Exception;
 
 	void deleteProducts(String code) throws Exception;

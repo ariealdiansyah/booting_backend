@@ -45,9 +45,4 @@ public class PrioritiesServiceImpl extends BaseService implements PrioritiesServ
 		return prioritiesDao.getPrioritiesByCode(data.getCode());
 	}
 
-	@Override
-	public List<Priorities> getListPrioritiesActive() throws Exception {
-		return prioritiesDao.getListPrioritiesActive();
-	}
-
 }

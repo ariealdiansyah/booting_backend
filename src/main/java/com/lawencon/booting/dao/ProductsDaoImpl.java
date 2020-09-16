@@ -27,11 +27,6 @@ public class ProductsDaoImpl extends BaseDao implements ProductsDao {
 	}
 
 	@Override
-	public List<Products> getListProductsActive() throws Exception {
-		return em.createQuery("FROM Products WHERE actice = true ORDER BY createdAt DESC", Products.class).getResultList();
-	}
-
-	@Override
 	public void deleteProducts(String id) throws Exception {
 		em.createQuery("DELETE from Products where id = :id").setParameter("id", id).executeUpdate();
 	}

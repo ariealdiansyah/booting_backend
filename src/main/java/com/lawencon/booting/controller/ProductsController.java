@@ -31,24 +31,11 @@ public class ProductsController {
 	@Autowired
 	private ProductsService productsService;
 
-	@GetMapping("/all")
+	@GetMapping("/")
 	public ResponseEntity<?> getAll() {
 		List<Products> listProducts = new ArrayList<>();
 		try {
 			listProducts = productsService.getListProducts();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
-		}
-
-		return new ResponseEntity<>(listProducts, HttpStatus.OK);
-	}
-
-	@GetMapping("/")
-	public ResponseEntity<?> getAllActive() {
-		List<Products> listProducts = new ArrayList<>();
-		try {
-			listProducts = productsService.getListProductsActive();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
