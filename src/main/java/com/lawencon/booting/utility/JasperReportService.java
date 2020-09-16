@@ -44,17 +44,17 @@ public class JasperReportService {
 		return baos.toByteArray();
 	}
 	
-	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, TicketStatus ticketStatus, HttpServletResponse res) {
+	public byte[] totalTicketAgents(List<ReportTotalTicketAgent> data, String nama, String nip, TicketStatus ticketStatus, HttpServletResponse res) throws Exception{
 		ByteArrayOutputStream baot = new ByteArrayOutputStream();
 		try {
-			File file = ResourceUtils.getFile("classpath:ticket_summary.jrxml");
-			JasperReport jasper = JasperCompileManager.compileReport(file.getAbsolutePath());
+			File files = ResourceUtils.getFile("classpath:summary.jrxml");
+			JasperReport jasper = JasperCompileManager.compileReport(files.getAbsolutePath());
 			JRBeanCollectionDataSource ds = new JRBeanCollectionDataSource(data);
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			Long total = ticketStatus.getTicketClose() + ticketStatus.getTicketOpen() + ticketStatus.getTicketReopen();
-			parameters.put("Nama Agent", nama);
-			parameters.put("nip agent", nip);
-			parameters.put("total", total);
+			parameters.put("nama", nama);
+			parameters.put("nip", nip);
+			parameters.put("totall", total);
 			parameters.put("open", ticketStatus.getTicketOpen());
 			parameters.put("close", ticketStatus.getTicketClose());
 			parameters.put("reopen", ticketStatus.getTicketReopen());
