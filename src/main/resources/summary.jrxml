@@ -27,14 +27,14 @@
 					<text><![CDATA[PT Lawencon International]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="350" y="50" width="222" height="20" forecolor="#FFFFFF" uuid="1462ec5a-b181-40ff-a3e3-4c0d981d842d"/>
+					<reportElement x="210" y="50" width="362" height="42" forecolor="#FFFFFF" uuid="1462ec5a-b181-40ff-a3e3-4c0d981d842d"/>
 					<textElement textAlignment="Right">
-						<font size="14" isBold="false"/>
+						<font size="12" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Report Ticket Management System]]></text>
+					<text><![CDATA[Wisma Staco 5th floor, Jl. Casablanca No.Kav. 18, Menteng Atas, Kec. Tebet, Kota Jakarta Selatan, DKI Jakarta 12870]]></text>
 				</staticText>
 				<textField pattern="EEEEE dd MMMMM yyyy">
-					<reportElement x="477" y="70" width="95" height="13" forecolor="#FFFFFF" uuid="4ea739b5-f5b3-4265-aa20-833de50aa1e3"/>
+					<reportElement x="480" y="132" width="95" height="13" forecolor="#000000" uuid="4ea739b5-f5b3-4265-aa20-833de50aa1e3"/>
 					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 				</textField>
