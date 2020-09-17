@@ -13,6 +13,8 @@ public interface UsersDao {
 	List<Users> getListUsers() throws Exception;
 	
 	List<Users> getListUsersByClient(Users data) throws Exception;
+	
+	List<Users> getListCustomers() throws Exception;
 
 	List<Users> getListAgent() throws Exception;
 	

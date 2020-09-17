@@ -45,7 +45,7 @@ public class UsersController {
 	}
 
 	@GetMapping("/customer/{data}")
-	public ResponseEntity<?> getAllCustomer(@PathVariable("data") String data) {
+	public ResponseEntity<?> getCustomer(@PathVariable("data") String data) {
 		Users us = new Users();
 		Companies com = new Companies();
 		com.setName(data);
@@ -60,6 +60,18 @@ public class UsersController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
+	@GetMapping("/customer/")
+	public ResponseEntity<?> getAllCustomer() {
+		List<Users> listData = new ArrayList<>();
+		try {
+			listData = usersService.getListCustomers();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(listData, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<>(listData, HttpStatus.OK);
+	}
+	
 	@GetMapping("/agent")
 	public ResponseEntity<?> getAllAgent() {
 		List<Users> listData = new ArrayList<>();

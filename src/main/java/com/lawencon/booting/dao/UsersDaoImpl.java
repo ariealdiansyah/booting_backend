@@ -53,6 +53,12 @@ public class UsersDaoImpl extends BaseDao implements UsersDao {
 		return em.createQuery("FROM Users WHERE active = TRUE and idRole.code ='CTM' and idCompany.name = :company ORDER BY createdAt DESC",
 				Users.class).setParameter("company", data.getIdCompany().getName()).getResultList();
 	}
+	
+	@Override
+	public List<Users> getListCustomers() throws Exception {
+		return em.createQuery("FROM Users WHERE active = TRUE and idRole.code ='CTM' ORDER BY createdAt DESC",
+				Users.class).getResultList();
+	}
 
 	@Override
 	public List<Users> getListAgent() throws Exception {
