@@ -1,7 +1,5 @@
 package com.lawencon.booting.controller;
 
-import javax.persistence.PersistenceException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -74,17 +72,11 @@ public class AccountController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deletePath(@PathVariable("id") String id) {
+	public ResponseEntity<?> delete(@PathVariable("id") String id) {
 		String result = "";
 		try {
 			accountService.deleteAccounts(id);
 			result = new ObjectMapper().writeValueAsString("Delete Success");
-		} catch (PersistenceException e) {
-			try {
-				accountService.deletePath(id);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);

@@ -10,7 +10,7 @@ public interface AccountsDao {
 
 	void deleteAccounts(String id) throws Exception;
 	
-	void deletePath(String id) throws Exception;
+	void delete(String id) throws Exception;
 	
 	Accounts findByEmail(Accounts data) throws Exception;
 	

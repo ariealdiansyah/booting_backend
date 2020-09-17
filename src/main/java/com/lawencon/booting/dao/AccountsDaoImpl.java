@@ -40,8 +40,8 @@ public class AccountsDaoImpl extends BaseDao implements AccountsDao {
 	}
 
 	@Override
-	public void deletePath(String id) throws Exception {
-		em.createQuery("UPDATE Accounts SET active = false WHERE id = :id").setParameter("id", id).executeUpdate();
+	public void delete(String id) throws Exception {
+		em.createQuery("DELETE from Accounts where idUser.id = :id").setParameter("id", id).executeUpdate();
 	}
 
 	@Override

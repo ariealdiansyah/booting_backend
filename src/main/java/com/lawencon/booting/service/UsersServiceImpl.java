@@ -91,6 +91,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 
 	@Override
 	public void delete(String data) throws Exception {
+		accountsService.delete(data);
 		usersDao.delete(data);
 	}
 

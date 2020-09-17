@@ -102,8 +102,8 @@ public class AccountsServiceImpl extends BaseService implements AccountsService 
 	}
 	
 	@Override
-	public void deletePath(String id) throws Exception {
-		accountsDao.deletePath(id);
+	public void delete(String id) throws Exception {
+		accountsDao.delete(id);
 	}
 
 	@Override
