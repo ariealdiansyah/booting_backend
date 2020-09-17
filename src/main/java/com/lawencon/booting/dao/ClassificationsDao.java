@@ -16,5 +16,4 @@ public interface ClassificationsDao {
 
 	void deleteClassifications(String id) throws Exception;
 	
-	List<Classifications> getListClassificationsActive() throws Exception;
 }

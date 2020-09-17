@@ -28,17 +28,15 @@ public class ClassificationsController {
 	@Autowired
 	private ClassificationsService ClassificationsService;
 
-	@GetMapping("/{nip}")
-	public ResponseEntity<?> getClassifications(@PathVariable("nip") String nip) {
+	@GetMapping("/")
+	public ResponseEntity<?> getClassifications() {
 		List<Classifications> listClassifications = new ArrayList<>();
-		
 		try {
-			listClassifications = ClassificationsService.getListClassifications(nip);
+			listClassifications = ClassificationsService.getListClassifications();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-
 		return new ResponseEntity<>(listClassifications, HttpStatus.OK);
 	}
 
@@ -49,7 +47,7 @@ public class ClassificationsController {
 		try {
 			classifications = new ObjectMapper().readValue(data, Classifications.class);
 			classifications = ClassificationsService.insert(classifications);
-		}catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			respon = new ObjectMapper().writeValueAsString("duplicate key value violates unique constraint");
 			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
 		} catch (Exception e) {

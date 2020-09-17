@@ -10,9 +10,7 @@ public interface ClassificationsService {
 
 	Classifications update(Classifications data) throws Exception;
 
-//	List<Classifications> getListClassifications() throws Exception;
-
-	List<Classifications> getListClassifications(String nip) throws Exception;
+	List<Classifications> getListClassifications() throws Exception;
 
 	Classifications getClassificationsByCode(Classifications data) throws Exception;
 

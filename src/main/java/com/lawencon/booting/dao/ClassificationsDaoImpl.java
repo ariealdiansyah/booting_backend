@@ -40,9 +40,4 @@ public class ClassificationsDaoImpl extends BaseDao implements ClassificationsDa
 		return !listClassifications.isEmpty() ? listClassifications.get(0) : null;
 	}
 
-	@Override
-	public List<Classifications> getListClassificationsActive() throws Exception {
-		return em.createQuery("FROM Classifications WHERE active = TRUE ORDER BY createdAt DESC", Classifications.class).getResultList();
-	}
-
 }
