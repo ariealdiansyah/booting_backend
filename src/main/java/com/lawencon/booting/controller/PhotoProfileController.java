@@ -56,13 +56,16 @@ public class PhotoProfileController {
 
 	@GetMapping("/files/{id}")
 	public ResponseEntity<byte[]> getFile(@PathVariable("id") String id) {
-		PhotoProfile photo = new PhotoProfile();
-		photo.setId(id);
-		PhotoProfile fileDB = photoProfileService.getFile(photo);
-
-		return ResponseEntity.ok()
+		if(id == null) {
+			return null;
+		} else {
+			PhotoProfile photo = new PhotoProfile();
+			photo.setId(id);
+			PhotoProfile fileDB = photoProfileService.getFile(photo);
+			return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
 				.body(fileDB.getData());
+		}
 	}
 
 }

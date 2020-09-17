@@ -29,7 +29,7 @@ public class StatusDaoImpl extends BaseDao implements StatusDao{
 	@Override
 	public void deleteStatuses(String id) throws Exception {
 		em.createQuery("DELETE from Status where id = :id")
-		.setParameter("id", id);
+		.setParameter("id", id).executeUpdate();
 		
 	}
 

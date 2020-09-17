@@ -25,7 +25,7 @@ public class AgentRelationsDaoImpl extends BaseDao implements AgentRelationsDao 
 
 	@Override
 	public List<AgentRelations> getListAgentRelations() throws Exception {
-		return em.createQuery("FROM AgentRelations ORDER BY createdAt DESC", AgentRelations.class).getResultList();
+		return em.createQuery("FROM AgentRelations ORDER BY idCompany.name DESC", AgentRelations.class).getResultList();
 	}
 
 	@Override

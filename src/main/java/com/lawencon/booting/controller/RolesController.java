@@ -87,12 +87,9 @@ public class RolesController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") String id) {
-		Roles roles = new Roles();
 		String result = "";
 		try {
-			roles = new ObjectMapper().readValue(id, Roles.class);
-			roles = rolesService.getRolesByCode(roles);
-			rolesService.deleteRoles(roles.getId());
+			rolesService.deleteRoles(id);
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
 			e.printStackTrace();

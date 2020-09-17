@@ -86,12 +86,9 @@ public class ClassificationsController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") String id) {
-		Classifications classifications = new Classifications();
-		classifications.setCode(id);
 		String result = "";
 		try {
-			classifications = ClassificationsService.getClassificationsByCode(classifications);
-			ClassificationsService.deleteClassifications(classifications.getId());
+			ClassificationsService.deleteClassifications(id);
 			result = new ObjectMapper().writeValueAsString("Delete Success");
 		} catch (Exception e) {
 			e.printStackTrace();

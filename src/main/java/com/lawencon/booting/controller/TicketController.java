@@ -66,13 +66,13 @@ public class TicketController {
 			e.printStackTrace();
 			return new ResponseEntity<>("Error : " + e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
-		String respon = "";
-		try {
-			respon = new ObjectMapper().writeValueAsString("you have no tickets left");
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
 		if (ticket == null) {
+			String respon = "";
+			try {
+				respon = new ObjectMapper().writeValueAsString("you have no tickets left");
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
 			return new ResponseEntity<>(respon, HttpStatus.BAD_GATEWAY);
 		}
 		return new ResponseEntity<>(ticket, HttpStatus.CREATED);
