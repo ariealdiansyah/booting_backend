@@ -20,14 +20,14 @@
 			<frame>
 				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="bbe26a18-1756-401c-8a5f-59d85200939d"/>
 				<staticText>
-					<reportElement x="141" y="7" width="434" height="43" forecolor="#FFFFFF" uuid="711902cf-a0e6-4db0-8e8a-25afc3e1776d"/>
+					<reportElement x="141" y="0" width="434" height="43" forecolor="#FFFFFF" uuid="711902cf-a0e6-4db0-8e8a-25afc3e1776d"/>
 					<textElement textAlignment="Right">
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[PT Lawencon International]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="210" y="50" width="362" height="42" forecolor="#FFFFFF" uuid="1462ec5a-b181-40ff-a3e3-4c0d981d842d"/>
+					<reportElement x="213" y="40" width="362" height="42" forecolor="#FFFFFF" uuid="1462ec5a-b181-40ff-a3e3-4c0d981d842d"/>
 					<textElement textAlignment="Right">
 						<font size="12" isBold="false"/>
 					</textElement>
@@ -42,6 +42,13 @@
 					<reportElement x="0" y="0" width="100" height="92" uuid="70588d4f-1cdc-441c-9556-b62b1c86afdc"/>
 					<imageExpression><![CDATA["lwncn.png"]]></imageExpression>
 				</image>
+				<staticText>
+					<reportElement x="497" y="70" width="78" height="16" forecolor="#FFFFFF" uuid="c51d4dfe-5c67-4ba7-858e-c758d4c53863"/>
+					<textElement textAlignment="Right">
+						<font size="11"/>
+					</textElement>
+					<text><![CDATA[(021) 83702292]]></text>
+				</staticText>
 			</frame>
 		</band>
 	</title>
