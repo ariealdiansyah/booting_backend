@@ -59,12 +59,12 @@ public class CompaniesController {
 		return new ResponseEntity<>(companies, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/{name}")
-	public ResponseEntity<?> getCompaniesByName(@PathVariable("name") String name) {
+	@GetMapping("/{code}")
+	public ResponseEntity<?> getCompaniesByCode(@PathVariable("code") String code) {
 		Companies companies = new Companies();
-		companies.setName(name);
+		companies.setCode(code);
 		try {
-			companies = companiesService.getCompanyByName(companies);
+			companies = companiesService.getCompanyByCode(companies);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

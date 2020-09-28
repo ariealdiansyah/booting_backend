@@ -41,8 +41,8 @@ public class CompaniesServiceImpl extends BaseService implements CompaniesServic
 	}
 
 	@Override
-	public Companies getCompanyByName(Companies data) throws Exception {
-		return companiesDao.getCompanyByName(data);
+	public Companies getCompanyByCode(Companies data) throws Exception {
+		return companiesDao.getCompanyByCode(data);
 	}
 
 	@Override

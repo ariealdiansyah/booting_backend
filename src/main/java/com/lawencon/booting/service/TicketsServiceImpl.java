@@ -188,7 +188,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public List<Tickets> getListByIdCompany(Companies data) throws Exception {
-		data = companiesService.getCompanyByName(data);
+		data = companiesService.getCompanyByCode(data);
 		return ticketsDao.getListByIdCompany(data.getId());
 	}
 
@@ -226,7 +226,7 @@ public class TicketsServiceImpl extends BaseService implements TicketsService {
 
 	@Override
 	public TicketStatus statusClient(Companies data) throws Exception {
-		data = companiesService.getCompanyByName(data);
+		data = companiesService.getCompanyByCode(data);
 		return ticketsDao.statusClient(data.getId());
 	}
 

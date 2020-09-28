@@ -28,7 +28,7 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 
 	@Override
 	public AgentRelations insert(AgentRelations data) throws Exception {
-		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
+		Companies comp = companiesService.getCompanyByCode(data.getIdCompany());
 		data.setIdCompany(comp);
 		
 		Users us = userService.getUserByNip(data.getIdAgent());
@@ -60,7 +60,7 @@ public class AgentRelationsServiceImpl extends BaseService implements AgentRelat
 
 	@Override
 	public Users getAgentByCompany(Companies data) throws Exception {
-		data = companiesService.getCompanyByName(data);
+		data = companiesService.getCompanyByCode(data);
 		return agentRelationsDao.getAgentByCompany(data);
 	}
 

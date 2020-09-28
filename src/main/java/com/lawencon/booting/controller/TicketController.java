@@ -118,11 +118,11 @@ public class TicketController {
 		return new ResponseEntity<>(ticketStatus, HttpStatus.OK);
 	}
 
-	@GetMapping("/status/client/{company}")
-	public ResponseEntity<?> getStatusClient(@PathVariable("company") String company) {
+	@GetMapping("/status/client/{code}")
+	public ResponseEntity<?> getStatusClient(@PathVariable("code") String code) {
 		TicketStatus ticketStatus = new TicketStatus();
 		Companies comp = new Companies();
-		comp.setName(company);
+		comp.setCode(code);
 		try {
 			ticketStatus = ticketsService.statusClient(comp);
 		} catch (Exception e) {
@@ -159,11 +159,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/charts/client/{company}")
-	public ResponseEntity<?> getChartsByClient(@PathVariable("company") String company) {
+	@GetMapping("/charts/client/{code}")
+	public ResponseEntity<?> getChartsByClient(@PathVariable("code") String code) {
 		List<TicketCharts> listData = new ArrayList<>();
 		Companies com = new Companies();
-		com.setName(company);
+		com.setCode(code);
 		try {
 			listData = ticketsService.getChartsByClient(com);
 		} catch (Exception e) {
@@ -202,11 +202,11 @@ public class TicketController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/client/{company}")
-	public ResponseEntity<?> getAllByCompany(@PathVariable("company") String company) {
+	@GetMapping("/client/{code}")
+	public ResponseEntity<?> getAllByCompany(@PathVariable("code") String code) {
 		List<Tickets> listData = new ArrayList<>();
 		Companies comp = new Companies();
-		comp.setName(company);
+		comp.setCode(code);
 		try {
 			listData = ticketsService.getListByIdCompany(comp);
 			System.out.println(listData.size());

@@ -59,7 +59,7 @@ public class AgentRelationsController {
 	}
 
 	@GetMapping("/{nip}")
-	public ResponseEntity<?> getAgentRelationsByCode(@PathVariable("nip") String nip) {
+	public ResponseEntity<?> getAgentRelationsByNipAgent(@PathVariable("nip") String nip) {
 		AgentRelations agentRelations = new AgentRelations();
 		Users us = new Users();
 		us.setNip(nip);
@@ -74,11 +74,11 @@ public class AgentRelationsController {
 		return new ResponseEntity<>(listData, HttpStatus.OK);
 	}
 
-	@GetMapping("/company/{name}")
-	public ResponseEntity<?> getAgentRelationsByCompany(@PathVariable("name") String name) {
+	@GetMapping("/company/{code}")
+	public ResponseEntity<?> getAgentRelationsByCompanyCode(@PathVariable("code") String code) {
 		Companies comp = new Companies();
 		Users agent = new Users();
-		comp.setName(name);
+		comp.setCode(code);
 		try {
 			agent = agentRelationsService.getAgentByCompany(comp);
 		} catch (Exception e) {

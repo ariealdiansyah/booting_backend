@@ -44,7 +44,7 @@ public class AccountController {
 	}
 
 	@GetMapping("/{email}")
-	public ResponseEntity<?> getAccountsByCode(@PathVariable("email") String email) {
+	public ResponseEntity<?> getAccountsByEmail(@PathVariable("email") String email) {
 		Accounts account = new Accounts();
 		account.setEmail(email);
 		try {

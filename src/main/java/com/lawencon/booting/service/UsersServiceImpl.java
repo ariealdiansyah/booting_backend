@@ -60,7 +60,7 @@ public class UsersServiceImpl extends BaseService implements UsersService {
 		Accounts acc = new Accounts();
 		Roles roles = new Roles();
 		Companies company = new Companies();
-		company = companiesService.getCompanyByName(data.getIdCompany());
+		company = companiesService.getCompanyByCode(data.getIdCompany());
 		roles = rolesService.getRolesByCode(data.getIdRole());
 		acc.setIdUser(us);
 		acc = accountsService.findByUser(acc);

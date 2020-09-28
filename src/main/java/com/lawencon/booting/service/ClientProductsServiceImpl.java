@@ -28,7 +28,7 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 	
 	@Override
 	public ClientProducts insert(ClientProducts data) throws Exception {
-		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
+		Companies comp = companiesService.getCompanyByCode(data.getIdCompany());
 		data.setIdCompany(comp);
 		
 		Products prod = productService.getProductsByCode(data.getIdProduct());
@@ -65,7 +65,7 @@ public class ClientProductsServiceImpl extends BaseService implements ClientProd
 
 	@Override
 	public List<ClientProducts> getListByCompany(ClientProducts data) throws Exception {
-		Companies comp = companiesService.getCompanyByName(data.getIdCompany());
+		Companies comp = companiesService.getCompanyByCode(data.getIdCompany());
 		data.setIdCompany(comp);
 		return clientProductsDao.getListByCompany(data);
 	}

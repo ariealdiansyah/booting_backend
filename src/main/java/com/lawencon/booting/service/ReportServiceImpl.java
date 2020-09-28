@@ -40,7 +40,7 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public List<ReportTotalTicketAgent> getReportTicketCompany(Companies comp) throws Exception {
-		comp = companiesService.getCompanyByName(comp);
+		comp = companiesService.getCompanyByCode(comp);
 		List<String> company = new ArrayList<>();
 		company.add(comp.getId());
 		return reportDao.getReportTotalTicketAgent(company);
